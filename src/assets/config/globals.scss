@@ -1,0 +1,48 @@
+@import './colors';
+@import './definitions.scss';
+
+.show-for-lg {
+  @media screen and (max-width: $breakpoint-sm) {
+    display: none !important;
+  }
+}
+
+.show-for-sm {
+  @media screen and (min-width: $breakpoint-sm) {
+    display: none !important;
+  }
+}
+
+.shadow-border-shallow {
+  box-shadow: 0 3px 6px 0 rgba(0,0,0,.4);
+}
+
+.snak-error-state {
+  color: $color-error;
+  border: 1px solid $color-error;
+}
+
+.snak-success-state {
+  color: $color-success;
+  border: 1px solid $color-success;
+}
+
+.input-error-state {
+  color: $color-error;
+}
+
+.input-disabled-state {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+a {
+  text-decoration: underline;
+  color: $color-base;
+  cursor: pointer;
+}
+
+ul {
+  list-style-position: inside;
+}
+

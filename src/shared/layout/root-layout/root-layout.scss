@@ -1,0 +1,17 @@
+@import './src/assets/config/layouts.scss';
+
+.root-layout-main {
+  @extend %root-layout-main;
+
+  .layout-body {
+    @extend %root-layout-body;
+  }
+
+  .inner-content-container {
+    @extend %root-layout-inner-content;
+  }
+
+  section, aside {
+    height: $full-screen-height;
+  }
+}
