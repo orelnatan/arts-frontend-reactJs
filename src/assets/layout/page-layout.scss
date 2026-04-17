@@ -1,0 +1,29 @@
+@use '../definitions/utils' as *;
+
+%page-layout-main {
+  display: flex;
+  flex-direction: column;
+  height: $full-screen-height;
+  width: $full-screen-width;
+}
+
+%page-layout-body {
+  display: flex;
+  flex-direction: row;
+  width: $full-screen-width;
+  height: $full-screen-height;
+  overflow: auto;
+}
+
+%page-layout-content-container {
+  display: table;
+  width: $full-screen-width;
+  height: $full-screen-height;
+}
+
+%page-layout-content {
+  display: table-cell;
+  padding: 15px;
+  width: $full-screen-width;
+  height: $full-screen-height;
+}
