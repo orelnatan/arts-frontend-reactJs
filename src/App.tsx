@@ -1,13 +1,18 @@
+import { Suspense } from 'react';
+import { useRoutes } from 'react-router-dom';
+
+import { appRoutes } from './app.routes';
+
 import './App.scss'
 
-import Login from './features/auth/pages/login/Login'
-
-function App() {
+export default function App() {
+  const routes = useRoutes(appRoutes);
+  
   return (
     <>
-      <Login />
+      <Suspense fallback={<div>Loading...</div>}>
+        { routes }
+      </Suspense>
     </>
   )
 }
-
-export default App
