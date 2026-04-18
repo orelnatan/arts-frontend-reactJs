@@ -2,7 +2,7 @@ import { Navigate } from 'react-router-dom';
 import type { RouteObject } from 'react-router-dom';
 
 import { AuthLazy } from './auth.lazy';
-import { Login } from './pages';
+import { Login, Registration } from './pages';
 
 export const authRoutes: RouteObject[] = [
   {
@@ -16,6 +16,10 @@ export const authRoutes: RouteObject[] = [
       {
         path: 'login',
         element: <Login />,
+      },
+      {
+        path: 'registration',
+        element: <Registration />,
       },
     ],
   },
