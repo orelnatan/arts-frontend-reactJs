@@ -8,6 +8,10 @@
   font-family: heebo-regular;
 }
 
+html, body, #root {
+  height: 100%;
+}
+
 body.hyperion {
   @include hyperion();
 }

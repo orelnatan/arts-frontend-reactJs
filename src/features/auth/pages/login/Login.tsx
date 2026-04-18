@@ -3,7 +3,9 @@ import './Login.scss';
 export default function Login() {
   return (
     <>
-      This is Login page component
+      <div className='login-main'>
+         This is Login page component
+      </div>
     </>
   )
 }

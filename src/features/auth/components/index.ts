@@ -1,2 +1,2 @@
 
-export { default as AuthRoot } from './auth-root/AuthRoot';
+export { default as AuthShell } from './auth-shell/AuthShell';

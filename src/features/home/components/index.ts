@@ -1,2 +1,2 @@
 
-export { default as HomeRoot } from './home-root/HomeRoot';
+export { default as HomeShell } from './home-shell/HomeShell';
