@@ -1,0 +1,9 @@
+@use '@arts/assets/utils.scss' as *;
+
+.page-layout-main {
+  @extend %page-layout-main;
+
+  .page-layout-content {
+    @extend %page-layout-content;  
+  }
+}

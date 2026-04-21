@@ -1,22 +1,7 @@
 @use '../definitions/utils' as *;
 
 %page-layout-main {
-  display: flex;
-  flex-direction: column;
-  height: $full-screen-height;
-  width: $full-screen-width;
-}
-
-%page-layout-inner-layer {
-  display: flex;
-  flex-direction: row;
-  width: $full-screen-width;
-  height: $full-screen-height;
-  overflow: auto;
-}
-
-%page-layout-content-container {
-  display: table;
+  display: table; 
   width: $full-screen-width;
   height: $full-screen-height;
 }

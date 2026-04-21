@@ -1,0 +1,13 @@
+@use '@arts/assets/utils.scss' as *;
+
+.shell-layout-main {
+  @extend %shell-layout-main;
+
+  .shell-layout-inner-layer {
+    @extend %shell-layout-inner-layer;  
+  }
+
+  .shell-layout-content {
+    @extend %shell-layout-content;  
+  }
+}
