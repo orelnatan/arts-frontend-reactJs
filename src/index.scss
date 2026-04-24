@@ -1,11 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
-@use 'assets/utils' as *;
+@use 'assets/index' as *;
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: heebo-regular;
+}
+
+:root {
+  @include shadows();
+  @include corners();
+  @include borders();
+  @include spaces();
 }
 
 html, body, #root {
@@ -22,5 +29,14 @@ body.aurora {
 
 body {
   background: var(--color-background);
+}
+
+a {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+ul {
+  list-style-position: inside;
 }
 

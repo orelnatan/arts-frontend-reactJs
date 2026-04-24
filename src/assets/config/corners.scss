@@ -1,0 +1,12 @@
+
+@mixin corners() {
+  --corner-radius-0: 0px;
+  --corner-radius-2: 2px;
+  --corner-radius-4: 4px;
+  --corner-radius-6: 6px;
+  --corner-radius-8: 8px;
+  --corner-radius-10: 12px;
+  --corner-radius-12: 16px;
+  --corner-radius-14: 24px;
+  --corner-radius-full: 50%;
+}

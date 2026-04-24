@@ -1,14 +1,13 @@
-@use '../definitions/utils' as *;
 
 %page-layout-main {
   display: table; 
-  width: $full-screen-width;
-  height: $full-screen-height;
+  width: 100%;
+  height: 100%;
 }
 
 %page-layout-content {
   display: table-cell;
-  padding: 15px;
-  width: $full-screen-width;
-  height: $full-screen-height;
+  padding: var(--spaces-5);
+  width: 100%;
+  height: 100%;
 }
