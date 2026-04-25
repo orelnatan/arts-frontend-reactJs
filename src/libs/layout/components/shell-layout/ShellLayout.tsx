@@ -1,54 +1,57 @@
-import { useState, useRef, useLayoutEffect, type PropsWithChildren, type ReactNode } from 'react';
+import { useRef, type PropsWithChildren, type ReactNode } from 'react';
+
+import { useLayoutDimensions } from './hooks/use-layout-dimensions.hook';
 
 import './ShellLayout.scss';
 
 type ShellLayoutProps = PropsWithChildren & {
   header?: ReactNode;
+  subheader?: ReactNode; // New Prop
   sidebar?: ReactNode;
   footer?: ReactNode;
 };
 
-export default function ShellLayout({
-  header,
-  sidebar,
-  footer,
-  children,
+export default function ShellLayout({ 
+  header, 
+  subheader, 
+  sidebar, 
+  footer, 
+  children 
 }: ShellLayoutProps) {
   const headerRef = useRef<HTMLElement>(null);
+  const subheaderRef = useRef<HTMLElement>(null);
   const footerRef = useRef<HTMLElement>(null);
   const sidebarRef = useRef<HTMLElement>(null);
 
-  const [headerHeight, setHeaderHeight] = useState(0);
-  const [footerHeight, setFooterHeight] = useState(0);
-  const [sidebarWidth, setSidebarWidth] = useState(0);
+  // Pass refs in the order the hook expects: [header, subheader, footer, sidebar]
+  const dims = useLayoutDimensions([headerRef, subheaderRef, footerRef, sidebarRef]);
 
-  // Measure once on mount
-  useLayoutEffect(() => {
-    if (headerRef.current) {
-      setHeaderHeight(headerRef.current.offsetHeight);
-    }
-    if (footerRef.current) {
-      setFooterHeight(footerRef.current.offsetHeight);
-    }
-    if (sidebarRef.current) {
-      setSidebarWidth(sidebarRef.current.offsetWidth);
-    }
-  }, []); // Empty dependency array = run once after initial render
+  // The combined offset for everything below the headers
+  const totalTopOffset = dims.headerHeight + dims.subheaderHeight;
 
   return (
     <div className="shell-layout-main">
-      <header ref={headerRef} className="shell-layout-header">
+      <header className="shell-layout-header"
+        ref={headerRef}
+      >
         {header}
       </header>
 
+      <header className="shell-layout-subheader"
+        ref={subheaderRef} 
+        style={{ top: `${dims.headerHeight}px` }}
+      >
+        {subheader}
+        
+        <div id="shell-layout-subheader-portal-root"></div>
+      </header>
+
       <div className="shell-layout-inner-layer">
-        <aside
+        <aside className="shell-layout-aside"
           ref={sidebarRef}
-          className="shell-layout-aside"
           style={{
-            top: `${headerHeight}px`,
-            width: sidebarWidth > 0 ? `${sidebarWidth}px` : 'auto',
-            height: `calc(100vh - ${headerHeight}px - ${footerHeight}px)`,
+            top: `${totalTopOffset}px`,
+            height: `calc(100vh - ${totalTopOffset}px - ${dims.footerHeight}px)`,
           }}
         >
           {sidebar}
@@ -59,7 +62,9 @@ export default function ShellLayout({
         </main>
       </div>
 
-      <footer ref={footerRef} className="shell-layout-footer">
+      <footer className="shell-layout-footer"
+        ref={footerRef}
+      >
         {footer}
       </footer>
     </div>

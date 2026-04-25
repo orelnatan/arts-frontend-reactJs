@@ -4,9 +4,15 @@
   min-height: var(--full-viewport-height);
   width: var(--full-screen-width);
 
-  .shell-layout-header {
+  .shell-layout-aside {
     position: sticky;
-    top: var(--spaces-0);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .shell-layout-footer {
+    position: sticky;
+    bottom: var(--spaces-0);
   }
 
   .shell-layout-inner-layer {
@@ -14,19 +20,17 @@
     flex: 1;
   }
 
-  .shell-layout-aside {
+  .shell-layout-header {
     position: sticky;
-    overflow-y: auto;
-    overflow-x: hidden;
+    top: var(--spaces-0);
+  }
+
+  .shell-layout-subheader {
+    position: sticky;
   }
 
   .shell-layout-content {
     flex: 1;
-  }
-
-  .shell-layout-footer {
-    position: sticky;
-    bottom: var(--spaces-0);
   }
 }
 
