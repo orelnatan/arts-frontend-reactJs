@@ -1,18 +1,11 @@
-import type { PropsWithChildren, ReactNode } from 'react';
+import { useState, useRef, useLayoutEffect, type PropsWithChildren, type ReactNode } from 'react';
 
 import './ShellLayout.scss';
-
-const HEADER_DEFAULT_HEIGHT = '60px';
-const FOOTER_DEFAULT_HEIGHT = '40px';
-const SIDEBAR_DEFAULT_WIDTH = '250px';
 
 type ShellLayoutProps = PropsWithChildren & {
   header?: ReactNode;
   sidebar?: ReactNode;
   footer?: ReactNode;
-  headerHeight?: string;
-  footerHeight?: string;
-  sidebarWidth?: string;
 };
 
 export default function ShellLayout({
@@ -20,26 +13,44 @@ export default function ShellLayout({
   sidebar,
   footer,
   children,
-  headerHeight = HEADER_DEFAULT_HEIGHT,
-  footerHeight = FOOTER_DEFAULT_HEIGHT,
-  sidebarWidth = SIDEBAR_DEFAULT_WIDTH,
 }: ShellLayoutProps) {
-  const hHeight = header ? headerHeight : '0px';
-  const fHeight = footer ? footerHeight : '0px';
-  const sWidth = sidebar ? sidebarWidth : '0px';
+  const headerRef = useRef<HTMLElement>(null);
+  const footerRef = useRef<HTMLElement>(null);
+  const sidebarRef = useRef<HTMLElement>(null);
+
+  const [headerHeight, setHeaderHeight] = useState(0);
+  const [footerHeight, setFooterHeight] = useState(0);
+  const [sidebarWidth, setSidebarWidth] = useState(0);
+
+  // Measure once on mount
+  useLayoutEffect(() => {
+    if (headerRef.current) {
+      setHeaderHeight(headerRef.current.offsetHeight);
+    }
+    if (footerRef.current) {
+      setFooterHeight(footerRef.current.offsetHeight);
+    }
+    if (sidebarRef.current) {
+      setSidebarWidth(sidebarRef.current.offsetWidth);
+    }
+  }, []); // Empty dependency array = run once after initial render
 
   return (
     <div className="shell-layout-main">
-      <header className="shell-layout-header" style={{ height: hHeight }}>
+      <header ref={headerRef} className="shell-layout-header">
         {header}
       </header>
-      
+
       <div className="shell-layout-inner-layer">
-        <aside className="shell-layout-aside" style={{
-            width: sWidth,
-            top: hHeight,
-            height: `calc(100vh - ${hHeight} - ${fHeight})`,
-          }}>
+        <aside
+          ref={sidebarRef}
+          className="shell-layout-aside"
+          style={{
+            top: `${headerHeight}px`,
+            width: sidebarWidth > 0 ? `${sidebarWidth}px` : 'auto',
+            height: `calc(100vh - ${headerHeight}px - ${footerHeight}px)`,
+          }}
+        >
           {sidebar}
         </aside>
 
@@ -48,7 +59,7 @@ export default function ShellLayout({
         </main>
       </div>
 
-      <footer className="shell-layout-footer" style={{ height: fHeight }}>
+      <footer ref={footerRef} className="shell-layout-footer">
         {footer}
       </footer>
     </div>

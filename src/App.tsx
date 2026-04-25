@@ -10,8 +10,10 @@ export default function App() {
   const routes = useRoutes(appRoutes);
   
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      { routes }
-    </Suspense>
+    <AppLayout>
+      <Suspense fallback={<div>Loading...</div>}>
+        { routes }
+      </Suspense>
+    </AppLayout>
   )
 }

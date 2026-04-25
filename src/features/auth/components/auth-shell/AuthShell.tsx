@@ -7,9 +7,9 @@ import './AuthShell.scss'
 export default function AuthShell() {
   return (
     <ShellLayout
-      header={<h1>HEADER</h1>}
-      sidebar={<div>SIDEBAR</div>}
-      footer={<h2>FOOTER</h2>}
+      header={<div><h1>HEADER</h1></div>}
+      sidebar={<div><h1>SIDEBAR SIDEBAR SIDEBAR</h1></div>}
+      footer={<div><h1>FOOTER</h1></div>}
     >
       <Outlet />
     </ShellLayout>
