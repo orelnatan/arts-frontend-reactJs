@@ -6,6 +6,7 @@
 
   .shell-layout-aside {
     position: sticky;
+    display: flex;
     overflow-y: auto;
     overflow-x: hidden;
   }
@@ -23,10 +24,6 @@
   .shell-layout-header {
     position: sticky;
     top: var(--spaces-0);
-  }
-
-  .shell-layout-subheader {
-    position: sticky;
   }
 
   .shell-layout-content {

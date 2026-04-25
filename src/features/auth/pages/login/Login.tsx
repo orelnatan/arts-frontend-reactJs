@@ -14,6 +14,12 @@ export default function Login() {
         <div className='box-element'></div>
         <div className='box-element'></div>
         <div className='box-element'></div>
+        <div className='box-element'></div>
+        <div className='box-element'></div>
+        <div className='box-element'></div>
+        <div className='box-element'></div>
+        <div className='box-element'></div>
+        <div className='box-element'></div>
       </div>
     </PageLayout>
   )
