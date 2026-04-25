@@ -1,13 +1,37 @@
-@use '@arts/assets/index.scss' as *;
-
 .shell-layout-main {
-  @extend %shell-layout-main;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+
+  .shell-layout-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+  }
 
   .shell-layout-inner-layer {
-    @extend %shell-layout-inner-layer;  
+    display: flex;
+    flex: 1;
+  }
+
+  .shell-layout-aside {
+    position: sticky;
+    overflow-y: auto;
   }
 
   .shell-layout-content {
-    @extend %shell-layout-content;  
+    flex: 1;
+  }
+
+  .shell-layout-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
   }
 }
+

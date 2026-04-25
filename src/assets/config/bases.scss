@@ -1,0 +1,8 @@
+
+@mixin bases() {
+  --full-viewport-width: 100vw;
+  --full-viewport-height: 100vh;
+  --full-screen-width: 100%;
+  --full-screen-height: 100%;
+  --page-max-width: 1382px;
+}

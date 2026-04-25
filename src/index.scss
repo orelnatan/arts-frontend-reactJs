@@ -13,10 +13,7 @@
   @include corners();
   @include borders();
   @include spaces();
-}
-
-html, body, #root {
-  height: 100%;
+  @include bases();
 }
 
 body.hyperion {
