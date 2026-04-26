@@ -17,7 +17,7 @@ export function useLayoutDimensions(refs: RefObject<HTMLElement | null>[]) {
         });
       });
     });
-
+    
     refs.forEach((ref) => {
       if (ref.current) observer.observe(ref.current);
     });

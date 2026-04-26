@@ -1,7 +1,8 @@
+@use '@arts/assets/index.scss' as *;
 
 .shell-layout-main {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   min-height: var(--full-viewport-height);
   width: var(--full-screen-width);
 
@@ -10,24 +11,21 @@
     display: flex;
     overflow-y: auto;
     overflow-x: hidden;
-    height: var(--full-viewport-height);
-    top: var(--spaces-0);
+  }
+
+  .shell-layout-footer {
+    position: sticky;
+    bottom: var(--spaces-0);
   }
 
   .shell-layout-inner-layer {
     display: flex;
-    flex-direction: column;
     flex: 1;
   }
 
   .shell-layout-header {
     position: sticky;
     top: var(--spaces-0);
-  }
-
-  .shell-layout-footer {
-    position: sticky;
-    bottom: var(--spaces-0);
   }
 
   .shell-layout-content {
