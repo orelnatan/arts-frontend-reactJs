@@ -1,10 +1,12 @@
+import { PageLayout } from '@arts/libs/layout';
+
 import './Login.scss';
 
 export default function Login() {
   return (
-    <>
-      This is Login Page
-    </>
+    <PageLayout>
+      <h2>LOGIN PAGE</h2>
+    </PageLayout>
   )
 }
 

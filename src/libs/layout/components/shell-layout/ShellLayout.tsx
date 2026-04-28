@@ -1,33 +1,44 @@
-import { type PropsWithChildren, type ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import { AppShell } from '@mantine/core';
 
-import './ShellLayout.scss';
-
-type ShellLayoutProps = PropsWithChildren & {
+interface ShellLayoutProps {
+  children: ReactNode;
   header?: ReactNode;
   sidebar?: ReactNode;
   footer?: ReactNode;
-};
+}
 
-export default function ShellLayout({ header, sidebar, footer, children }: ShellLayoutProps) {
+export default function ShellLayout({ children, header, sidebar, footer }: ShellLayoutProps) {  
   return (
-    <div className="shell-layout-main">
-      <aside className="shell-layout-aside">
+    <AppShell
+      layout="alt"
+    //  withBorder={false}
+      header={{ height: header ? 60 : 0 }}
+      navbar={{
+        width: sidebar ? 285 : 0,
+        breakpoint: 'sm',
+        collapsed: { mobile: true },
+      }}
+      footer={{ height: footer ? 60 : 0 }}
+    >
+      <AppShell.Header>
+        {header}
+      </AppShell.Header>
+
+      <AppShell.Navbar>
         {sidebar}
-      </aside>
+      </AppShell.Navbar>
 
-      <div className="shell-layout-inner-layer">
-        <header className="shell-layout-header">
-          {header}
-        </header>
-
-        <main className="shell-layout-content">
+      <AppShell.Main
+        style={{ 
+          display: 'flex',
+        }}>
           {children}
-        </main>
+      </AppShell.Main>
 
-        <footer className="shell-layout-footer">
-          {footer}
-        </footer>
-      </div>
-    </div>
+      <AppShell.Footer>
+        {footer}
+      </AppShell.Footer>
+    </AppShell>
   );
 }

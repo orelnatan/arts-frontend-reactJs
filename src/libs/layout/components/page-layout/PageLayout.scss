@@ -1,42 +1,6 @@
 
 .page-layout-main {
-  display: flex;
-  flex-direction: row;
   width: var(--full-screen-width);
-  height: var(--full-screen-height);
-
-  .page-layout-aside {
-    position: sticky;
-    display: flex;
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: var(--full-screen-height);
-    top: var(--spaces-0);
-  }
-
-  .page-layout-content {
-    display: flex;
-    width: var(--full-screen-width);
-    height: var(--full-screen-height);
-    max-width: var(--page-max-width);
-    padding: var(--spaces-5);
-    margin: 0 auto;
-  }
-
-  .page-layout-inner-layer {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-
-  .page-layout-header {
-    position: sticky;
-    top: var(--spaces-0);
-  }
-
-  .page-layout-footer {
-    position: sticky;
-    bottom: var(--spaces-0);
-  }
+  padding: var(--spaces-4);
 }
 
