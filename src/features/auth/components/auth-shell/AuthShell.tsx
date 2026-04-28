@@ -2,14 +2,14 @@ import { Outlet } from 'react-router-dom';
 
 import { ShellLayout } from '@arts/libs/layout';
 
+import { AuthHeader } from '../auth-header';
+
 import './AuthShell.scss'
 
 export default function AuthShell() {
   return (
     <ShellLayout
-      header={<div><h1>HEADER</h1></div>}
-      sidebar={<div><h1>SIDEBAR</h1></div>}
-      footer={<div><h1>FOOTER</h1></div>}
+      header={<AuthHeader />}
     >
       <Outlet />
     </ShellLayout>

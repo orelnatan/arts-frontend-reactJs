@@ -1,0 +1,16 @@
+
+.auth-header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spaces-3);
+  height: 100%;
+  padding: 0 var(--spaces-4);
+  background: var(--color-app-navbar-bg);
+
+  .arts-welcome-note {
+    padding-top: var(--spaces-3);
+    font-family: jenna-sue;
+    color: var(--color-app-navbar-text);
+  }
+}

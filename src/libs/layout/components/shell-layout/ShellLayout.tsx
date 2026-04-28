@@ -12,7 +12,7 @@ export default function ShellLayout({ children, header, sidebar, footer }: Shell
   return (
     <AppShell
       layout="alt"
-    //  withBorder={false}
+      withBorder={false}
       header={{ height: header ? 60 : 0 }}
       navbar={{
         width: sidebar ? 285 : 0,

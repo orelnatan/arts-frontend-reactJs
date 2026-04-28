@@ -1,4 +1,4 @@
 
-export { default as AppLayout } from './app-layout/AppLayout';
-export { default as ShellLayout } from './shell-layout/ShellLayout';
-export { default as PageLayout } from './page-layout/PageLayout';
+export * from './app-layout';
+export * from './shell-layout';
+export * from './page-layout';
