@@ -1,6 +1,18 @@
 
 .login-page-main {
+  display: grid;
+  align-items: center;
   height: 100%;
 
-  
+  .login-form {
+    width: 715px;
+    margin: 0 auto;
+    padding: var(--spaces-5);
+    box-shadow: var(--shallow-shadow);
+    border-top: var(--borders-4) solid var(--color-login-form-border);
+  }
+
+  button {
+    width: 100%;
+  }
 }

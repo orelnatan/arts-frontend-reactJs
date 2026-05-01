@@ -1,0 +1,23 @@
+
+.form-row-main {
+  display: flex;
+  width: 100%;
+
+  // Gap Sizes
+  &.gap-sm { gap: var(--spaces-3) }
+  &.gap-md { gap: var(--spaces-7); }
+  &.gap-lg { gap: var(--spaces-9); }
+  &.gap-xlg { gap: var(--spaces-11); }
+
+  // Margin Sizes
+  &.margin-top-sm { margin-top: var(--spaces-5); }
+  &.margin-top-md { margin-top: var(--spaces-7); }
+  &.margin-top-lg { margin-top: var(--spaces-9); }
+  &.margin-top-xlg { margin-top: var(--spaces-11); }
+
+  // Layout Alignments
+  &.space-between { justify-content: space-between; }
+  &.space-evenly { justify-content: space-evenly; }
+  &.space-around { justify-content: space-around; }
+  &.content-end { justify-content: flex-end; }
+}

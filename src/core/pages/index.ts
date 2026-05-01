@@ -1,2 +1,2 @@
 
-export { default as PageNotFound } from './page-not-found/PageNotFound';
+export * from './page-not-found';

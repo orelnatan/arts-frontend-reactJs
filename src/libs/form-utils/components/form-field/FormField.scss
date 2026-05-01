@@ -1,0 +1,9 @@
+
+.form-field-main {
+  width: 100%;
+
+  &.margin-top-sm { margin-top: var(--spaces-5); }
+  &.margin-top-md { margin-top: var(--spaces-7); }
+  &.margin-top-lg { margin-top: var(--spaces-9); }
+  &.margin-top-xlg { margin-top: var(--spaces-11); }
+}

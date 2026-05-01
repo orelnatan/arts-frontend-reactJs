@@ -1,6 +1,7 @@
 
 .page-layout-main {
   width: var(--full-screen-width);
+  min-width: fit-content;
   padding: var(--spaces-4);
 }
 
