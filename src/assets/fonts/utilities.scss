@@ -1,0 +1,23 @@
+
+// 1. Font Family Classes
+$fonts: (
+  "assistant-bold": assistant-bold,
+  "assistant-regular": assistant-regular,
+  "heebo-regular": heebo-regular,
+  "jenna-sue": jenna-sue
+);
+
+@each $name, $family in $fonts {
+  .#{$name} {
+    font-family: $family;
+  }
+}
+
+// 2. Font Size Classes (font-size-X)
+$sizes: (10, 12, 14, 16, 20, 24, 32);
+
+@each $size in $sizes {
+  .font-size-#{$size} {
+    font-size: #{$size}px;
+  }
+}

@@ -1,18 +1,19 @@
 
 .login-page-main {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  height: 100%;
+  height: var(--full-host-height);
 
-  .login-form {
-    width: 715px;
-    margin: 0 auto;
+  form {
+    width: 515px;
+    margin-top: var(--spaces-5);
     padding: var(--spaces-5);
-    box-shadow: var(--shallow-shadow);
+    border: var(--borders-1) solid var(--color-container-border);
     border-top: var(--borders-4) solid var(--color-login-form-border);
   }
 
-  button {
-    width: 100%;
+  img {
+    margin-top: var(--spaces-10);
   }
 }

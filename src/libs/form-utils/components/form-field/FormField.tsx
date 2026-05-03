@@ -10,7 +10,8 @@ type FormFieldProps = PropsWithChildren & {
 
 export default function FormField({ children, marginTopSize, widthPx }: FormFieldProps) {
   return (
-    <div className={`form-field-main ${marginTopSize ? `margin-top-${marginTopSize.toLowerCase()}` : ''}`}
+    <div className={`
+      form-field-main ${marginTopSize ? `margin-top-${marginTopSize.toLowerCase()}` : ''}`}
       style={{ width: `${widthPx}px` }}>
       {children}
     </div>

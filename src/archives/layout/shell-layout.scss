@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   min-height: var(--full-viewport-height);
-  width: var(--full-screen-width);
+  width: var(--full-host-width);
 }
 
 %shell-layout-aside {
