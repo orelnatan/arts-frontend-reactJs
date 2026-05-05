@@ -8,12 +8,14 @@ import { FormField, FormRow, InputCheckbox, InputPassword, InputText, PrimaryBut
 import { PageLayout } from '@arts/libs/layout';
 
 import { VALIDATION_SCHEMA } from './validation-schema.const';
+import { useLogin } from '../../hooks';
 import type { LoginFormValues } from '../../models';
 
 import './Login.scss';
 
 export default function Login() {
   const [submitted, setSubmitted] = useState(false);
+  const { login, loading, error } = useLogin();
   
   const form = useForm<LoginFormValues>({
     validateInputOnChange: true,
@@ -26,8 +28,13 @@ export default function Login() {
     validate: VALIDATION_SCHEMA,
   });
 
-  function handleSubmit(values: LoginFormValues) {
-    console.log("Success!", values);
+  function handleSubmit(values: LoginFormValues): void {
+    login(values).then((data) => {
+      console.log('Login success!', data);
+    })
+    .catch(() => {
+      console.log('Login failed, error handled by hook, ', error);
+    });
   };
 
   return (
@@ -92,7 +99,7 @@ export default function Login() {
               </FormField>
 
               <FormField widthPx={85}>
-                <PrimaryButton label='Submit' onClick={() => setSubmitted(true)} />
+                <PrimaryButton label='Submit' loading={loading} onClick={() => setSubmitted(true)} />
               </FormField>
             </FormRow>
           </form>
