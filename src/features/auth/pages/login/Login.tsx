@@ -7,9 +7,9 @@ import logo from '@arts/assets/images/png/arts-logo.png';
 import { FormField, FormRow, InputCheckbox, InputPassword, InputText, PrimaryButton, Space } from '@arts/libs/form-utils';
 import { PageLayout } from '@arts/libs/layout';
 
-import { VALIDATION_SCHEMA } from './validation-schema.const';
 import { useLogin } from '../../hooks';
 import type { LoginFormValues } from '../../models';
+import { VALIDATION_SCHEMA } from './validation-schema.const';
 
 import './Login.scss';
 
@@ -28,18 +28,17 @@ export default function Login() {
     validate: VALIDATION_SCHEMA,
   });
 
-  function handleSubmit(values: LoginFormValues): void {
-    login(values).then((data) => {
-      console.log('Login success!', data);
-    })
-    .catch(() => {
-      console.log('Login failed, error handled by hook, ', error);
-    });
+  const handleSubmit = async (values: LoginFormValues): Promise<void> => {
+    const data = await login(values);
+    
+    console.log('Login success!', data);
   };
 
   return (
     <PageLayout>
       <div className='login-page-main'>
+        {error}
+        
         <img src={logo} alt="logo" width={185} />
 
         <div className='login-form-container'>
@@ -52,7 +51,7 @@ export default function Login() {
                 <InputText
                   placeholder='User Name'
                   value={form.values.username}
-                  error={submitted ? form.errors.username : null}
+                  error={submitted ? (form.errors.username) : null}
                   onChange={event => {
                     form.setFieldValue('username', event);
                   }}

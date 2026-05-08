@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import axios from 'axios'; 
 
 import { authLogin } from '../api';
 import type { LoginFormValues } from '../models';
@@ -13,18 +12,14 @@ export const useLogin = () => {
     setError(null);
 
     try {
-      const response = await authLogin(values);
-      setLoading(false);
-      return response.data; 
-    } catch (err) {
+      const data = await authLogin(values);
       setLoading(false);
 
-      const message = axios.isAxiosError(err) 
-        ? err.response?.data?.message || 'Login failed' 
-        : 'An unexpected error occurred';
-      
-      setError(message);
-      
+      return data; 
+    } catch (err: unknown) {
+      setLoading(false);
+      setError(String(err));
+
       throw err; 
     }
   };

@@ -1,2 +1,7 @@
+import { apiGet } from './api-get';
+import { apiPost } from './api-post';
 
-export { default as api } from './api-client';
+export const api = {
+  POST: apiPost,
+  GET: apiGet,
+};
