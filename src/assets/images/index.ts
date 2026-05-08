@@ -1,2 +1,3 @@
+import logo from './png/arts-logo.png';
 
-export { image } from './image.function';
+export { logo };

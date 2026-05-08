@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from '@mantine/form';
 import { Anchor } from '@mantine/core';
 
-import logo from '@arts/assets/images/png/arts-logo.png';
-import { FormField, FormRow, InputCheckbox, InputPassword, InputText, PrimaryButton, Space } from '@arts/libs/form-utils';
+import { logo } from '@arts/assets/images';
 import { PageLayout } from '@arts/libs/layout';
+import { errorAlert } from '@arts/shared/alerts';
+import { FormField, FormRow, InputCheckbox, InputPassword, InputText, PrimaryButton, Space } from '@arts/libs/form-utils';
 
 import { useLogin } from '../../hooks';
 import type { LoginFormValues } from '../../models';
@@ -28,17 +29,24 @@ export default function Login() {
     validate: VALIDATION_SCHEMA,
   });
 
+  useEffect(() => {     
+    if (error) {
+      errorAlert({ 
+        title: 'Login Attempt Failed',
+        message: error,
+      });
+    }
+  }, [error]);
+
   const handleSubmit = async (values: LoginFormValues): Promise<void> => {
     const data = await login(values);
-    
+
     console.log('Login success!', data);
   };
 
   return (
     <PageLayout>
-      <div className='login-page-main'>
-        {error}
-        
+      <div className='login-page-main'>        
         <img src={logo} alt="logo" width={185} />
 
         <div className='login-form-container'>

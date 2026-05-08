@@ -1,5 +1,5 @@
 
-import logo from '@arts/assets/images/png/arts-logo.png';
+import { logo } from '@arts/assets/images';
 
 import './AuthHeader.scss'
 
