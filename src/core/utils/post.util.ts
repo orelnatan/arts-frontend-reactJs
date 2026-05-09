@@ -5,8 +5,8 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
  * @param {string} endpoint - The API path
  * @param {unknown} body - The data to be stringified and sent in the request body
  * @returns {Promise<T>} A promise that resolves to the parsed JSON response
- */
-export const apiPost = async <T>(
+*/
+export const post = async <T>(
   endpoint: string,
   body: unknown
 ): Promise<T> => {

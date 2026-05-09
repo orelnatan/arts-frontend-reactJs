@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '@mantine/form';
 import { Anchor } from '@mantine/core';
 
 import { logo } from '@arts/assets/images';
-import { PageLayout } from '@arts/libs/layout';
 import { errorAlert } from '@arts/shared/alerts';
+import { PageLayout } from '@arts/libs/layout';
+import { useAccessToken } from '@arts/core';
 import { FormField, FormRow, InputCheckbox, InputPassword, InputText, PrimaryButton, Space } from '@arts/libs/form-utils';
 
 import { useLogin } from '../../hooks';
@@ -17,12 +18,14 @@ import './Login.scss';
 export default function Login() {
   const [submitted, setSubmitted] = useState(false);
   const { login, loading, error } = useLogin();
+  const { setToken } = useAccessToken();
+  const navigate = useNavigate();
   
   const form = useForm<LoginFormValues>({
     validateInputOnChange: true,
     initialValues: {
       username: '',
-      email: '',
+      email: 'gravesoneal@quordate.com',
       password: '',
       rememberMe: false
     },
@@ -41,7 +44,8 @@ export default function Login() {
   const handleSubmit = async (values: LoginFormValues): Promise<void> => {
     const data = await login(values);
 
-    console.log('Login success!', data);
+    setToken(data.token);
+    navigate('/home');
   };
 
   return (

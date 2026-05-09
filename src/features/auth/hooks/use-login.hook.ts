@@ -13,14 +13,14 @@ export const useLogin = () => {
 
     try {
       const data = await authLogin(values);
-      setLoading(false);
 
       return data; 
     } catch (err: unknown) {
-      setLoading(false);
       setError(String(err));
 
       throw err; 
+    } finally {
+      setLoading(false);
     }
   };
 

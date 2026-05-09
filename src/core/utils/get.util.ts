@@ -1,16 +1,19 @@
+import type { RequestOptions } from "../models";
+
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 /**
  * Native Fetch wrapper for GET requests
  * @param {string} endpoint - The API path
- * @param {Record<string, string | number>} [params] - Optional object for query parameters
+ * @param {RequestOptions} [options] - Configuration for params and headers
  * @returns {Promise<T>} A promise that resolves to the parsed JSON response
- */
-export const apiGet = async <T>(
+*/
+export const get = async <T>(
   endpoint: string, 
-  params?: Record<string, string | number>
+  options: RequestOptions = {} // Use an options object
 ): Promise<T> => {
-  // Handle query parameters if they exist
+  const { params, headers } = options;
+
   const queryString = params 
     ? `?${new URLSearchParams(params as Record<string, string>).toString()}` 
     : '';
@@ -19,6 +22,7 @@ export const apiGet = async <T>(
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
+      ...headers, // Merge custom headers (like Authorization)
     },
   });
 
