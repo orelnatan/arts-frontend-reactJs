@@ -3,11 +3,11 @@ import { useState, useCallback } from 'react';
 import { getUserByToken } from '../api';
 import { type User } from '../models';
 
-export const useFetchUser = () => {
+export const useUser = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchUser = useCallback(async (token: string): Promise<User> => {
+  const getUser = useCallback(async (token: string): Promise<User> => {
     setLoading(true);
     setError(null);
 
@@ -24,5 +24,5 @@ export const useFetchUser = () => {
     }
   }, []);
 
-  return { fetchUser, loading, error };
+  return { getUser, loading, error };
 };

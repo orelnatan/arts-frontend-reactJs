@@ -1,6 +1,9 @@
-import type { RequestOptions } from "../models";
-
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+interface RequestOptions {
+  params?: Record<string, string | number>;
+  headers?: Record<string, string>;
+}
 
 /**
  * Native Fetch wrapper for GET requests

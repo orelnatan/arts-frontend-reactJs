@@ -1,19 +1,19 @@
 import { useState } from 'react';
 
-const ACCESS_TOKEN_KEY = "access_token";
+const AUTH_TOKEN_KEY = "auth_token";
 
-export const useAccessToken = () => {
+export const useAuthToken = () => {
   const [token, setToken] = useState<string | null>(() => {
-    return localStorage.getItem(ACCESS_TOKEN_KEY);
+    return localStorage.getItem(AUTH_TOKEN_KEY);
   });
 
   const saveToken = (token: string) => {
-    localStorage.setItem(ACCESS_TOKEN_KEY, token);
+    localStorage.setItem(AUTH_TOKEN_KEY, token);
     setToken(token);
   };
 
   const removeToken = () => {
-    localStorage.removeItem(ACCESS_TOKEN_KEY);
+    localStorage.removeItem(AUTH_TOKEN_KEY);
     setToken(null);
   };
 

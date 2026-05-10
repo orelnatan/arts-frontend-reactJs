@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '@mantine/form';
 import { Anchor } from '@mantine/core';
 
-import { logo } from '@arts/assets/images';
-import { errorAlert } from '@arts/shared/alerts';
+import { useAuth, useAuthToken, useUser } from '@arts/core';
 import { PageLayout } from '@arts/libs/layout';
-import { useAccessToken } from '@arts/core';
+import { errorAlert } from '@arts/shared/alerts';
 import { FormField, FormRow, InputCheckbox, InputPassword, InputText, PrimaryButton, Space } from '@arts/libs/form-utils';
+import { logo } from '@arts/assets/images';
 
 import { useLogin } from '../../hooks';
 import type { LoginFormValues } from '../../models';
@@ -17,8 +17,10 @@ import './Login.scss';
 
 export default function Login() {
   const [submitted, setSubmitted] = useState(false);
-  const { login, loading, error } = useLogin();
-  const { setToken } = useAccessToken();
+  const { login, loading: loginLoading } = useLogin();
+  const { getUser, loading: userLoading } = useUser();
+  const { setUser } = useAuth() 
+  const { setToken } = useAuthToken();
   const navigate = useNavigate();
   
   const form = useForm<LoginFormValues>({
@@ -32,20 +34,21 @@ export default function Login() {
     validate: VALIDATION_SCHEMA,
   });
 
-  useEffect(() => {     
-    if (error) {
+  const handleSubmit = async (values: LoginFormValues): Promise<void> => {
+    try {
+      const loginData = await login(values);
+      setToken(loginData.token);
+
+      const userData = await getUser(loginData.token);
+      setUser(userData);
+      
+      navigate('/home');
+    } catch (err) {
       errorAlert({ 
         title: 'Login Attempt Failed',
-        message: error,
+        message: (err as Error).message,
       });
     }
-  }, [error]);
-
-  const handleSubmit = async (values: LoginFormValues): Promise<void> => {
-    const data = await login(values);
-
-    setToken(data.token);
-    navigate('/home');
   };
 
   return (
@@ -110,7 +113,7 @@ export default function Login() {
               </FormField>
 
               <FormField widthPx={85}>
-                <PrimaryButton label='Submit' loading={loading} onClick={() => setSubmitted(true)} />
+                <PrimaryButton label='Submit' loading={loginLoading || userLoading} onClick={() => setSubmitted(true)} />
               </FormField>
             </FormRow>
           </form>
