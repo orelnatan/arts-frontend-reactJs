@@ -19,7 +19,7 @@ export default function Login() {
   const [submitted, setSubmitted] = useState(false);
   const { login, loading: loginLoading } = useLogin();
   const { getUser, loading: userLoading } = useUser();
-  const { setUser } = useAuth() 
+  const { setUser } = useAuth(); 
   const { setToken } = useAuthToken();
   const navigate = useNavigate();
   

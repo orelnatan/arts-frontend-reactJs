@@ -4,18 +4,36 @@ import { AppShell } from '@mantine/core';
 interface ShellLayoutProps {
   children: ReactNode;
   header?: ReactNode;
-  sidebar?: ReactNode;
+  navbar?: ReactNode;
+  aside?: ReactNode;
   footer?: ReactNode;
+  headerHeight?: number;
+  navbarWidth?: number;
+  asideWidth?: number;
 }
 
-export default function ShellLayout({ children, header, sidebar, footer }: ShellLayoutProps) {  
+export default function ShellLayout({ 
+  children,
+  header,
+  navbar, 
+  aside,
+  footer, 
+  headerHeight = 0, 
+  navbarWidth = 0,
+  asideWidth = 0
+}: ShellLayoutProps) {  
   return (
     <AppShell
       layout="alt"
       withBorder={false}
-      header={{ height: header ? 60 : 0 }}
+      header={{ height: header ? headerHeight : 0 }}
       navbar={{
-        width: sidebar ? 285 : 0,
+        width: navbar ? navbarWidth : 0,
+        breakpoint: 'sm',
+        collapsed: { mobile: true },
+      }}
+      aside={{
+        width: aside ? asideWidth : 0,
         breakpoint: 'sm',
         collapsed: { mobile: true },
       }}
@@ -26,8 +44,12 @@ export default function ShellLayout({ children, header, sidebar, footer }: Shell
       </AppShell.Header>
 
       <AppShell.Navbar>
-        {sidebar}
+        {navbar}
       </AppShell.Navbar>
+
+      <AppShell.Aside>
+        {aside}
+      </AppShell.Aside>
 
       <AppShell.Main
         style={{ 

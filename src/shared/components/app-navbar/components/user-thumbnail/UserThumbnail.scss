@@ -1,0 +1,23 @@
+
+$user-thumbnail-size: 38px;
+
+.user-thumbnail-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: $user-thumbnail-size;
+  height: $user-thumbnail-size;
+  padding: 1px;
+  border: var(--borders-1) solid var(--color-container-border-bright);
+  border-radius: var(--corner-radius-full);
+
+  img {
+    width: var(--full-host-width);
+    height: var(--full-host-height);
+    border-radius: var(--corner-radius-full);
+  }
+
+  span {
+    color: var(--color-thumbnail-text);
+  }
+}

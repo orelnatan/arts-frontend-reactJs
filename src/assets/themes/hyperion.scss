@@ -2,13 +2,17 @@
 
 @mixin hyperion() {
   --color-background: #FFFFFF;
-  --color-app-navbar-bg: #339af0;
-  --color-app-navbar-text: #FFFFFF;
+  --color-auth-navbar-bg: #339af0;
+  --color-auth-navbar-text: #FFFFFF;
   --color-login-form-border: #339af0;
-  --color-container-border: #ced4da;
+  --color-container-border-foggy: #ced4da;
+  --color-container-border-bright: #FFFFFF;
   --color-text-link: #339af0;
   --color-error: #F44336;
   --color-success: #228B22;
   --color-warning: #FFC007;
   --color-info: #339af0;
+  --color-app-navbar-bg: #339af0;
+  --color-app-navbar-text: #FFFFFF;
+  --color-thumbnail-text: #000000;
 }

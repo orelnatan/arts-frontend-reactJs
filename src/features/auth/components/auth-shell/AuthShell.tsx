@@ -10,6 +10,7 @@ export default function AuthShell() {
   return (
     <ShellLayout
       header={<AuthHeader />}
+      headerHeight={40}
     >
       <Outlet />
     </ShellLayout>

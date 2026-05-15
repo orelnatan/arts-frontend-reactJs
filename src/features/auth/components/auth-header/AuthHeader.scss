@@ -1,15 +1,11 @@
 
 .auth-header-main {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--spaces-3);
   height: 100%;
   padding: 0 var(--spaces-4);
-  background: var(--color-app-navbar-bg);
+  background: var(--color-auth-navbar-bg);
 
   .arts-welcome-note {
-    padding-top: var(--spaces-3);
-    color: var(--color-app-navbar-text);
+    padding-top: var(--spaces-2);
+    color: var(--color-auth-navbar-text);
   }
 }

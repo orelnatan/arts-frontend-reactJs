@@ -19,24 +19,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
           setUser(userData);
         } catch (err) {
-          console.error("Session expired or invalid token ", err);
-          
-          removeToken();
+          console.error("Session expired or invalid token ", err);          
         }
       }
       setIsInitializing(false);
     };
 
     bootstrapAuth();
-  }, [token, user, getUser, removeToken]);
+  }, [token, user, getUser]);
 
-  const logout = () => {
+  const disconnect = () => { 
     removeToken();
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, isLoading: isInitializing, logout }}>
+    <AuthContext.Provider value={{ user, setUser, isLoading: isInitializing, disconnect }}>
       {children}
     </AuthContext.Provider>
   );

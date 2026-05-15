@@ -1,13 +1,17 @@
 import { Outlet } from 'react-router-dom';
 
+import { ShellLayout } from '@arts/libs/layout';
+import { AppNavbar } from '@arts/shared/components';
+
 import './HomeShell.scss';
 
 export default function HomeShell() {
   return (
-    <div>
-      <h1>Home Shell</h1>
-
+    <ShellLayout
+      navbar={<AppNavbar />}
+      navbarWidth={65}
+    >
       <Outlet />
-    </div>
+    </ShellLayout>
   )
 }
