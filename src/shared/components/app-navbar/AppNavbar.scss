@@ -6,6 +6,15 @@
   height: 100%;
   padding: var(--spaces-5);
   background: var(--color-app-navbar-bg);
+  color: var(--color-app-navbar-text);
+
+  .app-navbar-system-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spaces-10);
+    padding-bottom: var(--spaces-6);
+  }
 
   .app-navbar-logo {
     padding-bottom: var(--spaces-2);
@@ -16,8 +25,7 @@
     height: 100%;
   }
 
-  .app-navbar-user-thumbnail {
-    padding-bottom: var(--spaces-6);
+  .control-system-thumbnail {
     cursor: pointer;
   }
 }
