@@ -8,13 +8,15 @@ interface MenuBarProps<T = unknown> {
   items: ListItem<T>[];
   position?: FloatingPosition;
   width?: number;
+  onSelect?: (item: ListItem<T>) => void;
 }
 
 export default function MenuBar({ 
   children,
   items,
   position = "bottom",
-  width = 200
+  width = 200,
+  onSelect
 }: MenuBarProps) {
   const RenderMenuItem = ({ item }: { item: ListItem }) => {
     if (item.hidden) return null;
@@ -49,6 +51,7 @@ export default function MenuBar({
         color={item.color}
         leftSection={item.icon}
         rightSection={item.trailingIcon}
+        onClick={() => onSelect?.(item)}
       >
         {item.label}
       </Menu.Item>

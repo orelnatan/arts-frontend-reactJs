@@ -14,7 +14,7 @@ interface AppNavbarProps {
   children?: ReactNode;
 }
 
-const languageItems: ListItem[] = [
+const LANGUAGE_ITEMS: ListItem[] = [
   {
     id: 'lang-english',
     label: 'English',
@@ -25,7 +25,7 @@ const languageItems: ListItem[] = [
   }
 ]
 
-const systemItems: ListItem[] = [
+const SYSTEM_ITEMS: ListItem[] = [
   {
     id: 'system-profile',
     label: 'Profile',
@@ -64,7 +64,10 @@ export default function AppNavbar({ children }: AppNavbarProps) {
 
       <div className='app-navbar-system-controls'>
         <div className='control-system-language font-size-20'>
-          <MenuBar items={languageItems} position='top-end'>
+          <MenuBar 
+            items={LANGUAGE_ITEMS}
+            onSelect={item => console.log("Selected item:", item)}
+            position='top-end'>
             <SvgIcon 
               icon={language}
               style={{ cursor: "pointer" }}
@@ -80,7 +83,11 @@ export default function AppNavbar({ children }: AppNavbarProps) {
         </div>
 
         <div className='control-system-thumbnail'>
-          <MenuBar items={systemItems} position='top-end'>
+          <MenuBar 
+            items={SYSTEM_ITEMS} 
+            onSelect={item => console.log("Selected item:", item)}
+            position='top-end'
+          >
             <UserThumbnail 
               image={user?.avatar}
               name={user?.name}

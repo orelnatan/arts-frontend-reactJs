@@ -27,7 +27,7 @@ export default function Login() {
     validateInputOnChange: true,
     initialValues: {
       username: '',
-      email: 'gravesoneal@quordate.com',
+      email: 'annklein@cormoran.com', //'gravesoneal@quordate.com',
       password: '',
       rememberMe: false
     },

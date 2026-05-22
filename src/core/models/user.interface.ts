@@ -1,4 +1,6 @@
-import { UserType } from "./user-type.enum";
+import type { UserType } from "./user-type.enum";
+import type { Locale } from "./locale.enum";
+import type { Theme } from "./theme.enum";
 
 export interface User {
   id: number;
@@ -13,4 +15,6 @@ export interface User {
   type: UserType;
   company: string;
   address: string;
+  locale: Locale;
+  theme: Theme;
 }
