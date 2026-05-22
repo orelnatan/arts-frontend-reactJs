@@ -61,4 +61,8 @@ export interface ListItem<T = unknown> {
   // --- Escape Hatch for Custom Data ---
   /** Holds any custom, domain-specific data required by your app */
   meta?: Record<string, T>;
+
+  // --- Actions ---
+  /** An indicator string used to map this menu item to a function inside a component registry */
+  actionKey?: string;
 }

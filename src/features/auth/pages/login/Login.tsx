@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '@mantine/form';
 import { Anchor } from '@mantine/core';
 
-import { useAuth, useAuthToken, useUser } from '@arts/core';
+import { useAuthContext, useToken, useUser } from '@arts/core';
 import { PageLayout } from '@arts/libs/layout';
 import { errorAlert } from '@arts/shared/alerts';
 import { FormField, FormRow, InputCheckbox, InputPassword, InputText, PrimaryButton, Space } from '@arts/libs/form-utils';
@@ -19,8 +19,8 @@ export default function Login() {
   const [submitted, setSubmitted] = useState(false);
   const { login, loading: loginLoading } = useLogin();
   const { getUser, loading: userLoading } = useUser();
-  const { setUser } = useAuth(); 
-  const { setToken } = useAuthToken();
+  const { setUser } = useAuthContext(); 
+  const { setToken } = useToken();
   const navigate = useNavigate();
   
   const form = useForm<LoginFormValues>({

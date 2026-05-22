@@ -1,14 +1,14 @@
 import { type ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { useAuth } from '../hooks';
+import { useAuthContext } from '../hooks';
 
 interface AuthProtectedRouteProps {
   children: ReactNode;
 }
 
 export const AuthProtectedRoute = ({ children }: AuthProtectedRouteProps) => {
-  const { user, isLoading } = useAuth();
+  const { user, isLoading } = useAuthContext();
   
   // Show loading while we check the token on app load...
   if (isLoading) {

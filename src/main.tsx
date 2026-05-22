@@ -8,7 +8,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { createTheme, MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
 
-import { AuthProvider } from './core';
+import { AuthProvider, ThemeProvider } from './core';
 
 import App from './App.tsx'
 
@@ -21,12 +21,14 @@ const config = createTheme({
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <MantineProvider theme={config}>
-        <AuthProvider>
-          <Notifications />
-          <App />
-        </AuthProvider>
-      </MantineProvider>
+      <AuthProvider>
+        <ThemeProvider>
+          <MantineProvider theme={config}>
+            <Notifications />
+            <App />
+          </MantineProvider>
+        </ThemeProvider>
+      </AuthProvider>
     </BrowserRouter>
   </StrictMode>,
 )

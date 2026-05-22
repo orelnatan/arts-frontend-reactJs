@@ -1,19 +1,20 @@
 // lighten - https://study.com/learn/lesson/hyperion-greek-mythology-god-of-light.html
 
 @mixin hyperion() {
-  --color-background: #FFFFFF;
+  --color-app-background: #ffffff;
+  --color-app-text: #000000;
   --color-auth-navbar-bg: #339af0;
-  --color-auth-navbar-text: #FFFFFF;
+  --color-auth-navbar-text: #ffffff;
   --color-login-form-border: #339af0;
   --color-container-border-foggy: #ced4da;
-  --color-container-border-bright: #FFFFFF;
+  --color-container-border-bright: #ffffff;
   --color-text-link: #339af0;
   --color-error: #F44336;
   --color-success: #228B22;
   --color-warning: #FFC007;
   --color-info: #339af0;
   --color-app-navbar-bg: #339af0;
-  --color-app-navbar-text: #FFFFFF;
+  --color-app-navbar-text: #ffffff;
   --color-thumbnail-text: #000000;
   --color-menu-item: #339af0;
 }

@@ -25,7 +25,8 @@ body.aurora {
 }
 
 body {
-  background: var(--color-background);
+  background: var(--color-app-background);
+  color: var(--color-app-text);
 }
 
 a {

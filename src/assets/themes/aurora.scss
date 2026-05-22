@@ -1,8 +1,21 @@
 // darken
 
 @mixin aurora() {
-  --color-background: #000000;
-  --color-auth-navbar-bg: #adb5bd;
-  --color-auth-navbar-text: #000000;
+  --color-app-background: #000000;
+  --color-app-text: #ffffff;
+  --color-auth-navbar-bg: #1a1b1e;
+  --color-auth-navbar-text: #ccff33;
+  --color-login-form-border: #12b886;
+  --color-container-border-foggy: #373a40;
+  --color-container-border-bright: #2c2e33;
+  --color-text-link: #20c997;
+  --color-error: #ff6b6b;
+  --color-success: #51cf66;
+  --color-warning: #fcc419;
+  --color-info: #339af0;
+  --color-app-navbar-bg: #1a1b1e;
+  --color-app-navbar-text: #ccff33;
+  --color-thumbnail-text: #ffffff;
+  --color-menu-item: #12b886;
 }
 
