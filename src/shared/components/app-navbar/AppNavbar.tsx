@@ -1,16 +1,16 @@
 import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useAuthContext } from '@arts/core';
+import { Direction, Locale, Theme, useAuthContext, useThemeContext, useUpdateUser, type User } from '@arts/core';
+import { logo, language, moon, statistics, settings, profile, disconnect, sun } from '@arts/assets/images';
+import { errorAlert } from '@arts/shared/alerts';
 import type { ListItem } from "@arts/shared/models";
-import { logo, language, moon, statistics, settings, profile, disconnect } from '@arts/assets/images';
 
 import { SvgIcon } from '../svg-icon';
 import { MenuBar } from '../menu-bar';
 import { UserThumbnail } from './components';
 
 import './AppNavbar.scss'
-
 interface AppNavbarProps {
   children?: ReactNode;
 }
@@ -19,10 +19,14 @@ const LANGUAGE_MENU: ListItem[] = [
   {
     id: 'lang-english',
     label: 'English',
+    value: Locale.En,
+    dir: Direction.LTR
   },
   {
     id: 'lang-hebrew',
     label: 'Hebrew',
+    value: Locale.He,
+    dir: Direction.RTL
   }
 ]
 
@@ -53,12 +57,33 @@ const USER_MENU: ListItem[] = [
 
 export default function AppNavbar({ children }: AppNavbarProps) {
   const { user, disconnect } = useAuthContext();
+  const { theme, setTheme } = useThemeContext();
+  const { triggerUpdate, loading } = useUpdateUser();
   const navigate = useNavigate();
 
   const userMenuActions: Record<string, () => void> = {
     handleLogout: () => {
       disconnect();
       navigate('/auth');
+    }
+  };
+
+  const handleThemeToggle = async (): Promise<void> => {
+    const nextTheme = theme === Theme.Hyperion
+    ? Theme.Aurora : Theme.Hyperion;
+
+    try {
+      const updatedUser = await triggerUpdate({
+        ...user as User,
+        theme: nextTheme,
+      });
+
+      setTheme(updatedUser.theme);
+    } catch (err) {      
+      errorAlert({ 
+        title: 'Failed to toggle theme',
+        message: (err as Error).message, 
+      });
     }
   };
 
@@ -87,8 +112,9 @@ export default function AppNavbar({ children }: AppNavbarProps) {
 
         <div className='control-system-theme font-size-20'>
           <SvgIcon 
-            icon={moon}
+            icon={theme === Theme.Hyperion ? moon : sun}
             style={{ cursor: "pointer" }}
+            onClick={handleThemeToggle}
           />
         </div>
 
@@ -96,7 +122,7 @@ export default function AppNavbar({ children }: AppNavbarProps) {
           <MenuBar 
             items={USER_MENU} 
             onSelect={
-              item => item.actionKey && userMenuActions[item.actionKey]?.()
+              item => item.actionKey && userMenuActions[item.actionKey]()
             }
             position='top-end'
           >

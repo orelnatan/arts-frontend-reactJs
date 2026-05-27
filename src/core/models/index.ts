@@ -4,3 +4,4 @@ export * from './user.interface';
 export * from './locale.enum';
 export * from './theme.enum';
 export * from './direction.enum';
+export * from './request-options.interface';

@@ -44,6 +44,10 @@ export interface ListItem<T = unknown> {
   /** Hex code, CSS variable, or theme color name for custom item branding */
   color?: string;
 
+  // --- Alignment & Order ---
+  /** Direction of the corresponding content of the item */
+  dir?: 'ltr' | 'rtl';
+
   // --- States & Flags ---
   /** Prevents user interaction and visually grays out the item */
   disabled?: boolean;

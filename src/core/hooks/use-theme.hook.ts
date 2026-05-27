@@ -9,7 +9,7 @@ export const useTheme = () => {
     return localStorage.getItem(THEME_KEY) as Theme;
   });
 
-  const saveTheme = (theme: Theme) => {
+  const saveTheme = (theme: Theme) => {    
     localStorage.setItem(THEME_KEY, theme);
     setTheme(theme);
   };

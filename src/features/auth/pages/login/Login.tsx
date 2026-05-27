@@ -39,7 +39,7 @@ export default function Login() {
       const loginData = await login(values);
       setToken(loginData.token);
 
-      const userData = await getUser(loginData.token);
+      const userData = await getUser();
       setUser(userData);
       
       navigate('/home');

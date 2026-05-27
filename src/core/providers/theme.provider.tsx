@@ -2,14 +2,14 @@ import { useEffect, type ReactNode } from 'react';
 
 import { ThemeContext } from '../contexts';
 import { useAuthContext, useTheme } from '../hooks';
-import  { Theme } from '../models';
+import  { Theme, type User } from '../models';
 
 const DEFAULT_THEME = Theme.Hyperion;
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const { user } = useAuthContext();
+  const { user, setUser } = useAuthContext();
   const { theme: localTheme, setTheme: saveLocalTheme, removeTheme: removeLocalTheme } = useTheme();  
- 
+
   const activeTheme = user?.theme || localTheme || DEFAULT_THEME;
 
   if (user?.theme && user.theme !== localTheme) {
@@ -21,6 +21,11 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   }, [activeTheme]);
 
   const setTheme = (theme: Theme) => {
+    setUser({ 
+      ...user as User,
+      theme
+    })
+        
     saveLocalTheme(theme);
   };
 

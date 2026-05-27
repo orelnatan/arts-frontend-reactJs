@@ -6,26 +6,25 @@ import { getAuthHeaders } from "./get-auth-headers.util";
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 /**
- * Native Fetch wrapper for GET requests
+ * Native Fetch wrapper for PUT requests
  * @param {string} endpoint - The API path
- * @param {RequestOptions} [options] - Configuration for params and headers
+ * @param {unknown} body - The data to be stringified and sent in the request body
+ * @param {Omit<RequestOptions, 'params'>} [options] - Configuration for custom headers
  * @returns {Promise<T>} A promise that resolves to the parsed JSON response
-*/
-export const get = async <T>(
-  endpoint: string, 
-  options: RequestOptions = {} 
+ */
+export const put = async <T>(
+  endpoint: string,
+  body: unknown,
+  options: Omit<RequestOptions, 'params'> = {}
 ): Promise<T> => {
-  const { params, headers } = options;
+  const { headers } = options;
 
-  const queryString = params 
-    ? `?${new URLSearchParams(params as Record<string, string>).toString()}` 
-    : '';
-
-  const response = await fetch(`${BASE_URL}${endpoint}${queryString}`, {
-    method: 'GET',
+  const response = await fetch(`${BASE_URL}${endpoint}`, {
+    method: 'PUT',
     headers: getAuthHeaders(headers),
+    body: JSON.stringify(body),
   });
-
+ 
   if (response.status === 403) {
     window.dispatchEvent(new Event(INVALID_AUTH_SESSION_LABEL));
     throw new Error('Session expired. Please log in again.');
@@ -33,7 +32,7 @@ export const get = async <T>(
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.message || `Get request failed: ${response.status}`);
+    throw new Error(errorData.message || `Put request failed: ${response.status}`);
   }
 
   return response.json() as Promise<T>;
