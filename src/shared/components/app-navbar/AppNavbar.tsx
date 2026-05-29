@@ -3,14 +3,16 @@ import { useNavigate } from 'react-router-dom';
 
 import { Direction, Locale, Theme, useAuthContext, useThemeContext, useUpdateUser, type User } from '@arts/core';
 import { logo, language, moon, statistics, settings, profile, disconnect, sun } from '@arts/assets/images';
-import { errorAlert } from '@arts/shared/alerts';
+import { errorAlert } from '@arts/libs/alerts';
 import type { ListItem } from "@arts/shared/models";
 
 import { SvgIcon } from '../svg-icon';
 import { MenuBar } from '../menu-bar';
+import { Spinner } from '../spinner';
 import { UserThumbnail } from './components';
 
 import './AppNavbar.scss'
+
 interface AppNavbarProps {
   children?: ReactNode;
 }
@@ -50,7 +52,7 @@ const USER_MENU: ListItem[] = [
       id: 'system-logout',
       label: 'Logout',
       icon: <SvgIcon icon={disconnect} />,
-      color: 'var(--color-error)',
+      class: 'menu-bar-item-error-state',
       actionKey: 'handleLogout',
     }
 ]
@@ -111,11 +113,15 @@ export default function AppNavbar({ children }: AppNavbarProps) {
         </div>
 
         <div className='control-system-theme font-size-20'>
-          <SvgIcon 
-            icon={theme === Theme.Hyperion ? moon : sun}
-            style={{ cursor: "pointer" }}
-            onClick={handleThemeToggle}
-          />
+          {loading ? (
+            <Spinner size={20} color='var(--color-app-navbar-text)' />
+          ) : (
+            <SvgIcon 
+              icon={theme === Theme.Hyperion ? moon : sun}
+              style={{ cursor: "pointer" }}
+              onClick={handleThemeToggle}
+            />
+          )}
         </div>
 
         <div className='control-system-thumbnail'>

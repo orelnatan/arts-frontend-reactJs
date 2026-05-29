@@ -1,0 +1,23 @@
+
+.mantine-Button-root {
+  background: var(--color-app-primary-button-bg);
+  color: var(--color-app-primary-button-text);
+
+  &:hover {
+    background: var(--color-app-primary-button-bg-hover);
+    color: var(--color-app-primary-button-text);
+  }
+
+  &[data-loading] {
+    background: var(--color-app-primary-button-bg);
+  }
+
+  &[data-disabled] {
+    background: var(--color-app-primary-button-disabled);
+  }
+
+  .mantine-Button-label {
+    font-family: 'assistant-bold';
+  }
+}
+

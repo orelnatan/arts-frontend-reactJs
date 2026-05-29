@@ -5,9 +5,14 @@
   --color-app-text: #ffffff;
   --color-auth-navbar-bg: #1a1b1e;
   --color-auth-navbar-text: #ccff33;
-  --color-login-form-border: #12b886;
+  --color-login-form-border: #ccff33;
+  --color-anchor-text: #ccff33;
   --color-container-border-foggy: #373a40;
   --color-container-border-bright: #2c2e33;
+  --color-app-primary-button-bg: #2c2e33;
+  --color-app-primary-button-text: #ccff33;
+  --color-app-primary-button-bg-hover: #2c2e33;
+  --color-app-primary-button-disabled: #ced4da;
   --color-text-link: #20c997;
   --color-error: #ff6b6b;
   --color-success: #51cf66;
@@ -17,5 +22,13 @@
   --color-app-navbar-text: #ccff33;
   --color-thumbnail-text: #ffffff;
   --color-menu-item: #12b886;
+  --color-menu-bar-bg: #000000;
+  --color-menu-bar-text: #ccff33;
+  --color-menu-bar-item-active: #1a1b1e;
+  --color-menu-bar-item-active-error: rgba(255, 107, 107, 0.2);
+  --color-app-checkbox-fill: #ccff33;
+  --color-app-checkbox-text: #ccff33;
+  --color-app-checkbox-mark: #000000;
+  --color-app-checkbox-bg: #ccff33;
 }
 

@@ -6,6 +6,7 @@ interface PrimaryButtonProps {
   type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
   label?: string;
   loading?: boolean;
+  disabled?: boolean;
   variant?: ButtonVariant;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
@@ -14,6 +15,7 @@ export default function PrimaryButton({
   type = "submit",
   label,
   loading,
+  disabled,
   variant = 'filled',
   onClick,
 }: PrimaryButtonProps) {
@@ -22,6 +24,7 @@ export default function PrimaryButton({
       <Button
         variant={variant}
         loading={loading}
+        disabled={disabled}
         type={type}
         onClick={onClick}
       >

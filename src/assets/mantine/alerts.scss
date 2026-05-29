@@ -1,8 +1,10 @@
 
-.mantine-notification-alert-title {
-  font-family: 'assistant-bold';
-}
+.mantine-Notifications-root {
+  .mantine-notification-alert-title {
+    font-family: 'assistant-bold';
+  }
 
-.mantine-notification-alert-description {
-  font-family: 'assistant-regular';
+  .mantine-notification-alert-description {
+    font-family: 'assistant-regular';
+  }
 }

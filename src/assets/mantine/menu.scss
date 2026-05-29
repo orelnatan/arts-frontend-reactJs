@@ -1,0 +1,37 @@
+
+.mantine-Menu-dropdown {
+  background: var(--color-menu-bar-bg);
+
+  .mantine-Menu-itemLabel {
+    height: 20px;
+    font-family: assistant-bold;
+  }
+
+  .mantine-Menu-item {
+    color: var(--menu-item-color, var(--color-menu-bar-text));
+
+    &:hover,
+    &:focus {
+      color: var(--menu-item-color, var(--color-menu-bar-text));
+      background: var(--color-menu-bar-item-active);
+      outline-style: none;
+    }
+  }
+
+  .menu-bar-item-error-state {
+    color: var(--color-error);
+
+    &:hover,
+    &:focus {
+      color: var(--color-error);
+      background: var(--color-menu-bar-item-active-error);
+    }
+  }
+
+  // More "states" goes here...
+}
+
+
+
+
+

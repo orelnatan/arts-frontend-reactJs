@@ -9,6 +9,8 @@ export interface ListItem<T = unknown> {
   label?: string | React.ReactNode;
   /** The underlying value sent to APIs or forms when selected */
   value?: string; 
+  /** An attached CSS class to control object styling */
+  class?: string
 
   // --- Subtext & Metadata ---
   /** Secondary text displayed below or next to the label */

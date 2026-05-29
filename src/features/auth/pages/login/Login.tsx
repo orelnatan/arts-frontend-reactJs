@@ -1,13 +1,21 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from '@mantine/form';
-import { Anchor } from '@mantine/core';
 
 import { useAuthContext, useToken, useUser } from '@arts/core';
-import { PageLayout } from '@arts/libs/layout';
-import { errorAlert } from '@arts/shared/alerts';
-import { FormField, FormRow, InputCheckbox, InputPassword, InputText, PrimaryButton, Space } from '@arts/libs/form-utils';
+import { LinkAnchor } from '@arts/shared/components';
 import { logo } from '@arts/assets/images';
+import { PageLayout } from '@arts/libs/layout';
+import { errorAlert } from '@arts/libs/alerts';
+import { 
+  FormField,
+  FormRow,
+  InputCheckbox,
+  InputPassword,
+  InputText,
+  PrimaryButton,
+  Space
+} from '@arts/libs/form-utils';
 
 import { useLogin } from '../../hooks';
 import type { LoginFormValues } from '../../models';
@@ -113,15 +121,18 @@ export default function Login() {
               </FormField>
 
               <FormField widthPx={85}>
-                <PrimaryButton label='Submit' loading={loginLoading || userLoading} onClick={() => setSubmitted(true)} />
+                <PrimaryButton
+                  label='Submit'
+                  loading={loginLoading || userLoading}
+                  onClick={() => setSubmitted(true)}
+                />
               </FormField>
             </FormRow>
           </form>
 
-          <Anchor component={Link} to="/auth/registration" size="sm">
-            <span className='font-size-12 assistant-bold'>
-              Don't have an account yet? Register now!</span> 
-          </Anchor>
+          <LinkAnchor to="/auth/registration" size="sm">
+            Don't have an account yet? Register now! 
+          </LinkAnchor>
         </div>
       </div>
     </PageLayout>

@@ -28,7 +28,7 @@ export default function MenuBar({
           <Menu.Sub.Target>
             <Menu.Sub.Item
               disabled={item.disabled}
-              color={item.color}
+              className={item.class}
               leftSection={item.icon}
               rightSection={item.trailingIcon}
             >
@@ -48,9 +48,9 @@ export default function MenuBar({
     return (
       <Menu.Item
         disabled={item.disabled}
-        color={item.color}
         leftSection={item.icon}
         rightSection={item.trailingIcon}
+        className={item.class}
         onClick={() => onSelect?.(item)}
       >
         {item.label}
