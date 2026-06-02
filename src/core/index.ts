@@ -8,3 +8,4 @@ export * from './api';
 export * from './contexts';
 export * from './providers';
 export * from './guards';
+export * from './components';

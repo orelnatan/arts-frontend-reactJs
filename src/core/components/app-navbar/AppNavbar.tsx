@@ -1,14 +1,13 @@
 import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDisclosure } from '@mantine/hooks';
 
-import { Direction, Locale, Theme, useAuthContext, useThemeContext, useUpdateUser, type User } from '@arts/core';
+import { Direction, Locale, LogoutModal, Theme, useAuthContext, useThemeContext, useUpdateUser, type User } from '@arts/core';
 import { logo, language, moon, statistics, settings, profile, disconnect, sun } from '@arts/assets/images';
-import { errorAlert } from '@arts/libs/alerts';
+import { MenuBar, Spinner, SvgIcon } from '@arts/shared/components';
 import type { ListItem } from "@arts/shared/models";
+import { errorAlert } from '@arts/libs/alerts';
 
-import { SvgIcon } from '../svg-icon';
-import { MenuBar } from '../menu-bar';
-import { Spinner } from '../spinner';
 import { UserThumbnail } from './components';
 
 import './AppNavbar.scss'
@@ -53,7 +52,7 @@ const USER_MENU: ListItem[] = [
       label: 'Logout',
       icon: <SvgIcon icon={disconnect} />,
       class: 'menu-bar-item-error-state',
-      actionKey: 'handleLogout',
+      actionKey: 'showLogoutModal',
     }
 ]
 
@@ -61,12 +60,12 @@ export default function AppNavbar({ children }: AppNavbarProps) {
   const { user, disconnect } = useAuthContext();
   const { theme, setTheme } = useThemeContext();
   const { triggerUpdate, loading } = useUpdateUser();
+  const [opened, { open, close }] = useDisclosure(false);
   const navigate = useNavigate();
 
   const userMenuActions: Record<string, () => void> = {
-    handleLogout: () => {
-      disconnect();
-      navigate('/auth');
+    showLogoutModal: () => {
+      open();
     }
   };
 
@@ -88,6 +87,11 @@ export default function AppNavbar({ children }: AppNavbarProps) {
       });
     }
   };
+
+  const handleLogout = () => {
+    disconnect();
+    navigate('/auth');
+  }
 
   return (
     <div className='app-navbar-main'>
@@ -139,6 +143,12 @@ export default function AppNavbar({ children }: AppNavbarProps) {
           </MenuBar>
         </div>
       </div>
+
+      <LogoutModal 
+        opened={opened} 
+        onClose={close} 
+        onConfirm={handleLogout} 
+      />
     </div>
   )
 }

@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const bootstrapAuth = async () => {
       if (token && !user) {
         try {
-          const userData = await getUser(token);
+          const userData = await getUser();
 
           setUser(userData);
         } catch (err) {

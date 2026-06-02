@@ -1,0 +1,19 @@
+
+.mantine-Modal-root {
+  .mantine-Modal-title {
+    font-family: 'assistant-bold';
+  }
+
+  .mantine-Modal-content {
+    background: var(--color-app-modal-bg);
+    color: var(--color-app-modal-text);
+  }
+
+  .mantine-Modal-header {
+    background: var(--color-app-modal-bg);
+  }
+
+  .mantine-Modal-body {
+    background: var(--color-app-modal-bg);
+  }
+}

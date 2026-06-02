@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 
+import { AppNavbar } from '@arts/core';
 import { ShellLayout } from '@arts/libs/layout';
-import { AppNavbar } from '@arts/shared/components';
 
 import './HomeShell.scss';
 
