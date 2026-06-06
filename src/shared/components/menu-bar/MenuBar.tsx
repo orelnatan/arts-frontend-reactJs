@@ -3,11 +3,15 @@ import { Menu, type FloatingPosition } from '@mantine/core';
 
 import type { ListItem } from "@arts/shared/models";
 
+import { Caption } from "../caption";
+
 interface MenuBarProps<T = unknown> {
   children: ReactNode;
   items: ListItem<T>[];
   position?: FloatingPosition;
   width?: number;
+  namespace?: string;
+  keyPrefix?: string;
   onSelect?: (item: ListItem<T>) => void;
 }
 
@@ -16,6 +20,8 @@ export default function MenuBar({
   items,
   position = "bottom",
   width = 200,
+  namespace,
+  keyPrefix,
   onSelect
 }: MenuBarProps) {
   const RenderMenuItem = ({ item }: { item: ListItem }) => {
@@ -32,7 +38,9 @@ export default function MenuBar({
               leftSection={item.icon}
               rightSection={item.trailingIcon}
             >
-              {item.label}
+              <Caption namespace={namespace} keyPrefix={keyPrefix}>
+                {item.label}
+              </Caption>
             </Menu.Sub.Item>
           </Menu.Sub.Target>
           
@@ -53,7 +61,9 @@ export default function MenuBar({
         className={item.class}
         onClick={() => onSelect?.(item)}
       >
-        {item.label}
+        <Caption namespace={namespace} keyPrefix={keyPrefix}>
+          {item.label}
+        </Caption>
       </Menu.Item>
     );
   };

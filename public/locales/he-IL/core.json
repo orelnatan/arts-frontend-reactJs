@@ -1,0 +1,20 @@
+{
+  "not-found-page": {
+    "page-not-found": "404 - אופס... העמוד לא נמצא :("
+  },
+  "app-navbar": {
+    "user-menu.profile-label": "פרופיל",
+    "user-menu.settings-label": "הגדרות",
+    "user-menu.statistics-label": "סטטיסטיקה",
+    "user-menu.logout-label": "התנתקות",
+    "language-menu.english": "אנגלית (English)",
+    "language-menu.hebrew": "עברית (Hebrew)",
+    "theme-toggle-failed": "שינוי ערכת הנושא נכשל"
+  },
+  "logout-modal": {
+    "title": "התנתקות מהמערכת?",
+    "note": "האם אתה בטוח שברצונך להתנתק? תטרך להתחבר מחדש כדי לקבל גישה ללוח הבקרה (Dashboard).",
+    "yes-logout": "כן, נתק אותי",
+    "no-stay": "לא, השאר אותי מחובר"
+  }
+}

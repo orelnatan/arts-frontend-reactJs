@@ -1,10 +1,13 @@
+import { useTranslation } from 'react-i18next';
 import { Button, type ButtonVariant } from '@mantine/core';
 
 import './PrimaryButton.scss';
 
 interface PrimaryButtonProps {
   type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
-  label?: string;
+  label?: string; 
+  namespace?: string;
+  keyPrefix?: string;
   loading?: boolean;
   disabled?: boolean;
   variant?: ButtonVariant;
@@ -14,11 +17,15 @@ interface PrimaryButtonProps {
 export default function PrimaryButton({
   type = "submit",
   label,
+  namespace,
+  keyPrefix,
   loading,
   disabled,
   variant = 'filled',
   onClick,
 }: PrimaryButtonProps) {
+  const { t } = useTranslation(namespace, { keyPrefix });
+
   return (
     <div className='primary-button-main'>
       <Button
@@ -28,7 +35,7 @@ export default function PrimaryButton({
         type={type}
         onClick={onClick}
       >
-        {label}
+        {t(label ?? '')}
       </Button>
     </div>
   );

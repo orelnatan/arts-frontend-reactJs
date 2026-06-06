@@ -1,9 +1,13 @@
+import { Caption } from '@arts/shared/components';
+
 import './PageNotFound.scss';
 
 export default function PageNotFound() {
   return (
     <>
-      404 - OOppss...Page Not Found :(
+      <Caption namespace='core' keyPrefix='not-found-page'>
+        page-not-found
+      </Caption>
     </>
   )
 }

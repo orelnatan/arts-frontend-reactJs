@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from '@mantine/form';
 
 import { useAuthContext, useToken, useUser } from '@arts/core';
-import { LinkAnchor } from '@arts/shared/components';
+import { Caption, LinkAnchor } from '@arts/shared/components';
 import { logo } from '@arts/assets/images';
 import { PageLayout } from '@arts/libs/layout';
 import { errorAlert } from '@arts/libs/alerts';
@@ -30,7 +30,7 @@ export default function Login() {
   const { setUser } = useAuthContext(); 
   const { setToken } = useToken();
   const navigate = useNavigate();
-  
+ 
   const form = useForm<LoginFormValues>({
     validateInputOnChange: true,
     initialValues: {
@@ -53,7 +53,8 @@ export default function Login() {
       navigate('/home');
     } catch (err) {
       errorAlert({ 
-        title: 'Login Attempt Failed',
+        title: <Caption namespace='auth' keyPrefix='login-page'>
+          login-attempt-failed</Caption>,
         message: (err as Error).message,
       });
     }
@@ -72,7 +73,9 @@ export default function Login() {
             <FormRow marginTopSize={Space.Sm}>
               <FormField>
                 <InputText
-                  placeholder='User Name'
+                  namespace='auth'
+                  keyPrefix='login-page'
+                  placeholder='username'
                   value={form.values.username}
                   error={submitted ? (form.errors.username) : null}
                   onChange={event => {
@@ -85,7 +88,9 @@ export default function Login() {
             <FormRow marginTopSize={Space.Md}>
               <FormField>
                 <InputText
-                  placeholder='Email'
+                  namespace='auth'
+                  keyPrefix='login-page'
+                  placeholder='email'
                   value={form.values.email}
                   error={submitted ? form.errors.email : null}
                   onChange={event => {
@@ -98,7 +103,9 @@ export default function Login() {
             <FormRow marginTopSize={Space.Md}>
               <FormField>
                 <InputPassword
-                  placeholder='Password'
+                  namespace='auth'
+                  keyPrefix='login-page'
+                  placeholder='password'
                   value={form.values.password}
                   error={submitted ? form.errors.password : null}
                   onChange={event => {
@@ -110,8 +117,10 @@ export default function Login() {
 
             <FormRow marginTopSize={Space.Md} spaceBetween>
               <FormField marginTopSize={Space.Xsm}>
-                <InputCheckbox 
-                  label='Remember Me'
+                <InputCheckbox
+                  namespace='auth'
+                  keyPrefix='login-page' 
+                  label='remember-me'
                   checked={form.values.rememberMe}
                   error={submitted ? form.errors.rememberMe : null}
                   onChange={event => {
@@ -120,9 +129,11 @@ export default function Login() {
                 />
               </FormField>
 
-              <FormField widthPx={85}>
+              <FormField widthPx={145}>
                 <PrimaryButton
-                  label='Submit'
+                  namespace='auth'
+                  keyPrefix='login-page' 
+                  label='submit'
                   loading={loginLoading || userLoading}
                   onClick={() => setSubmitted(true)}
                 />
@@ -131,7 +142,9 @@ export default function Login() {
           </form>
 
           <LinkAnchor to="/auth/registration" size="sm">
-            Don't have an account yet? Register now! 
+            <Caption namespace='auth' keyPrefix='login-page'>
+              register-now
+            </Caption>
           </LinkAnchor>
         </div>
       </div>

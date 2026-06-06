@@ -2,11 +2,11 @@ import { hasLength, matches } from '@mantine/form';
 
 export const password = (value: string) => {
   return (
-    hasLength({ min: 6 }, 'Password must be at least 6 characters')(value) ||
-    matches(/\d/, 'Password must include a number')(value) ||
-   // matches(/[A-Z]/, 'Password must include an uppercase letter')(value) ||
-    matches(/[a-z]/, 'Password must include a lowercase letter')(value) ||
-   // matches(/[!@#$%^&*(),.?":{}|<>]/, 'Password must include a special symbol')(value) ||
+    hasLength({ min: 6 }, 'validation.password-length')(value) ||
+    matches(/\d/, 'validation.password-number')(value) ||
+   // matches(/[A-Z]/, 'validation.password-uppercase')(value) ||
+    matches(/[a-z]/, 'validation.password-lowercase')(value) ||
+    // matches(/[!@#$%^&*(),.?":{}|<>]/, 'validation.password-special')(value) ||
     null
   );
 };

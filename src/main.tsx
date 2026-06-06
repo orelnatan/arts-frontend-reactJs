@@ -12,6 +12,7 @@ import { AuthProvider, ThemeProvider } from './core';
 
 import App from './App.tsx'
 
+import './i18n.ts';
 import './index.scss';
 
 const config = createTheme({

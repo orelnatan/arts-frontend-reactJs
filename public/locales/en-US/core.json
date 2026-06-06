@@ -1,0 +1,21 @@
+
+{
+  "not-found-page": {
+    "page-not-found": "404 - OOppss...Page Not Found :("
+  },
+  "app-navbar": {
+    "user-menu.profile-label": "Profile",
+    "user-menu.settings-label": "Settings",
+    "user-menu.statistics-label": "Statistics",
+    "user-menu.logout-label": "Logout",
+    "language-menu.english": "English",
+    "language-menu.hebrew": "Hebrew",
+    "theme-toggle-failed": "Failed to toggle theme"
+  },
+  "logout-modal": {
+    "title": "Logout?",
+    "note": "Are you sure you want to logout? You will need to sign back in to access your dashboard.",
+    "yes-logout": "Yes, log me out",
+    "no-stay": "No, stay"
+  }
+}

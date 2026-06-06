@@ -4,7 +4,7 @@ import { useDisclosure } from '@mantine/hooks';
 
 import { Direction, Locale, LogoutModal, Theme, useAuthContext, useThemeContext, useUpdateUser, type User } from '@arts/core';
 import { logo, language, moon, statistics, settings, profile, disconnect, sun } from '@arts/assets/images';
-import { MenuBar, Spinner, SvgIcon } from '@arts/shared/components';
+import { Caption, MenuBar, Spinner, SvgIcon } from '@arts/shared/components';
 import type { ListItem } from "@arts/shared/models";
 import { errorAlert } from '@arts/libs/alerts';
 
@@ -19,13 +19,13 @@ interface AppNavbarProps {
 const LANGUAGE_MENU: ListItem[] = [
   {
     id: 'lang-english',
-    label: 'English',
+    label: 'language-menu.english',
     value: Locale.En,
     dir: Direction.LTR
   },
   {
     id: 'lang-hebrew',
-    label: 'Hebrew',
+    label: 'language-menu.hebrew',
     value: Locale.He,
     dir: Direction.RTL
   }
@@ -34,22 +34,22 @@ const LANGUAGE_MENU: ListItem[] = [
 const USER_MENU: ListItem[] = [
     {
       id: 'system-profile',
-      label: 'Profile',
+      label: 'user-menu.profile-label',
       icon: <SvgIcon icon={profile} />,
     },
     {
-      id: 'system-statistics',
-      label: 'Settings',
+      id: 'system-settings',
+      label: 'user-menu.settings-label',
       icon: <SvgIcon icon={settings} />,
     },
     {
-      id: 'system-settings',
-      label: 'Statistics',
+      id: 'system-statistics',
+      label: 'user-menu.statistics-label',
       icon: <SvgIcon icon={statistics} />,
     },
     {
       id: 'system-logout',
-      label: 'Logout',
+      label: 'user-menu.logout-label',
       icon: <SvgIcon icon={disconnect} />,
       class: 'menu-bar-item-error-state',
       actionKey: 'showLogoutModal',
@@ -82,7 +82,8 @@ export default function AppNavbar({ children }: AppNavbarProps) {
       setTheme(updatedUser.theme);
     } catch (err) {      
       errorAlert({ 
-        title: 'Failed to toggle theme',
+        title: <Caption namespace='core' keyPrefix='app-navbar'>
+          theme-toggle-failed</Caption>,
         message: (err as Error).message, 
       });
     }
@@ -106,6 +107,8 @@ export default function AppNavbar({ children }: AppNavbarProps) {
       <div className='app-navbar-system-controls'>
         <div className='control-system-language font-size-20'>
           <MenuBar 
+            namespace='core'
+            keyPrefix='app-navbar'
             items={LANGUAGE_MENU}
             onSelect={item => console.log("Selected item:", item)}
             position='top-end'>
@@ -130,6 +133,8 @@ export default function AppNavbar({ children }: AppNavbarProps) {
 
         <div className='control-system-thumbnail'>
           <MenuBar 
+            namespace='core'
+            keyPrefix='app-navbar'
             items={USER_MENU} 
             onSelect={
               item => item.actionKey && userMenuActions[item.actionKey]()

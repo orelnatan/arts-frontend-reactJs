@@ -1,4 +1,4 @@
-import { AppModal } from '@arts/shared/components';
+import { AppModal, Caption } from '@arts/shared/components';
 import { PrimaryButton } from '@arts/libs/form-utils';
 
 import './LogoutModal.scss';
@@ -14,22 +14,28 @@ export default function LogoutModal({ opened, onClose, onConfirm }: LogoutModalP
     <AppModal
       opened={opened}
       onClose={onClose}
-      title="Logout?"
+      title={<Caption namespace='core' keyPrefix='logout-modal'>
+        title</Caption>}
     >
       <div className='logout-modal-main'>
         <div className='logout-modal-caption'>
           <span className='assistant-regular'>
-            Are you sure you want to logout? You will need to sign back in to access your dashboard.</span>
+            <Caption namespace='core' keyPrefix='logout-modal'>
+              note</Caption></span>
         </div>
 
         <div className='logout-modal-controls'>
           <PrimaryButton
-            label='Yes, log me out'
+            namespace='core'
+            keyPrefix='logout-modal'
+            label='yes-logout'
             onClick={onConfirm}
           />
 
           <PrimaryButton
-            label='No, stay'
+            namespace='core'
+            keyPrefix='logout-modal'
+            label='no-stay'
             onClick={onClose}
           />
         </div>
