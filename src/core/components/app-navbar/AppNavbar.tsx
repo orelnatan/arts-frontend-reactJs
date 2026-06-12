@@ -11,6 +11,13 @@ import { UserLocaleMenu, UserThumbnailMenu } from './components';
 
 import './AppNavbar.scss'
 
+const showErrorAlert = (key: string, err: unknown) => {
+  errorAlert({
+    title: <Caption namespace="core" keyPrefix="app-navbar">{key}</Caption>,
+    message: (err as Error).message,
+  });
+};
+
 interface AppNavbarProps {
   children?: ReactNode;
 }
@@ -32,16 +39,13 @@ export default function AppNavbar({ children }: AppNavbarProps) {
     try {
       const updatedUser = await triggerUpdate({
         ...user as User,
-        theme
+        theme,
       });
 
       setTheme(updatedUser.theme);
-    } catch (err) {      
-      errorAlert({ 
-        title: <Caption namespace='core' keyPrefix='app-navbar'>
-          theme-toggle-failed</Caption>,
-        message: (err as Error).message, 
-      });
+    } catch (err) {     
+      showErrorAlert('theme-toggle-failed', err); 
+    
     } finally {
       setIsThemeLoading(false);
     }
@@ -55,14 +59,10 @@ export default function AppNavbar({ children }: AppNavbarProps) {
         ...user as User,
         locale,
       });
-
+      
       setLocale(updatedUser.locale);
-    } catch (err) {      
-      errorAlert({ 
-        title: <Caption namespace='core' keyPrefix='app-navbar'>
-          locale-update-failed</Caption>,
-        message: (err as Error).message, 
-      });
+    } catch (err) {   
+      showErrorAlert('locale-update-failed', err);
     } finally {
       setIsLocaleLoading(false);
     }

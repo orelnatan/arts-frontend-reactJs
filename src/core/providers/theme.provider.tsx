@@ -1,4 +1,4 @@
-import { useEffect, type ReactNode } from 'react';
+import { useEffect, type Dispatch, type ReactNode, type SetStateAction } from 'react';
 
 import { ThemeContext } from '../contexts';
 import { useAuthContext, useTheme } from '../hooks';
@@ -21,10 +21,14 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   }, [activeTheme]);
 
   const setTheme = (theme: Theme) => {
-    setUser({ 
-      ...user as User,
-      theme
-    })
+    const setUserState = setUser as Dispatch<SetStateAction<User>>;
+
+    setUserState(user => {
+      return {
+        ...user,
+        theme
+      };
+    });
         
     saveLocalTheme(theme);
   };

@@ -1,4 +1,4 @@
-import { useEffect, type ReactNode } from 'react';
+import { useEffect, type Dispatch, type ReactNode, type SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { LocaleContext } from '../contexts';
@@ -31,10 +31,14 @@ export const LocaleProvider = ({ children }: { children: ReactNode }) => {
   }, [activeLocale, i18n]);
 
   const setLocale = (locale: Locale) => {
-    setUser({ 
-      ...user as User,
-      locale
-    })
+    const setUserState = setUser as Dispatch<SetStateAction<User>>;
+
+    setUserState(user => {      
+      return {
+        ...user,
+        locale
+      };
+    });
         
     saveLocalLocale(locale);
   };
