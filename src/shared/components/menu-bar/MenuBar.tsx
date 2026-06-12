@@ -9,6 +9,7 @@ interface MenuBarProps<T = unknown> {
   children: ReactNode;
   items: ListItem<T>[];
   position?: FloatingPosition;
+  disabled?: boolean;
   width?: number;
   namespace?: string;
   keyPrefix?: string;
@@ -19,6 +20,7 @@ export default function MenuBar({
   children,
   items,
   position = "bottom",
+  disabled,
   width = 200,
   namespace,
   keyPrefix,
@@ -70,9 +72,9 @@ export default function MenuBar({
 
   return (
     <div className="menu-bar-main">
-      <Menu shadow="md" width={width} position={position}>
+      <Menu shadow="md" width={width} position={position} disabled={disabled}>
         <Menu.Target>
-          <span style={{ cursor: "pointer" }}>
+          <span>
             {children}
           </span>
         </Menu.Target>

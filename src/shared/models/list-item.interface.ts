@@ -53,8 +53,10 @@ export interface ListItem<T = unknown> {
   // --- States & Flags ---
   /** Prevents user interaction and visually grays out the item */
   disabled?: boolean;
-  /** Visually highlights the item as currently active/chosen */
+  /** Visually highlights the item as currently selected */
   selected?: boolean;
+  /** Visually highlights the item as currently active */
+  active?: boolean;
   /** Visually mark this item as currently checked */
   checked?: boolean;
   /** Controls visibility without removing it from the data array */

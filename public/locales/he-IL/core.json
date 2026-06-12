@@ -7,8 +7,8 @@
     "user-menu.settings-label": "הגדרות",
     "user-menu.statistics-label": "סטטיסטיקה",
     "user-menu.logout-label": "התנתקות",
-    "language-menu.english": "אנגלית (English)",
-    "language-menu.hebrew": "עברית (Hebrew)",
+    "language-menu.english": "אנגלית",
+    "language-menu.hebrew": "עברית",
     "theme-toggle-failed": "שינוי ערכת הנושא נכשל"
   },
   "logout-modal": {

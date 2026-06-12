@@ -1,7 +1,9 @@
 
 export * from './use-token.hook';
 export * from './use-theme.hook';
+export * from './use-locale.hook';
 export * from './use-user.hook';
 export * from './use-update-user.hook';
 export * from './use-auth-context.hook';
 export * from './use-theme-context.hook';
+export * from './use-locale-context.hook';

@@ -2,10 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import HttpBackend from 'i18next-http-backend';
 
-export enum Locale {
-  He = "he-IL",
-  En = "en-US"
-}
+import { Locale } from './core';
 
 i18n
   // Load translation files via HTTP (public/locales/...)
