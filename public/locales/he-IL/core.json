@@ -9,7 +9,8 @@
     "user-menu.logout-label": "התנתקות",
     "language-menu.english": "אנגלית",
     "language-menu.hebrew": "עברית",
-    "theme-toggle-failed": "שינוי ערכת הנושא נכשל"
+    "theme-toggle-failed": "שינוי ערכת הנושא נכשל",
+    "locale-update-failed": "שינוי שפה נכשל"
   },
   "logout-modal": {
     "title": "התנתקות מהמערכת?",

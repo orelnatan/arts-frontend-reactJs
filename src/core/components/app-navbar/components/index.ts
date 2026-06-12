@@ -1,2 +1,3 @@
 
-export * from './user-thumbnail';
+export * from './user-locale-menu';
+export * from './user-thumbnail-menu';

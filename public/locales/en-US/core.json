@@ -10,7 +10,8 @@
     "user-menu.logout-label": "Logout",
     "language-menu.english": "English",
     "language-menu.hebrew": "Hebrew",
-    "theme-toggle-failed": "Failed to toggle theme"
+    "theme-toggle-failed": "Failed to toggle theme",
+    "locale-update-failed": "Failed to update locale"
   },
   "logout-modal": {
     "title": "Logout?",

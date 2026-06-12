@@ -1,22 +1,22 @@
 import { useState } from 'react';
 
-import './UserThumbnail.scss';
+import './Thumbnail.scss';
 
-interface UserThumbnailProps {
+interface ThumbnailProps {
   image?: string;
   name?: string;
 }
 
-export default function UserThumbnail({
+export default function Thumbnail({
   image,
   name
-}: UserThumbnailProps) {
+}: ThumbnailProps) {
   const [isBroken, setIsBroken] = useState(false);
 
   const showFallback = !image || isBroken;
 
   return (
-    <div className='user-thumbnail-main'>
+    <div className='thumbnail-main'>
       {showFallback ? (
         <span className='font-size-24 assistant-bold'>
           {name?.charAt(0).toUpperCase() || '?'}
@@ -24,7 +24,7 @@ export default function UserThumbnail({
       ) : (
         <img 
           src={image} 
-          alt={name || "User Thumbnail"} 
+          alt={name || "Thumbnail"} 
           onError={() => setIsBroken(true)} 
         />
       )}

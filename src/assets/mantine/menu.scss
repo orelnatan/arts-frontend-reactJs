@@ -28,6 +28,12 @@
     }
   }
 
+  .highlighted-item {
+    color: var(--menu-item-color, var(--color-menu-bar-text));
+    background: var(--color-menu-bar-item-active);
+    outline-style: none;
+  }
+  
   // More "states" goes here...
 }
 
