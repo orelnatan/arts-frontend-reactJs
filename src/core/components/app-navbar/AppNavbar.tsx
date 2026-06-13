@@ -2,7 +2,7 @@ import { useState, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDisclosure } from '@mantine/hooks';
 
-import { Locale, LogoutModal, Theme, useAuthContext, useLocaleContext, useThemeContext, useUpdateUser, type User } from '@arts/core';
+import { Locale, LogoutModal, Theme, useAuthContext, useLocaleContext, useThemeContext, useUpdateLocale, useUpdateTheme } from '@arts/core';
 import { logo, moon, sun } from '@arts/assets/images';
 import { Caption, Spinner, SvgIcon } from '@arts/shared/components';
 import { errorAlert } from '@arts/libs/alerts';
@@ -30,19 +30,17 @@ export default function AppNavbar({ children }: AppNavbarProps) {
   const { user, disconnect } = useAuthContext();
   const { theme, setTheme } = useThemeContext();
   const { locale, setLocale } = useLocaleContext();
-  const { triggerUpdate } = useUpdateUser();
+  const { triggerUpdate: triggerUpdateLocale } = useUpdateLocale();
+  const { triggerUpdate: triggerUpdateTheme } = useUpdateTheme();
   const navigate = useNavigate();
 
   const handleThemeChange = async (theme: Theme): Promise<void> => {
     setIsThemeLoading(true);
 
     try {
-      const updatedUser = await triggerUpdate({
-        ...user as User,
-        theme,
-      });
+      const data = await triggerUpdateTheme(theme);
 
-      setTheme(updatedUser.theme);
+      setTheme(data.theme as Theme);
     } catch (err) {     
       showErrorAlert('theme-toggle-failed', err); 
     
@@ -55,12 +53,9 @@ export default function AppNavbar({ children }: AppNavbarProps) {
     setIsLocaleLoading(true);
 
     try {
-      const updatedUser = await triggerUpdate({
-        ...user as User,
-        locale,
-      });
+      const data = await triggerUpdateLocale(locale);
       
-      setLocale(updatedUser.locale);
+      setLocale(data.locale as Locale);
     } catch (err) {   
       showErrorAlert('locale-update-failed', err);
     } finally {
