@@ -8,6 +8,8 @@ export default function Desktop() {
   
   return (
     <PageLayout>
+      <h1>Welcome {user?.name}!</h1>
+
       <div>
         {JSON.stringify(user)}
       </div>

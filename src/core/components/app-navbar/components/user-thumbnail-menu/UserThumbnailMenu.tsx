@@ -1,7 +1,7 @@
 import { type User } from "@arts/core/models";
 import { MenuBar, SvgIcon, Thumbnail } from "@arts/shared/components";
 import type { ListItem } from "@arts/shared/models";
-import { disconnect, profile, settings, statistics } from "@arts/assets/images";
+import { desktop, disconnect, profile, statistics } from "@arts/assets/images";
 
 interface UserThumbnailMenuProps {
   user: User | null;
@@ -11,22 +11,25 @@ interface UserThumbnailMenuProps {
 
 const USER_MENU: ListItem[] = [
   {
+    id: 'system-desktop',
+    label: 'user-menu.desktop-label',
+    icon: <SvgIcon icon={desktop} />,
+    value: 'system-desktop',
+    path: '/home/desktop',
+  },
+  {
     id: 'system-profile',
     label: 'user-menu.profile-label',
     icon: <SvgIcon icon={profile} />,
-    value: 'system-profile'
-  },
-  {
-    id: 'system-settings',
-    label: 'user-menu.settings-label',
-    icon: <SvgIcon icon={settings} />,
-    value: 'system-settings',
+    value: 'system-profile',
+    path: '/home/profile'
   },
   {
     id: 'system-statistics',
     label: 'user-menu.statistics-label',
     icon: <SvgIcon icon={statistics} />,
     value: 'system-statistics',
+    path: '/home/statistics'
   },
   {
     id: 'system-logout',

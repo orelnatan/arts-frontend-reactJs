@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDisclosure } from '@mantine/hooks';
 
 import { Locale, LogoutModal, Theme, useAuthContext, useLocaleContext, useThemeContext, useUpdateLocale, useUpdateTheme } from '@arts/core';
-import { logo, moon, sun } from '@arts/assets/images';
+import { logo, moon, settings, sun } from '@arts/assets/images';
 import { Caption, Spinner, SvgIcon } from '@arts/shared/components';
 import { errorAlert } from '@arts/libs/alerts';
 
@@ -43,7 +43,6 @@ export default function AppNavbar({ children }: AppNavbarProps) {
       setTheme(data.theme as Theme);
     } catch (err) {     
       showErrorAlert('theme-toggle-failed', err); 
-    
     } finally {
       setIsThemeLoading(false);
     }
@@ -79,6 +78,13 @@ export default function AppNavbar({ children }: AppNavbarProps) {
       </div>
 
       <div className='app-navbar-system-controls'>
+        <div className='control-system-settings font-size-20'>
+          <SvgIcon 
+            icon={settings}
+            style={{ cursor: "pointer" }}
+          />
+        </div>
+
         <div className='control-system-language font-size-20'>
           <UserLocaleMenu
             value={locale}

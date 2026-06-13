@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { matchPath, useLocation, useNavigate } from "react-router-dom";
 import { Menu, type FloatingPosition } from '@mantine/core';
 
 import type { ListItem } from "@arts/shared/models";
@@ -32,14 +33,30 @@ function RenderMenuItem<T>({
   keyPrefix, 
   onSelect 
 }: RenderMenuItemProps<T>) {
-  if (item.hidden) return null;
+  const navigate = useNavigate();
+  const location = useLocation();
 
+  if (item.hidden) return null;
   const isActive = (item: ListItem<T>): boolean => {
-    return actives.includes(item.value as string) || !!item?.active;
+    const isValueMarkedAsActive = actives.includes(item.value as string);
+    const isActiveFlagTruthy = !!item?.active;
+    const isRoutePathActive = !!item.path && !!matchPath(
+      { path: item.path, end: false }, location.pathname);
+
+    return isValueMarkedAsActive || isActiveFlagTruthy || isRoutePathActive;
   };
 
   const isDisabled = (item: ListItem<T>): boolean => {
-    return actives.includes(item.value as string) || !!item?.disabled;
+    const isValueMarkedAsActive = actives.includes(item.value as string);
+    const isDisabledFlagTruthy = !!item?.disabled;
+
+    return isValueMarkedAsActive || isDisabledFlagTruthy;
+  };
+
+  const handleItemClick = (item: ListItem<T>): void => {
+    onSelect?.(item);
+
+    if(item.path) navigate(item.path);
   };
 
   const hasChildren = item.children && item.children.length > 0;
@@ -52,7 +69,7 @@ function RenderMenuItem<T>({
             leftSection={item.icon}
             rightSection={item.trailingIcon}
             className={`${item.class || ''} ${isActive(item) ? 'highlighted-item' : ''}`.trim()}
-            onClick={() => onSelect?.(item)}
+            onClick={() => handleItemClick(item)}
           >
             <Caption namespace={namespace} keyPrefix={keyPrefix}>
               {item.label}
@@ -64,7 +81,7 @@ function RenderMenuItem<T>({
           {item.children?.map((child) => (
             <RenderMenuItem 
               key={child.id} 
-              item={child as ListItem<T>} // Recursive call handles generics properly
+              item={child as ListItem<T>} 
               actives={actives}
               namespace={namespace}
               keyPrefix={keyPrefix}
@@ -82,7 +99,7 @@ function RenderMenuItem<T>({
       leftSection={item.icon}
       rightSection={item.trailingIcon}
       className={`${item.class || ''} ${isActive(item) ? 'highlighted-item' : ''}`.trim()}
-      onClick={() => onSelect?.(item)}
+      onClick={() => handleItemClick(item)}
     >
       <Caption namespace={namespace} keyPrefix={keyPrefix}>
         {item.label}

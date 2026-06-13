@@ -8,5 +8,6 @@ import profile from './svg/male-profile.svg';
 import settings from './svg/settings-gear.svg';
 import statistics from './svg/statistics-charts.svg';
 import disconnect from './svg/disconnect-knob.svg';
+import desktop from './svg/user-desktop.svg';
 
-export { logo, sun, moon, language, exit, profile, settings, statistics, disconnect };
+export { logo, sun, moon, language, exit, profile, settings, statistics, disconnect, desktop };

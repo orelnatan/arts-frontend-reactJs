@@ -4,6 +4,7 @@
     "page-not-found": "404 - OOppss...Page Not Found :("
   },
   "app-navbar": {
+    "user-menu.desktop-label": "Desktop",
     "user-menu.profile-label": "Profile",
     "user-menu.settings-label": "Settings",
     "user-menu.statistics-label": "Statistics",

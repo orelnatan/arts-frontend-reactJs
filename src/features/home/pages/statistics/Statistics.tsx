@@ -1,13 +1,13 @@
 import { PageLayout } from '@arts/libs/layout';
 
-import './Profile.scss';
+import './Statistics.scss';
 
-export default function Profile() {
+export default function Statistics() {
   
   return (
     <PageLayout>
       <div>
-        <h1>This is user Profile page</h1>
+        <h1>This is user Statistics page</h1>
       </div>
     </PageLayout>
   )
