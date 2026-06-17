@@ -4,6 +4,7 @@ import { Navigate } from 'react-router-dom';
 import { PageNotFound } from '@arts/core';
 import { authRoutes } from '@arts/features/auth';
 import { homeRoutes } from '@arts/features/home';
+import { artsRoutes } from '@arts/features/arts';
 
 export const appRoutes: RouteObject[] = [
   {
@@ -15,5 +16,6 @@ export const appRoutes: RouteObject[] = [
     element: <PageNotFound />
   },
   ...authRoutes,
-  ...homeRoutes
+  ...homeRoutes,
+  ...artsRoutes
 ];

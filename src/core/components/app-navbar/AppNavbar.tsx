@@ -67,10 +67,19 @@ export default function AppNavbar({ children }: AppNavbarProps) {
     navigate('/auth');
   }
 
+  const navigateArts = () => {
+    navigate('/arts');
+  }
+
   return (
     <div className='app-navbar-main'>
       <div className='app-navbar-logo'>
-        <img src={logo} alt="logo" width={38} />
+        <img 
+          src={logo} 
+          width={38} 
+          alt="logo"
+          onClick={navigateArts}
+          style={{ cursor: "pointer" }} />
       </div>
       
       <div className='app-navbar-content'>

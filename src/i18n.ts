@@ -15,7 +15,7 @@ i18n
     lng: Locale.En, // Default language
     
     // Define all your namespaces (your domains)
-    ns: ['auth', 'home', 'core', 'shared'],
+    ns: ['auth', 'home', 'core', 'shared', 'arts'],
     defaultNS: 'shared', // Fallback namespace if none is specified
     backend: {
       // Path to your translation files

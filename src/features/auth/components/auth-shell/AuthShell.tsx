@@ -4,8 +4,6 @@ import { ShellLayout } from '@arts/libs/layout';
 
 import { AuthHeader } from '../auth-header';
 
-import './AuthShell.scss'
-
 export default function AuthShell() {
   return (
     <ShellLayout

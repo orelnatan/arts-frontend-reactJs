@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { AppNavbar } from '@arts/core';
 import { ShellLayout } from '@arts/libs/layout';
 
-export default function HomeShell() {
+export default function ArtsShell() {
   return (
     <ShellLayout
       navbar={<AppNavbar />}
