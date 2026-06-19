@@ -6,3 +6,4 @@ export * from './link-anchor';
 export * from './app-modal';
 export * from './caption';
 export * from './thumbnail';
+export * from './centered-content-shell';

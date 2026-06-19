@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, type ButtonVariant } from '@mantine/core';
 
 import './PrimaryButton.scss';
+import { SvgIcon } from '@arts/shared/components';
 
 interface PrimaryButtonProps {
   type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
@@ -10,6 +11,9 @@ interface PrimaryButtonProps {
   keyPrefix?: string;
   loading?: boolean;
   disabled?: boolean;
+  leftIcon?: string | null;
+  rightIcon?: string | null;
+  justify?: React.CSSProperties['justifyContent'];
   variant?: ButtonVariant;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
@@ -21,6 +25,9 @@ export default function PrimaryButton({
   keyPrefix,
   loading,
   disabled,
+  leftIcon = null,
+  rightIcon = null,
+  justify = 'space-between',
   variant = 'filled',
   onClick,
 }: PrimaryButtonProps) {
@@ -32,6 +39,9 @@ export default function PrimaryButton({
         variant={variant}
         loading={loading}
         disabled={disabled}
+        leftSection={leftIcon ? <SvgIcon icon={leftIcon} /> : null}
+        rightSection={rightIcon ? <SvgIcon icon={rightIcon} /> : null}
+        justify={justify}
         type={type}
         onClick={onClick}
       >

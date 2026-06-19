@@ -1,0 +1,17 @@
+
+.entity-card-main {
+  width: 275px;
+
+  .entity-card-header {
+    color: var(--color-entity-card-header-text);
+  }
+
+  .entity-card-description {
+    height: 100%;
+    color: var(--color-entity-card-description-text);
+  }
+
+  .entity-card-view-control {
+    margin-top: var(--spaces-4);
+  }
+}
