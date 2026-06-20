@@ -10,5 +10,6 @@ import statistics from './svg/statistics-charts.svg';
 import disconnect from './svg/disconnect-knob.svg';
 import desktop from './svg/user-desktop.svg';
 import eyeSee from './svg/eye-see.svg';
+import artPalette from './svg/art-palette.svg';
 
-export { logo, sun, moon, language, exit, profile, settings, statistics, disconnect, desktop, eyeSee };
+export { logo, sun, moon, language, exit, profile, settings, statistics, disconnect, desktop, eyeSee, artPalette };

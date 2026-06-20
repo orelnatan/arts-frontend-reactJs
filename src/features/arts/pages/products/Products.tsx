@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 import { PageLayout } from '@arts/libs/layout';
 import { errorAlert } from '@arts/libs/alerts';
@@ -28,6 +28,10 @@ export default function Products() {
     }
   }, [error]); 
 
+  const handleNaviagation = (productId: number) => {
+    navigate(`${productId}/product-view`)
+  }
+
   return (
     <PageLayout>
       <div className='products-page-main'>
@@ -40,7 +44,7 @@ export default function Products() {
         {loading && <p>Loading...</p>}
 
         <div className='products-list-container'>
-           <CenteredContentShell 
+          <CenteredContentShell 
               elementsWidthPx={275} 
               maxElementsPerRow={4} 
               gap={16}
@@ -49,10 +53,13 @@ export default function Products() {
                 <EntityCard 
                   key={product.id}
                   entity={product} 
+                  view={() => handleNaviagation(product.id)}
                 />
               ))}
             </CenteredContentShell>
         </div>
+
+        <Outlet />
       </div>
     </PageLayout>
   )

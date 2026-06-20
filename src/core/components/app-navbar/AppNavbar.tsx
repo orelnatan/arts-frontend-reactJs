@@ -1,9 +1,9 @@
 import { useState, type ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { matchPath, useLocation, useNavigate } from 'react-router-dom';
 import { useDisclosure } from '@mantine/hooks';
 
 import { Locale, LogoutModal, Theme, useAuthContext, useLocaleContext, useThemeContext, useUpdateLocale, useUpdateTheme } from '@arts/core';
-import { logo, moon, settings, sun } from '@arts/assets/images';
+import { artPalette, logo, moon, sun } from '@arts/assets/images';
 import { Caption, Spinner, SvgIcon } from '@arts/shared/components';
 import { errorAlert } from '@arts/libs/alerts';
 
@@ -25,15 +25,15 @@ interface AppNavbarProps {
 export default function AppNavbar({ children }: AppNavbarProps) {
   const [isThemeLoading, setIsThemeLoading] = useState(false);
   const [isLocaleLoading, setIsLocaleLoading] = useState(false);
-  
+  const { triggerUpdate: triggerUpdateLocale } = useUpdateLocale();
+  const { triggerUpdate: triggerUpdateTheme } = useUpdateTheme();
   const [opened, { open, close }] = useDisclosure(false);
   const { user, disconnect } = useAuthContext();
   const { theme, setTheme } = useThemeContext();
   const { locale, setLocale } = useLocaleContext();
-  const { triggerUpdate: triggerUpdateLocale } = useUpdateLocale();
-  const { triggerUpdate: triggerUpdateTheme } = useUpdateTheme();
+  const location = useLocation();
   const navigate = useNavigate();
-
+   
   const handleThemeChange = async (theme: Theme): Promise<void> => {
     setIsThemeLoading(true);
 
@@ -71,6 +71,11 @@ export default function AppNavbar({ children }: AppNavbarProps) {
     navigate('/arts');
   }
 
+  const isArtsModuleActive = (): boolean => {
+    return !!matchPath(
+      { path: "/arts", end: false }, location.pathname);
+  };
+
   return (
     <div className='app-navbar-main'>
       <div className='app-navbar-logo'>
@@ -78,8 +83,7 @@ export default function AppNavbar({ children }: AppNavbarProps) {
           src={logo} 
           width={38} 
           alt="logo"
-          onClick={navigateArts}
-          style={{ cursor: "pointer" }} />
+        />
       </div>
       
       <div className='app-navbar-content'>
@@ -87,10 +91,13 @@ export default function AppNavbar({ children }: AppNavbarProps) {
       </div>
 
       <div className='app-navbar-system-controls'>
-        <div className='control-system-settings font-size-20'>
+        <div className='control-system-arts font-size-20' style={{
+          color: isArtsModuleActive() ? 'var(--color-app-navbar-arts-active)' : ''
+        }}>
           <SvgIcon 
-            icon={settings}
+            icon={artPalette}
             style={{ cursor: "pointer" }}
+            onClick={navigateArts}
           />
         </div>
 

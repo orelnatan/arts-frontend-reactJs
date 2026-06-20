@@ -3,7 +3,6 @@ import { PageLayout } from '@arts/libs/layout';
 import './Statistics.scss';
 
 export default function Statistics() {
-  
   return (
     <PageLayout>
       <div>

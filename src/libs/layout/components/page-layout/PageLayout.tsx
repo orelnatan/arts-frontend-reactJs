@@ -6,11 +6,14 @@ type PageLayoutProps = PropsWithChildren & {
   header?: ReactNode;
   sidebar?: ReactNode;
   footer?: ReactNode;
+  noPadding?: boolean;
 };
 
-export default function PageLayout({ children }: PageLayoutProps) {
+export default function PageLayout({ children, noPadding }: PageLayoutProps) {
   return (
-    <div className="page-layout-main">
+    <div className="page-layout-main" style={{
+      padding: noPadding ? 0 : 'auto'
+    }}>
       {children}
     </div>
   );
