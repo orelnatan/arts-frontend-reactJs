@@ -1,28 +1,17 @@
-import { useState, useCallback } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 import { fetchBrands } from '../api';
 import type { Brand } from '../models';
 
 export const useFetchBrands = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const { data, isLoading, error } = useQuery<Brand[], Error>({
+    queryKey: ['brands'], 
+    queryFn: fetchBrands, 
+  });
 
-  const triggerFetch = useCallback(async (): Promise<Brand[]> => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      const data = await fetchBrands();
-
-      return data;
-    } catch (err: unknown) {
-      setError(String(err));
-
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  return { triggerFetch, loading, error };
+  return { 
+    brands: data ?? [], 
+    loading: isLoading, 
+    error: error ? error.message : null 
+  };
 };

@@ -3,6 +3,7 @@
     "page-not-found": "404 - אופס... העמוד לא נמצא :("
   },
   "app-navbar": {
+    "user-menu.desktop-label": "שולחן עבודה",
     "user-menu.profile-label": "פרופיל",
     "user-menu.settings-label": "הגדרות",
     "user-menu.statistics-label": "סטטיסטיקה",
