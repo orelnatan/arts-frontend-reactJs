@@ -7,7 +7,8 @@ export default function HomeShell() {
   return (
     <ShellLayout
       navbar={<AppNavbar />}
-      navbarWidth={65}
+      navbarOpenedWidth={65}
+      navbarOpen={true}
     >
       <Outlet />
     </ShellLayout>
