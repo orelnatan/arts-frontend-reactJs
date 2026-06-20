@@ -45,9 +45,13 @@ export default function CenteredContentShell({
     return { innerLayerMaxWidth: maxWidth, rowCapacity: capacity };
   }, [shellWidth, elementsWidthPx, gap, maxElementsPerRow]);
 
-  // 3. Dynamic layout alignment based on item count vs capacity
+  // 3. Dynamic layout alignment based on item count vs capacity & limits
   const totalItems = React.Children.count(children);
-  const justifyContent = totalItems >= rowCapacity ? 'flex-start' : 'center';
+  
+  // Align left if items fill the current row capacity OR if total items are fewer than the max allowance.
+  const justifyContent = (totalItems >= rowCapacity || totalItems < maxElementsPerRow) 
+    ? 'flex-start' 
+    : 'center';
 
   return (
     <div className='centered-content-shell-main' ref={shellRef}>

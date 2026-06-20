@@ -8,6 +8,14 @@
     "header": "Categories",
     "fetch-categories-failed": "Categories Fetch Failed"
   },
+  "families-page": {
+    "header": "Families",
+    "fetch-families-failed": "Families Fetch Failed"
+  },
+  "products-page": {
+    "header": "Products",
+    "fetch-products-failed": "Products Fetch Failed"
+  },
   "entity-card": {
     "view": "View"
   }

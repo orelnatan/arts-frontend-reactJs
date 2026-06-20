@@ -8,6 +8,14 @@
     "header": "קטגוריות",
     "fetch-categories-failed": "משיכת קטגוריות נכשלה"
   },
+   "families-page": {
+    "header": "משפחות",
+    "fetch-families-failed": "משיכת משפחות נכשלה"
+  },
+  "products-page": {
+    "header": "מוצרים",
+    "fetch-products-failed": "משיכת מוצרים נכשלה"
+  },
   "entity-card": {
     "view": "צפייה"
   }
