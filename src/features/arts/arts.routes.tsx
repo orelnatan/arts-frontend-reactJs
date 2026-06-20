@@ -4,7 +4,7 @@ import type { RouteObject } from 'react-router-dom';
 import { AuthProtectedRoute } from '@arts/core';
 
 import { ArtsLazy } from './arts.lazy';
-import { Brands } from './pages';
+import { Brands, Categories } from './pages';
 
 export const artsRoutes: RouteObject[] = [
   {
@@ -22,6 +22,10 @@ export const artsRoutes: RouteObject[] = [
       {
         path: 'brands',
         element: <Brands />,
+      },
+      {
+        path: 'brands/:brandId/categories',
+        element: <Categories />,
       },
     ],
   },

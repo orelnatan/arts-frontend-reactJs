@@ -4,6 +4,10 @@
     "header": "ALL OUR TOP BRANDS",
     "fetch-brands-failed": "Brands Fetch Failed"
   },
+  "categories-page": {
+    "header": "Categories",
+    "fetch-categories-failed": "Categories Fetch Failed"
+  },
   "entity-card": {
     "view": "View"
   }

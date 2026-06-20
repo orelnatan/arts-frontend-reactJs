@@ -1,4 +1,5 @@
 import { useEffect } from 'react'; 
+import { useNavigate } from 'react-router-dom';
 
 import { PageLayout } from '@arts/libs/layout';
 import { errorAlert } from '@arts/libs/alerts';
@@ -11,6 +12,7 @@ import './Brands.scss';
 
 export default function Brands() {  
   const { brands, loading, error } = useFetchBrands();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (error) {
@@ -25,6 +27,10 @@ export default function Brands() {
     }
   }, [error]); 
 
+  const handleNaviagation = (brandId: number) => {
+    navigate(`${brandId}/categories`)
+  }
+
   return (
     <PageLayout>
       <div className='brands-page-main'>
@@ -34,7 +40,7 @@ export default function Brands() {
           </Caption>
         </h1>
 
-        {loading && <p>Loading brands...</p>}
+        {loading && <p>Loading...</p>}
 
         <div className='brands-list-container'>
           <CenteredContentShell 
@@ -46,6 +52,7 @@ export default function Brands() {
               <EntityCard 
                 key={brand.id}
                 entity={brand} 
+                view={() => handleNaviagation(brand.id)}
               />
             ))}
           </CenteredContentShell>

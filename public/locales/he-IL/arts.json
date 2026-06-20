@@ -4,6 +4,10 @@
     "header": "המותגים הטובים ביותר שלנו",
     "fetch-brands-failed": "משיכת מותגים נכשלה"
   },
+  "categories-page": {
+    "header": "קטגוריות",
+    "fetch-categories-failed": "משיכת קטגוריות נכשלה"
+  },
   "entity-card": {
     "view": "צפייה"
   }

@@ -9,9 +9,10 @@ import './EntityCard.scss';
 
 interface EntityCardProps {
   entity: Entity;
+  view?: () => void;
 }
 
-export default function EntityCard({ entity }: EntityCardProps) {  
+export default function EntityCard({ entity, view }: EntityCardProps) {  
   return (
     <div className='entity-card-main'>
       <Card shadow="sm" padding="md" withBorder>
@@ -39,6 +40,7 @@ export default function EntityCard({ entity }: EntityCardProps) {
             keyPrefix='entity-card'
             label='view'
             rightIcon={eyeSee}
+            onClick={view}
           />
         </div>
       </Card>
