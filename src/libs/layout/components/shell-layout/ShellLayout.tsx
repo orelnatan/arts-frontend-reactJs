@@ -8,15 +8,16 @@ interface ShellLayoutProps {
   navbar?: ReactNode;
   aside?: ReactNode;
   footer?: ReactNode;
-  headerOpenedHeight?: number; // Height when header is OPEN
-  headerClosedHeight?: number; // Height when header is CLOSED
-  headerOpen?: boolean;         // Controls header state
-  navbarOpenedWidth?: number;  // Width when navbar is OPEN
-  navbarClosedWidth?: number;  // Width when navbar is CLOSED
-  navbarOpen?: boolean;         // Controls navbar state
-  asideOpenedWidth?: number;   // Width when aside is OPEN
-  asideClosedWidth?: number;   // Width when aside is CLOSED
-  asideOpen?: boolean;         // Controls aside state
+  headerOpenedHeight?: number; 
+  headerClosedHeight?: number; 
+  headerOpen?: boolean;        
+  navbarOpenedWidth?: number;  
+  navbarClosedWidth?: number;  
+  navbarOpen?: boolean;        
+  asideOpenedWidth?: number;   
+  asideClosedWidth?: number;   
+  asideOpen?: boolean;       
+  footerHeight?: number;
 }
 
 export default function ShellLayout({ 
@@ -34,6 +35,7 @@ export default function ShellLayout({
   asideOpenedWidth = 0,
   asideClosedWidth = 0,
   asideOpen = false,
+  footerHeight = 0
 }: ShellLayoutProps) {  
 
   // Calculate dynamic dimensions based on open/closed states
@@ -58,7 +60,7 @@ export default function ShellLayout({
       }}
       transitionDuration={300}
       transitionTimingFunction="ease"
-      footer={{ height: footer ? 60 : 0 }}
+      footer={{ height: footer ? footerHeight : 0 }}
     >
       <AppShell.Header
         style={{

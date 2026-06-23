@@ -6,7 +6,7 @@ import { errorAlert } from '@arts/libs/alerts';
 import { Caption, CenteredContentShell } from '@arts/shared/components';
 
 import { useFetchProducts } from '../../hooks';
-import { EntityCard } from '../../components';
+import { ArtsHeader, EntityCard } from '../../components';
 
 import './Products.scss';
 
@@ -33,14 +33,13 @@ export default function Products() {
   }
 
   return (
-    <PageLayout>
+    <PageLayout header={
+      <ArtsHeader
+        keyPrefix='products-page'
+        title='header' /> 
+      }
+    >
       <div className='products-page-main'>
-        <h1 className='assistant-bold'>
-          <Caption namespace='arts' keyPrefix='products-page'>
-            header
-          </Caption>
-        </h1>
-
         {loading && <p>Loading...</p>}
 
         <div className='products-list-container'>

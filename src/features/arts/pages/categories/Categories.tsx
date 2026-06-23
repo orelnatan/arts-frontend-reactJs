@@ -6,7 +6,7 @@ import { errorAlert } from '@arts/libs/alerts';
 import { Caption, CenteredContentShell } from '@arts/shared/components';
 
 import { useFetchCategories } from '../../hooks';
-import { EntityCard } from '../../components';
+import { ArtsHeader, EntityCard } from '../../components';
 
 import './Categories.scss';
 
@@ -33,14 +33,13 @@ export default function Categories() {
   }
 
   return (
-    <PageLayout>
+    <PageLayout header={
+      <ArtsHeader
+        keyPrefix='categories-page'
+        title='header' /> 
+      }
+    >
       <div className='categories-page-main'>
-        <h1 className='assistant-bold'>
-          <Caption namespace='arts' keyPrefix='categories-page'>
-            header
-          </Caption>
-        </h1>
-
         {loading && <p>Loading...</p>}
 
         <div className='categories-list-container'>

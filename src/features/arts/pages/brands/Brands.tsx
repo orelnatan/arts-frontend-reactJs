@@ -6,7 +6,7 @@ import { errorAlert } from '@arts/libs/alerts';
 import { Caption, CenteredContentShell } from '@arts/shared/components';
 
 import { useFetchBrands } from '../../hooks';
-import { EntityCard } from '../../components';
+import { ArtsHeader, EntityCard } from '../../components';
 
 import './Brands.scss';
 
@@ -32,14 +32,13 @@ export default function Brands() {
   }
 
   return (
-    <PageLayout>
+    <PageLayout header={
+      <ArtsHeader
+        keyPrefix='brands-page'
+        title='header' /> 
+      }
+    >
       <div className='brands-page-main'>
-        <h1 className='assistant-bold'>
-          <Caption namespace='arts' keyPrefix='brands-page'>
-            header
-          </Caption>
-        </h1>
-
         {loading && <p>Loading...</p>}
 
         <div className='brands-list-container'>

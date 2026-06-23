@@ -6,7 +6,7 @@ import { errorAlert } from '@arts/libs/alerts';
 import { Caption, CenteredContentShell } from '@arts/shared/components';
 
 import { useFetchFamilies } from '../../hooks';
-import { EntityCard } from '../../components';
+import { ArtsHeader, EntityCard } from '../../components';
 
 import './Families.scss';
 
@@ -33,14 +33,13 @@ export default function Families() {
   }
 
   return (
-    <PageLayout>
+   <PageLayout header={
+      <ArtsHeader
+        keyPrefix='families-page'
+        title='header' /> 
+      }
+    >
       <div className='families-page-main'>
-        <h1 className='assistant-bold'>
-          <Caption namespace='arts' keyPrefix='families-page'>
-            header
-          </Caption>
-        </h1>
-
         {loading && <p>Loading...</p>}
 
         <div className='families-list-container'>

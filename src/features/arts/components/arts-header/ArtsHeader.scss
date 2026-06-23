@@ -1,0 +1,12 @@
+
+.arts-header-main {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--spaces-3) var(--spaces-10);
+    
+  h2 {
+    font-style: italic;
+    color: var(--color-arts-header-title-text);
+  }
+}
