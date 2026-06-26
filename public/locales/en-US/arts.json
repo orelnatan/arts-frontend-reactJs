@@ -1,5 +1,6 @@
 
 {
+  "search": "Search...",
   "brands-page": {
     "header": "ALL OUR TOP BRANDS",
     "fetch-brands-failed": "Brands Fetch Failed"

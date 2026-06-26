@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { PageLayout } from '@arts/libs/layout';
@@ -6,6 +6,7 @@ import { errorAlert } from '@arts/libs/alerts';
 import { Caption, CenteredContentShell } from '@arts/shared/components';
 
 import { useFetchCategories } from '../../hooks';
+import { filterEntities } from '../../utils';
 import { ArtsHeader, EntityCard } from '../../components';
 
 import './Categories.scss';
@@ -13,8 +14,13 @@ import './Categories.scss';
 export default function Categories() {  
   const { brandId } = useParams();
   const { categories, loading, error } = useFetchCategories(Number(brandId));
+  const [keyword, setKeyword] = useState(''); 
   const navigate = useNavigate();
  
+  const filteredCategories = useMemo(() => {
+    return filterEntities(categories, keyword)
+  }, [categories, keyword])
+
   useEffect(() => {
     if (error) {
       errorAlert({ 
@@ -35,8 +41,10 @@ export default function Categories() {
   return (
     <PageLayout header={
       <ArtsHeader
+        key="categories-header"
         keyPrefix='categories-page'
-        title='header' /> 
+        title='header'
+        search={setKeyword} /> 
       }
     >
       <div className='categories-page-main'>
@@ -48,10 +56,11 @@ export default function Categories() {
               maxElementsPerRow={4} 
               gap={16}
             >
-              {categories.map(category => (
+              {filteredCategories.map(category => (
                 <EntityCard 
                   key={category.id}
                   entity={category} 
+                  highlightQuery={keyword}
                   view={() => handleNaviagation(category.id)}
                 />
               ))}

@@ -1,5 +1,6 @@
 
 {
+  "search": "חפש...",
   "brands-page": {
     "header": "המותגים הטובים ביותר שלנו",
     "fetch-brands-failed": "משיכת מותגים נכשלה"

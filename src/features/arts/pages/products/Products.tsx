@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 import { PageLayout } from '@arts/libs/layout';
@@ -6,6 +6,7 @@ import { errorAlert } from '@arts/libs/alerts';
 import { Caption, CenteredContentShell } from '@arts/shared/components';
 
 import { useFetchProducts } from '../../hooks';
+import { filterEntities } from '../../utils';
 import { ArtsHeader, EntityCard } from '../../components';
 
 import './Products.scss';
@@ -13,8 +14,13 @@ import './Products.scss';
 export default function Products() {  
   const { familyId } = useParams();
   const { products, loading, error } = useFetchProducts(Number(familyId));
+  const [keyword, setKeyword] = useState(''); 
   const navigate = useNavigate();
  
+  const filteredProducts = useMemo(() => {
+    return filterEntities(products, keyword)
+  }, [products, keyword])
+
   useEffect(() => {
     if (error) {
       errorAlert({ 
@@ -35,8 +41,10 @@ export default function Products() {
   return (
     <PageLayout header={
       <ArtsHeader
+        key='products-header'
         keyPrefix='products-page'
-        title='header' /> 
+        title='header'
+        search={setKeyword} /> 
       }
     >
       <div className='products-page-main'>
@@ -48,10 +56,11 @@ export default function Products() {
               maxElementsPerRow={4} 
               gap={16}
             >
-              {products.map(product => (
+              {filteredProducts.map(product => (
                 <EntityCard 
                   key={product.id}
                   entity={product} 
+                  highlightQuery={keyword}
                   view={() => handleNaviagation(product.id)}
                 />
               ))}

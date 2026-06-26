@@ -6,13 +6,19 @@ import { eyeSee } from '@arts/assets/images';
 import type { Entity } from '../../models';
 
 import './EntityCard.scss';
+import { highlightText } from '@arts/shared/utils';
 
 interface EntityCardProps {
   entity: Entity;
+  highlightQuery?: string; 
   view?: () => void;
 }
 
-export default function EntityCard({ entity, view }: EntityCardProps) {  
+export default function EntityCard({ 
+  entity,
+  highlightQuery = '',
+  view
+}: EntityCardProps) {  
   return (
     <div className='entity-card-main'>
       <Card shadow="sm" padding="md" withBorder>
@@ -25,7 +31,8 @@ export default function EntityCard({ entity, view }: EntityCardProps) {
         </Card.Section>
 
         <Group mt="md" mb="xs">
-          <h3 className='entity-card-header assistant-bold'>{entity.name}</h3>
+          <h3 className='entity-card-header assistant-bold' dangerouslySetInnerHTML={
+            { __html: highlightText(entity.name, highlightQuery) }} />
         </Group>
 
         <div className='entity-card-description font-size-12'>

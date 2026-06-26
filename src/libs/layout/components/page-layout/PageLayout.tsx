@@ -15,7 +15,6 @@ export default function PageLayout({
   children,
   header = null,
   headerHeight = 0,
-  
   noPadding
 }: PageLayoutProps) {
   const context = useOutletContext<ShellLayoutContext>();

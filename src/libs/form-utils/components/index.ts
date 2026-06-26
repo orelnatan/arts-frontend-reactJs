@@ -5,3 +5,4 @@ export * from './input-text';
 export * from './input-password';
 export * from './primary-button';
 export * from './input-checkbox';
+export * from './input-search';

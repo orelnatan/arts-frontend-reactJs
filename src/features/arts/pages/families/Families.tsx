@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { PageLayout } from '@arts/libs/layout';
@@ -6,6 +6,7 @@ import { errorAlert } from '@arts/libs/alerts';
 import { Caption, CenteredContentShell } from '@arts/shared/components';
 
 import { useFetchFamilies } from '../../hooks';
+import { filterEntities } from '../../utils';
 import { ArtsHeader, EntityCard } from '../../components';
 
 import './Families.scss';
@@ -13,8 +14,13 @@ import './Families.scss';
 export default function Families() {  
   const { categoryId } = useParams();
   const { families, loading, error } = useFetchFamilies(Number(categoryId));
+  const [keyword, setKeyword] = useState(''); 
   const navigate = useNavigate();
  
+  const filteredFamilies = useMemo(() => {
+    return filterEntities(families, keyword)
+  }, [families, keyword])
+
   useEffect(() => {
     if (error) {
       errorAlert({ 
@@ -35,8 +41,10 @@ export default function Families() {
   return (
    <PageLayout header={
       <ArtsHeader
+        key='families-header'
         keyPrefix='families-page'
-        title='header' /> 
+        title='header'
+        search={setKeyword} /> 
       }
     >
       <div className='families-page-main'>
@@ -48,10 +56,11 @@ export default function Families() {
               maxElementsPerRow={4} 
               gap={16}
             >
-              {families.map(family => (
+              {filteredFamilies.map(family => (
                 <EntityCard 
                   key={family.id}
                   entity={family} 
+                  highlightQuery={keyword}
                   view={() => handleNaviagation(family.id)}
                 />
               ))}

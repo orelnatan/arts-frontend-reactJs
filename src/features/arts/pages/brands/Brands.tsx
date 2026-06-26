@@ -1,4 +1,4 @@
-import { useEffect } from 'react'; 
+import { useEffect, useMemo, useState } from 'react'; 
 import { useNavigate } from 'react-router-dom';
 
 import { PageLayout } from '@arts/libs/layout';
@@ -6,13 +6,19 @@ import { errorAlert } from '@arts/libs/alerts';
 import { Caption, CenteredContentShell } from '@arts/shared/components';
 
 import { useFetchBrands } from '../../hooks';
+import { filterEntities } from '../../utils';
 import { ArtsHeader, EntityCard } from '../../components';
 
 import './Brands.scss';
 
 export default function Brands() {  
   const { brands, loading, error } = useFetchBrands();
+  const [keyword, setKeyword] = useState(''); 
   const navigate = useNavigate();
+
+   const filteredBrands = useMemo(() => {
+    return filterEntities(brands, keyword);
+  }, [brands, keyword]);
 
   useEffect(() => {
     if (error) {
@@ -34,8 +40,10 @@ export default function Brands() {
   return (
     <PageLayout header={
       <ArtsHeader
+        key="brands-header"
         keyPrefix='brands-page'
-        title='header' /> 
+        title='header'
+        search={setKeyword} /> 
       }
     >
       <div className='brands-page-main'>
@@ -47,10 +55,11 @@ export default function Brands() {
             maxElementsPerRow={4} 
             gap={16}
           >
-            {brands.map(brand => (
+            {filteredBrands.map(brand => (
               <EntityCard 
                 key={brand.id}
                 entity={brand} 
+                highlightQuery={keyword}
                 view={() => handleNaviagation(brand.id)}
               />
             ))}

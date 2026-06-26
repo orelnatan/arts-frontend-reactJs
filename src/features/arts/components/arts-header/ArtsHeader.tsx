@@ -2,6 +2,7 @@ import { Theme, useThemeContext } from '@arts/core';
 import { Caption } from '@arts/shared/components';
 
 import './ArtsHeader.scss';
+import { InputSearch } from '@arts/libs/form-utils';
 
 const THEME_TO_BACKGROUND: Record<Theme, string> = {
   [Theme.Hyperion]: 'ice-blue-milky-glass',
@@ -11,9 +12,10 @@ const THEME_TO_BACKGROUND: Record<Theme, string> = {
 interface ArtsHeaderProps {
   title?: string;
   keyPrefix?: string;
+  search?: (value: string) => void;
 }
 
-export default function ArtsHeader({ keyPrefix, title }: ArtsHeaderProps) {
+export default function ArtsHeader({ keyPrefix, title, search }: ArtsHeaderProps) {
   const { theme } = useThemeContext();
 
   return (
@@ -23,6 +25,13 @@ export default function ArtsHeader({ keyPrefix, title }: ArtsHeaderProps) {
           {title}
         </Caption>
       </h2>
+
+      <InputSearch
+        debounceMs={700}
+        placeholder='search'
+        namespace='arts'
+        onChange={search}
+      />
     </div>
   )
 }
