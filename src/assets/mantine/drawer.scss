@@ -1,0 +1,19 @@
+
+.mantine-Drawer-root {
+  .mantine-Drawer-header {
+    background: var(--color-app-drawer-bg);
+  }
+
+  .mantine-Drawer-body {
+    height: 100%;
+    padding: 0;
+  }
+
+  .mantine-Drawer-content {
+    background: var(--color-app-drawer-bg);
+  }
+
+  .mantine-Drawer-title {
+    font-family: 'assistant-bold';
+  }
+}

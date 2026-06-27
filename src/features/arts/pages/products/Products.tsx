@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { PageLayout } from '@arts/libs/layout';
 import { errorAlert } from '@arts/libs/alerts';
@@ -7,7 +7,7 @@ import { Caption, CenteredContentShell } from '@arts/shared/components';
 
 import { useFetchProducts } from '../../hooks';
 import { filterEntities } from '../../utils';
-import { ArtsHeader, EntityCard } from '../../components';
+import { ArtsHeader, EntityCard, ProductViewDrawer } from '../../components';
 
 import './Products.scss';
 
@@ -67,7 +67,7 @@ export default function Products() {
             </CenteredContentShell>
         </div>
 
-        <Outlet />
+        <ProductViewDrawer />
       </div>
     </PageLayout>
   )

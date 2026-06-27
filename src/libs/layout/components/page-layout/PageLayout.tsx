@@ -9,13 +9,15 @@ type PageLayoutProps = PropsWithChildren & {
   header?: ReactNode;
   headerHeight?: number;
   noPadding?: boolean;
+  fullHeight?: boolean;
 };
 
 export default function PageLayout({ 
   children,
   header = null,
   headerHeight = 0,
-  noPadding
+  noPadding,
+  fullHeight
 }: PageLayoutProps) {
   const context = useOutletContext<ShellLayoutContext>();
   
@@ -35,7 +37,8 @@ export default function PageLayout({
 
   return (
     <div className="page-layout-main" style={{
-      padding: noPadding ? 0 : 'auto'
+      padding: noPadding ? 0 : 'auto',
+      height: fullHeight ? 'var(--full-host-height)' : 'auto'
     }}>
       {children}
     </div>
