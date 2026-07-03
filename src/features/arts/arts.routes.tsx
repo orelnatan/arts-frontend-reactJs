@@ -36,6 +36,12 @@ export const artsRoutes: RouteObject[] = [
         element: <Products />,
         children: [
           {
+            // Fallback route: Keeps ProductView mounted so cached data can render during the close animation
+            path: '',
+            element: <ProductView />,
+          },
+          {
+            // Active route: Mounts ProductView normally when a specific product is opened in the drawer
             path: ':productId/product-view',
             element: <ProductView />,
           },

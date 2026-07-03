@@ -1,7 +1,7 @@
 import { useEffect, type PropsWithChildren, type ReactNode } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
-import type { ShellLayoutContext } from '../../models';
+import type { ShellOutletContext } from '../../models';
 
 import './PageLayout.scss';
 
@@ -19,7 +19,7 @@ export default function PageLayout({
   noPadding,
   fullHeight
 }: PageLayoutProps) {
-  const context = useOutletContext<ShellLayoutContext>();
+  const context = useOutletContext<ShellOutletContext>();
   
   useEffect(() => {
     if (context) {

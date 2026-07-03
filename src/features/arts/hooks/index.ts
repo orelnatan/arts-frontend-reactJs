@@ -3,3 +3,4 @@ export * from './use-fetch-brands.hook';
 export * from './use-fetch-categories.hook';
 export * from './use-fetch-families.hook';
 export * from './use-fetch-products.hook';
+export * from './use-fetch-product.hook';

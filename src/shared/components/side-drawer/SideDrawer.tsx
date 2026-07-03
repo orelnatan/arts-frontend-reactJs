@@ -39,7 +39,7 @@ export default function SideDrawer({
       position="right"
       transitionProps={{
         transition: POSITION_TO_TRANSITION[DIRECTION_TO_POSITION[direction]],
-        duration: 300,
+        duration: 300
       }}
       overlayProps={{
         backgroundOpacity: 0.55,

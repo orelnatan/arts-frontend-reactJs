@@ -17,6 +17,9 @@
     "header": "מוצרים",
     "fetch-products-failed": "משיכת מוצרים נכשלה"
   },
+  "product-view-page": {
+    "fetch-product-failed": "משיכת המוצר נכשלה"
+  },
   "entity-card": {
     "view": "צפייה"
   }

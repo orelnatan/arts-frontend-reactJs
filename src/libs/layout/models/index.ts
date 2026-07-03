@@ -1,2 +1,2 @@
 
-export * from './shell-context.interface';
+export * from './shell-outlet-context.interface';

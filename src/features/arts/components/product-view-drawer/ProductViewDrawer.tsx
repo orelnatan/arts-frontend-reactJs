@@ -12,18 +12,18 @@ export default function ProductViewDrawer() {
   };
 
   const handleClose = () => {
-    navigate(-1); 
+    navigate('../products', { relative: 'path' });
   };
 
   return (
     <SideDrawer 
       opened={isProductViewActive()} 
       onClose={handleClose} 
-      offset={'var(--spaces-5)'}
+      offset={'var(--spaces-4)'}
       radius={'var(--corner-radius-14)'}
       withOverlay={false}
     >
-      <Outlet />
+      <Outlet context={{ handleClose }} />
     </SideDrawer>
   );
 }

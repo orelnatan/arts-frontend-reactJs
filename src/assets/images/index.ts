@@ -12,5 +12,6 @@ import desktop from './svg/user-desktop.svg';
 import eyeSee from './svg/eye-see.svg';
 import artPalette from './svg/art-palette.svg';
 import magnifyingGlass from './svg/magnifying-glass.svg';
+import cancelCircle from './svg/cancel-circle-close.svg';
 
-export { logo, sun, moon, language, exit, profile, settings, statistics, disconnect, desktop, eyeSee, artPalette, magnifyingGlass };
+export { logo, sun, moon, language, exit, profile, settings, statistics, disconnect, desktop, eyeSee, artPalette, magnifyingGlass, cancelCircle };
