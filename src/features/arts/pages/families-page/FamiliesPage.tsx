@@ -12,7 +12,7 @@ import { ArtsHeader, EntityCard } from '../../components';
 import './FamiliesPage.scss';
 
 export default function FamiliesPage() {  
-  const { categoryId } = useParams();
+  const { brandId, categoryId } = useParams();
   const { families, loading, error } = useFetchFamilies(Number(categoryId));
   const [keyword, setKeyword] = useState(''); 
   const navigate = useNavigate();
@@ -34,8 +34,12 @@ export default function FamiliesPage() {
     }
   }, [error]); 
 
-  const handleNaviagation = (familyId: number) => {
+  const showProducts = (familyId: number) => {
     navigate(`${familyId}/products`)
+  }
+
+  const redirectBack = () => {
+    navigate(`/arts/brands/${brandId}/categories`);
   }
 
   return (
@@ -44,7 +48,9 @@ export default function FamiliesPage() {
         key='families-header'
         keyPrefix='families-page'
         title='header'
-        search={setKeyword} /> 
+        search={setKeyword}
+        redirect={redirectBack}
+        withRedirectArrow /> 
       }
     >
       <div className='families-page-main'>
@@ -61,7 +67,7 @@ export default function FamiliesPage() {
                   key={family.id}
                   entity={family} 
                   highlightQuery={keyword}
-                  view={() => handleNaviagation(family.id)}
+                  view={() => showProducts(family.id)}
                 />
               ))}
             </CenteredContentShell>

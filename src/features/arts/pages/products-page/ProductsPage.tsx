@@ -12,7 +12,7 @@ import { ArtsHeader, EntityCard, ProductViewDrawer } from '../../components';
 import './ProductsPage.scss';
 
 export default function ProductsPage() {  
-  const { familyId } = useParams();
+  const { brandId, categoryId, familyId } = useParams();
   const { products, loading, error } = useFetchProducts(Number(familyId));
   const [keyword, setKeyword] = useState(''); 
   const navigate = useNavigate();
@@ -34,8 +34,12 @@ export default function ProductsPage() {
     }
   }, [error]); 
 
-  const handleNaviagation = (productId: number) => {
+  const showProduct = (productId: number) => {
     navigate(`${productId}/product-view`)
+  }
+
+  const redirectBack = () => {
+    navigate(`/arts/brands/${brandId}/categories/${categoryId}/families`);
   }
 
   return (
@@ -44,7 +48,9 @@ export default function ProductsPage() {
         key='products-header'
         keyPrefix='products-page'
         title='header'
-        search={setKeyword} /> 
+        search={setKeyword}
+        redirect={redirectBack}
+        withRedirectArrow /> 
       }
     >
       <div className='products-page-main'>
@@ -61,7 +67,7 @@ export default function ProductsPage() {
                   key={product.id}
                   entity={product} 
                   highlightQuery={keyword}
-                  view={() => handleNaviagation(product.id)}
+                  view={() => showProduct(product.id)}
                 />
               ))}
             </CenteredContentShell>

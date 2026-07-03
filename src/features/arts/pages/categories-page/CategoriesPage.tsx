@@ -34,8 +34,12 @@ export default function CategoriesPage() {
     }
   }, [error]); 
 
-  const handleNaviagation = (categoryId: number) => {
+  const showFamilies = (categoryId: number) => {
     navigate(`${categoryId}/families`)
+  }
+
+  const redirectBack = () => {
+    navigate(`/arts/brands`);
   }
 
   return (
@@ -44,7 +48,9 @@ export default function CategoriesPage() {
         key="categories-header"
         keyPrefix='categories-page'
         title='header'
-        search={setKeyword} /> 
+        search={setKeyword}
+        redirect={redirectBack}
+        withRedirectArrow /> 
       }
     >
       <div className='categories-page-main'>
@@ -61,7 +67,7 @@ export default function CategoriesPage() {
                   key={category.id}
                   entity={category} 
                   highlightQuery={keyword}
-                  view={() => handleNaviagation(category.id)}
+                  view={() => showFamilies(category.id)}
                 />
               ))}
             </CenteredContentShell>
