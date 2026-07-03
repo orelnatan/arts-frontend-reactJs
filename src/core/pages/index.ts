@@ -1,2 +1,2 @@
 
-export * from './page-not-found';
+export * from './not-found-page';

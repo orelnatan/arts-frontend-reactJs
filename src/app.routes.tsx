@@ -1,7 +1,7 @@
 import type { RouteObject } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 
-import { PageNotFound } from '@arts/core';
+import { NotFoundPage } from '@arts/core';
 import { authRoutes } from '@arts/features/auth';
 import { homeRoutes } from '@arts/features/home';
 import { artsRoutes } from '@arts/features/arts';
@@ -13,7 +13,7 @@ export const appRoutes: RouteObject[] = [
   },
   { 
     path: "*",
-    element: <PageNotFound />
+    element: <NotFoundPage />
   },
   ...authRoutes,
   ...homeRoutes,

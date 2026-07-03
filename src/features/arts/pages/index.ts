@@ -1,6 +1,6 @@
 
-export * from './brands';
-export * from './categories';
-export * from './families';
-export * from './products';
-export * from './product-view';
+export * from './brands-page';
+export * from './categories-page';
+export * from './families-page';
+export * from './products-page';
+export * from './product-view-page';

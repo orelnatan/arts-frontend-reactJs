@@ -4,7 +4,7 @@ import type { RouteObject } from 'react-router-dom';
 import { AuthProtectedRoute } from '@arts/core';
 
 import { ArtsLazy } from './arts.lazy';
-import { Brands, Categories, Families, Products, ProductView } from './pages';
+import { BrandsPage, CategoriesPage, FamiliesPage, ProductsPage, ProductViewPage } from './pages';
 
 export const artsRoutes: RouteObject[] = [
   {
@@ -21,29 +21,29 @@ export const artsRoutes: RouteObject[] = [
       },
       {
         path: 'brands',
-        element: <Brands />,
+        element: <BrandsPage />,
       },
       {
         path: 'brands/:brandId/categories',
-        element: <Categories />,
+        element: <CategoriesPage />,
       },
       {
         path: 'brands/:brandId/categories/:categoryId/families',
-        element: <Families />,
+        element: <FamiliesPage />,
       },
       {
         path: 'brands/:brandId/categories/:categoryId/families/:familyId/products',
-        element: <Products />,
+        element: <ProductsPage />,
         children: [
           {
-            // Fallback route: Keeps ProductView mounted so cached data can render during the close animation
+            // Fallback route: Keeps ProductViewPage mounted so cached data can render during the close animation
             path: '',
-            element: <ProductView />,
+            element: <ProductViewPage />,
           },
           {
-            // Active route: Mounts ProductView normally when a specific product is opened in the drawer
+            // Active route: Mounts ProductViewPage normally when a specific product is opened in the drawer
             path: ':productId/product-view',
-            element: <ProductView />,
+            element: <ProductViewPage />,
           },
         ]
       },

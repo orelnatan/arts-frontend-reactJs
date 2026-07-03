@@ -2,11 +2,11 @@ import { api } from "@arts/core";
 
 import type { Category } from "../models";
 
-interface ApiResponse {
+interface CategoriesResponse {
   success: boolean;
   data: Category[];
 }
 
 export const fetchCategories = async (brandId: number): Promise<Category[]> => {
-  return (await api.GET<ApiResponse>(`/get-categories-by-brand-id/${brandId}`)).data;
+  return (await api.GET<CategoriesResponse>(`/get-categories-by-brand-id/${brandId}`)).data;
 };

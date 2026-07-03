@@ -1,4 +1,4 @@
 
-export * from './desktop';
-export * from './profile';
-export * from './statistics';
+export * from './desktop-page';
+export * from './profile-page';
+export * from './statistics-page';

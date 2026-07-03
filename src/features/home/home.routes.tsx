@@ -4,7 +4,7 @@ import type { RouteObject } from 'react-router-dom';
 import { AuthProtectedRoute } from '@arts/core';
 
 import { HomeLazy } from './home.lazy';
-import { Desktop, Profile, Statistics } from './pages';
+import { DesktopPage, ProfilePage, StatisticsPage } from './pages';
 
 export const homeRoutes: RouteObject[] = [
   {
@@ -21,15 +21,15 @@ export const homeRoutes: RouteObject[] = [
       },
       {
         path: 'desktop',
-        element: <Desktop />,
+        element: <DesktopPage />,
       },
       {
         path: 'profile',
-        element: <Profile />,
+        element: <ProfilePage />,
       },
       {
         path: 'statistics',
-        element: <Statistics />,
+        element: <StatisticsPage />,
       },
     ],
   },
