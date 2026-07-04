@@ -2,13 +2,13 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 import { SideDrawer } from '@arts/shared/components'
 
-export default function ProductViewDrawer() {
+export default function ProductSpecDrawer() {
   const location = useLocation()
   const navigate = useNavigate()
 
-  const isProductViewActive = (): boolean => {
-    // Checks if the URL ends exactly with /products/[product-id]/product-view
-    return /\/products\/\d+\/product-view\/?$/.test(location.pathname)
+  const isProductSpecActive = (): boolean => {
+    // Matches .../products/[id]/product-spec exactly OR with nested sub-paths
+    return /\/products\/\d+\/product-spec(\/|$)/.test(location.pathname)
   }
 
   const handleClose = () => {
@@ -17,7 +17,7 @@ export default function ProductViewDrawer() {
 
   return (
     <SideDrawer
-      opened={isProductViewActive()}
+      opened={isProductSpecActive()}
       onClose={handleClose}
       offset={'var(--spaces-4)'}
       radius={'var(--corner-radius-14)'}

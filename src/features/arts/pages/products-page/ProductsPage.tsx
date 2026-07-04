@@ -7,7 +7,7 @@ import { Caption, CenteredContentShell } from '@arts/shared/components'
 
 import { useFetchProducts } from '../../hooks'
 import { filterEntities } from '../../utils'
-import { ArtsHeader, EntityCard, ProductViewDrawer } from '../../components'
+import { ArtsHeader, EntityCard, ProductSpecDrawer } from '../../components'
 
 import './ProductsPage.scss'
 
@@ -35,7 +35,7 @@ export default function ProductsPage() {
   }, [error])
 
   const showProduct = (productId: number) => {
-    navigate(`${productId}/product-view`)
+    navigate(`${productId}/product-spec`)
   }
 
   const redirectBack = () => {
@@ -75,10 +75,10 @@ export default function ProductsPage() {
               ))}
             </CenteredContentShell>
           </div>
-
-          <ProductViewDrawer />
         </div>
       </PageLayout>
+
+      <ProductSpecDrawer />
     </>
   )
 }

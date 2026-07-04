@@ -9,7 +9,7 @@ import {
   CategoriesPage,
   FamiliesPage,
   ProductsPage,
-  ProductViewPage,
+  productSpecPageRoutes,
 } from './pages'
 
 export const artsRoutes: RouteObject[] = [
@@ -40,18 +40,7 @@ export const artsRoutes: RouteObject[] = [
       {
         path: 'brands/:brandId/categories/:categoryId/families/:familyId/products',
         element: <ProductsPage />,
-        children: [
-          {
-            // Fallback route: Keeps ProductViewPage mounted so cached data can render during the close animation
-            path: '',
-            element: <ProductViewPage />,
-          },
-          {
-            // Active route: Mounts ProductViewPage normally when a specific product is opened in the drawer
-            path: ':productId/product-view',
-            element: <ProductViewPage />,
-          },
-        ],
+        children: [...productSpecPageRoutes],
       },
     ],
   },

@@ -16,7 +16,7 @@
     "header": "Products",
     "fetch-products-failed": "Products Fetch Failed"
   },
-  "product-view-page": {
+  "product-spec-page": {
     "fetch-product-failed": "This product fetch has been failed"
   },
   "entity-card": {

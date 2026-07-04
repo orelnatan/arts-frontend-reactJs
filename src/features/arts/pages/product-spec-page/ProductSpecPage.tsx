@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useOutletContext, useParams } from 'react-router-dom'
+import { Outlet, useOutletContext, useParams } from 'react-router-dom'
 
 import { Direction, useDirectionContext } from '@arts/core'
 import { PageLayout } from '@arts/libs/layout'
@@ -9,15 +9,12 @@ import { cancelCircle } from '@arts/assets/images'
 
 import { useFetchProduct } from '../../hooks'
 import type { Product } from '../../models'
+import type { ProductSpecOutletContext } from './product-spec-outlet-context.interface'
 
-import './ProductViewPage.scss'
+import './ProductSpecPage.scss'
 
-interface ProductViewOutletContext {
-  handleClose: () => void
-}
-
-export default function ProductViewPage() {
-  const context = useOutletContext<ProductViewOutletContext>()
+export default function ProductSpecPage() {
+  const context = useOutletContext<ProductSpecOutletContext>()
   const { direction } = useDirectionContext()
   const { familyId, productId } = useParams()
   const { product, error } = useFetchProduct(
@@ -36,7 +33,7 @@ export default function ProductViewPage() {
     if (error) {
       errorAlert({
         title: (
-          <Caption namespace="arts" keyPrefix="product-view-page">
+          <Caption namespace="arts" keyPrefix="product-spec-page">
             fetch-product-failed
           </Caption>
         ),
@@ -47,7 +44,7 @@ export default function ProductViewPage() {
 
   return (
     <PageLayout fullHeight noPadding>
-      <div className="product-view-page-main">
+      <div className="product-spec-page-main">
         <span
           className="close-circle-icon font-size-24"
           style={{
@@ -62,6 +59,14 @@ export default function ProductViewPage() {
         </span>
 
         <img src={productClone?.image} />
+
+        <Outlet
+          context={
+            {
+              product: productClone as Product,
+            } satisfies ProductSpecOutletContext
+          }
+        />
       </div>
     </PageLayout>
   )
