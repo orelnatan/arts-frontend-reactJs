@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { PageLayout } from '@arts/libs/layout';
+import { PageLayout, ShellHeader } from '@arts/libs/layout';
 import { errorAlert } from '@arts/libs/alerts';
 import { Caption, CenteredContentShell } from '@arts/shared/components';
 
@@ -43,36 +43,39 @@ export default function CategoriesPage() {
   }
 
   return (
-    <PageLayout header={
-      <ArtsHeader
-        key="categories-header"
-        keyPrefix='categories-page'
-        title='header'
-        search={setKeyword}
-        redirect={redirectBack}
-        withRedirectArrow /> 
-      }
-    >
-      <div className='categories-page-main'>
-        {loading && <p>Loading...</p>}
+    <>
+      <ShellHeader>
+        <ArtsHeader
+          key="categories-header"
+          keyPrefix='categories-page'
+          title='header'
+          search={setKeyword}
+          redirect={redirectBack}
+          withRedirectArrow /> 
+      </ShellHeader>
 
-        <div className='categories-list-container'>
-           <CenteredContentShell 
-              elementsWidthPx={275} 
-              maxElementsPerRow={4} 
-              gap={16}
-            >
-              {filteredCategories.map(category => (
-                <EntityCard 
-                  key={category.id}
-                  entity={category} 
-                  highlightQuery={keyword}
-                  view={() => showFamilies(category.id)}
-                />
-              ))}
-            </CenteredContentShell>
+      <PageLayout>
+        <div className='categories-page-main'>
+          {loading && <p>Loading...</p>}
+
+          <div className='categories-list-container'>
+            <CenteredContentShell 
+                elementsWidthPx={275} 
+                maxElementsPerRow={4} 
+                gap={16}
+              >
+                {filteredCategories.map(category => (
+                  <EntityCard 
+                    key={category.id}
+                    entity={category} 
+                    highlightQuery={keyword}
+                    view={() => showFamilies(category.id)}
+                  />
+                ))}
+              </CenteredContentShell>
+          </div>
         </div>
-      </div>
-    </PageLayout>
+      </PageLayout>
+    </>
   )
 }

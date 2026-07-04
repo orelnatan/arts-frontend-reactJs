@@ -5,7 +5,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { createTheme, MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
@@ -16,6 +16,7 @@ import App from './App.tsx'
 
 import './i18n.ts';
 import './index.scss';
+import { LayoutProvider } from './libs/layout/index.ts';
 
 const MANTINE_CONFIG = createTheme({
   fontFamily: 'heebo-regular',
@@ -40,9 +41,11 @@ createRoot(document.getElementById('root')!).render(
             <DirectionProvider>
               <ThemeProvider>
                 <MantineProvider theme={MANTINE_CONFIG}>
-                  <ReactQueryDevtools initialIsOpen={false} />
-                  <Notifications />
-                  <App />
+                  <LayoutProvider>
+                    {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+                    <Notifications />
+                    <App />
+                  </LayoutProvider>
                 </MantineProvider>
               </ThemeProvider>
             </DirectionProvider>

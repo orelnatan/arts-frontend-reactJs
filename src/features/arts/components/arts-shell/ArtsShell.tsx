@@ -1,22 +1,21 @@
-import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { AppNavbar } from '@arts/core';
-import { ShellLayout, type ShellOutletContext } from '@arts/libs/layout';
+import { ShellLayout, useLayoutContext } from '@arts/libs/layout';
 
 export default function ArtsShell() {
-  const [childHeaderContent, setChildHeaderContent] = useState<React.ReactNode>(null);
+  const { header } = useLayoutContext();
   
   return (
     <ShellLayout
-      header={childHeaderContent}
+      header={header}
       headerOpenedHeight={55}
       headerOpen={true}
       navbar={<AppNavbar />}
       navbarOpenedWidth={65}
       navbarOpen={true}
     >
-      <Outlet context={{ setChildHeaderContent } satisfies ShellOutletContext } />
+      <Outlet />
     </ShellLayout>
   )
 }

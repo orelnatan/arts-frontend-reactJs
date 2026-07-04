@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { PageLayout } from '@arts/libs/layout';
+import { PageLayout, ShellHeader } from '@arts/libs/layout';
 import { errorAlert } from '@arts/libs/alerts';
 import { Caption, CenteredContentShell } from '@arts/shared/components';
 
@@ -43,38 +43,41 @@ export default function ProductsPage() {
   }
 
   return (
-    <PageLayout header={
-      <ArtsHeader
-        key='products-header'
-        keyPrefix='products-page'
-        title='header'
-        search={setKeyword}
-        redirect={redirectBack}
-        withRedirectArrow /> 
-      }
-    >
-      <div className='products-page-main'>
-        {loading && <p>Loading...</p>}
+    <>
+      <ShellHeader>
+        <ArtsHeader
+          key='products-header'
+          keyPrefix='products-page'
+          title='header'
+          search={setKeyword}
+          redirect={redirectBack}
+          withRedirectArrow /> 
+      </ShellHeader>
 
-        <div className='products-list-container'>
-          <CenteredContentShell 
-              elementsWidthPx={275} 
-              maxElementsPerRow={4} 
-              gap={16}
-            >
-              {filteredProducts.map(product => (
-                <EntityCard 
-                  key={product.id}
-                  entity={product} 
-                  highlightQuery={keyword}
-                  view={() => showProduct(product.id)}
-                />
-              ))}
-            </CenteredContentShell>
+      <PageLayout>        
+        <div className='products-page-main'>
+          {loading && <p>Loading...</p>}
+
+          <div className='products-list-container'>
+            <CenteredContentShell 
+                elementsWidthPx={275} 
+                maxElementsPerRow={4} 
+                gap={16}
+              >
+                {filteredProducts.map(product => (
+                  <EntityCard 
+                    key={product.id}
+                    entity={product} 
+                    highlightQuery={keyword}
+                    view={() => showProduct(product.id)}
+                  />
+                ))}
+              </CenteredContentShell>
+          </div>
+
+          <ProductViewDrawer />
         </div>
-
-        <ProductViewDrawer />
-      </div>
-    </PageLayout>
+      </PageLayout>
+    </>
   )
 }

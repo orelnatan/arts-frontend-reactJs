@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { PageLayout } from '@arts/libs/layout';
+import { PageLayout, ShellHeader } from '@arts/libs/layout';
 import { errorAlert } from '@arts/libs/alerts';
 import { Caption, CenteredContentShell } from '@arts/shared/components';
 
@@ -43,36 +43,39 @@ export default function FamiliesPage() {
   }
 
   return (
-   <PageLayout header={
-      <ArtsHeader
-        key='families-header'
-        keyPrefix='families-page'
-        title='header'
-        search={setKeyword}
-        redirect={redirectBack}
-        withRedirectArrow /> 
-      }
-    >
-      <div className='families-page-main'>
-        {loading && <p>Loading...</p>}
+    <>
+      <ShellHeader>
+        <ArtsHeader
+          key='families-header'
+          keyPrefix='families-page'
+          title='header'
+          search={setKeyword}
+          redirect={redirectBack}
+          withRedirectArrow /> 
+      </ShellHeader>
 
-        <div className='families-list-container'>
-           <CenteredContentShell 
-              elementsWidthPx={275} 
-              maxElementsPerRow={4} 
-              gap={16}
-            >
-              {filteredFamilies.map(family => (
-                <EntityCard 
-                  key={family.id}
-                  entity={family} 
-                  highlightQuery={keyword}
-                  view={() => showProducts(family.id)}
-                />
-              ))}
-            </CenteredContentShell>
+      <PageLayout>
+        <div className='families-page-main'>
+          {loading && <p>Loading...</p>}
+
+          <div className='families-list-container'>
+            <CenteredContentShell 
+                elementsWidthPx={275} 
+                maxElementsPerRow={4} 
+                gap={16}
+              >
+                {filteredFamilies.map(family => (
+                  <EntityCard 
+                    key={family.id}
+                    entity={family} 
+                    highlightQuery={keyword}
+                    view={() => showProducts(family.id)}
+                  />
+                ))}
+              </CenteredContentShell>
+          </div>
         </div>
-      </div>
-    </PageLayout>
+      </PageLayout>
+    </>
   )
 }
