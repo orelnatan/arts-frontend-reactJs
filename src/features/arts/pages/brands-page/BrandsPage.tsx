@@ -1,37 +1,37 @@
-import { useEffect, useMemo, useState } from 'react'; 
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import { PageLayout, ShellHeader } from '@arts/libs/layout';
-import { errorAlert } from '@arts/libs/alerts';
-import { Caption, CenteredContentShell } from '@arts/shared/components';
+import { PageLayout, ShellHeader } from '@arts/libs/layout'
+import { errorAlert } from '@arts/libs/alerts'
+import { Caption, CenteredContentShell } from '@arts/shared/components'
 
-import { useFetchBrands } from '../../hooks';
-import { filterEntities } from '../../utils';
-import { ArtsHeader, EntityCard } from '../../components';
+import { useFetchBrands } from '../../hooks'
+import { filterEntities } from '../../utils'
+import { ArtsHeader, EntityCard } from '../../components'
 
-import './BrandsPage.scss';
+import './BrandsPage.scss'
 
-export default function BrandsPage() {  
-  const { brands, loading, error } = useFetchBrands();
-  const [keyword, setKeyword] = useState(''); 
-  const navigate = useNavigate();
+export default function BrandsPage() {
+  const { brands, loading, error } = useFetchBrands()
+  const [keyword, setKeyword] = useState('')
+  const navigate = useNavigate()
 
-   const filteredBrands = useMemo(() => {
-    return filterEntities(brands, keyword);
-  }, [brands, keyword]);
+  const filteredBrands = useMemo(() => {
+    return filterEntities(brands, keyword)
+  }, [brands, keyword])
 
   useEffect(() => {
     if (error) {
-      errorAlert({ 
+      errorAlert({
         title: (
-          <Caption namespace='arts' keyPrefix='brands-page'>
+          <Caption namespace="arts" keyPrefix="brands-page">
             fetch-brands-failed
           </Caption>
         ),
-        message: error, 
-      });
+        message: error,
+      })
     }
-  }, [error]); 
+  }, [error])
 
   const handleNaviagation = (brandId: number) => {
     navigate(`${brandId}/categories`)
@@ -42,25 +42,26 @@ export default function BrandsPage() {
       <ShellHeader>
         <ArtsHeader
           key="brands-header"
-          keyPrefix='brands-page'
-          title='header'
-          search={setKeyword} />
+          keyPrefix="brands-page"
+          title="header"
+          search={setKeyword}
+        />
       </ShellHeader>
 
       <PageLayout>
-        <div className='brands-page-main'>
+        <div className="brands-page-main">
           {loading && <p>Loading...</p>}
 
-          <div className='brands-list-container'>
-            <CenteredContentShell 
-              elementsWidthPx={275} 
-              maxElementsPerRow={4} 
+          <div className="brands-list-container">
+            <CenteredContentShell
+              elementsWidthPx={275}
+              maxElementsPerRow={4}
               gap={16}
             >
-              {filteredBrands.map(brand => (
-                <EntityCard 
+              {filteredBrands.map((brand) => (
+                <EntityCard
                   key={brand.id}
-                  entity={brand} 
+                  entity={brand}
                   highlightQuery={keyword}
                   view={() => handleNaviagation(brand.id)}
                 />

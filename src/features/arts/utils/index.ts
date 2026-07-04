@@ -1,2 +1,1 @@
-
-export * from './filter-entities.util';
+export * from './filter-entities.util'

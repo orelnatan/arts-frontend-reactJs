@@ -1,6 +1,6 @@
-import { PageLayout } from '@arts/libs/layout';
+import { PageLayout } from '@arts/libs/layout'
 
-import './ProfilePage.scss';
+import './ProfilePage.scss'
 
 export default function ProfilePage() {
   return (
@@ -11,4 +11,3 @@ export default function ProfilePage() {
     </PageLayout>
   )
 }
-

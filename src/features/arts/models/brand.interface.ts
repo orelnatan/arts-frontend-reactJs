@@ -1,5 +1,5 @@
-import type { Entity } from "./entity.interface";
+import type { Entity } from './entity.interface'
 
 export interface Brand extends Entity {
-  section: string;
+  section: string
 }

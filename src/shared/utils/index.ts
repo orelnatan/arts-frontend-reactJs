@@ -1,2 +1,1 @@
-
-export * from './highlight-text.util';
+export * from './highlight-text.util'

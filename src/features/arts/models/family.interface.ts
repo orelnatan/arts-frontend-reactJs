@@ -1,6 +1,6 @@
-import type { Entity } from "./entity.interface";
+import type { Entity } from './entity.interface'
 
 export interface Family extends Entity {
-  symbol: string;
-  categoryId: number;
+  symbol: string
+  categoryId: number
 }

@@ -1,44 +1,46 @@
-import { useEffect, useState, type ReactNode } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState, type ReactNode } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 
-import { AuthContext } from '../contexts';
-import { useToken, useUser } from '../hooks'; 
-import type { User } from '../models';
+import { AuthContext } from '../contexts'
+import { useToken, useUser } from '../hooks'
+import type { User } from '../models'
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [isInitializing, setIsInitializing] = useState(true);
-  const queryClient = useQueryClient();
-  
-  const { token, removeToken } = useToken();
-  const { getUser } = useUser();
+  const [user, setUser] = useState<User | null>(null)
+  const [isInitializing, setIsInitializing] = useState(true)
+  const queryClient = useQueryClient()
+
+  const { token, removeToken } = useToken()
+  const { getUser } = useUser()
 
   useEffect(() => {
     const bootstrapAuth = async () => {
       if (token && !user) {
         try {
-          const userData = await getUser();
+          const userData = await getUser()
 
-          setUser(userData);
+          setUser(userData)
         } catch (err) {
-          console.error("Session expired or invalid token ", err);          
+          console.error('Session expired or invalid token ', err)
         }
       }
-      setIsInitializing(false);
-    };
+      setIsInitializing(false)
+    }
 
-    bootstrapAuth();
-  }, [token, user, getUser]);
+    bootstrapAuth()
+  }, [token, user, getUser])
 
-  const disconnect = () => { 
-    removeToken();
-    setUser(null);
-    queryClient.clear();
-  };
+  const disconnect = () => {
+    removeToken()
+    setUser(null)
+    queryClient.clear()
+  }
 
   return (
-    <AuthContext.Provider value={{ user, setUser, isLoading: isInitializing, disconnect }}>
+    <AuthContext.Provider
+      value={{ user, setUser, isLoading: isInitializing, disconnect }}
+    >
       {children}
     </AuthContext.Provider>
-  );
-};
+  )
+}

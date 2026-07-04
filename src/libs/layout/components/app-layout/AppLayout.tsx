@@ -1,11 +1,7 @@
-import type { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react'
 
-import './AppLayout.scss';
+import './AppLayout.scss'
 
 export default function AppLayout({ children }: PropsWithChildren) {
-  return (
-    <>
-      {children}
-    </>
-  );
+  return <>{children}</>
 }

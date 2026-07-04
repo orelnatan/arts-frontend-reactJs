@@ -1,7 +1,6 @@
-
 .mantine-Checkbox-root {
   .mantine-Checkbox-input {
-    background: var(--color-app-checkbox-bg);     
+    background: var(--color-app-checkbox-bg);
 
     &:checked {
       background: var(--color-app-checkbox-fill);
@@ -9,7 +8,7 @@
   }
 
   .mantine-Checkbox-icon {
-    color: var(--color-app-checkbox-mark);         
+    color: var(--color-app-checkbox-mark);
   }
 
   .mantine-Checkbox-label {

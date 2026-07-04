@@ -1,2 +1,1 @@
-
-export { default as UserLocaleMenu } from './UserLocaleMenu';
+export { default as UserLocaleMenu } from './UserLocaleMenu'

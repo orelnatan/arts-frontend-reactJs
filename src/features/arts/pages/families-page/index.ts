@@ -1,2 +1,1 @@
-
-export { default as FamiliesPage } from './FamiliesPage';
+export { default as FamiliesPage } from './FamiliesPage'

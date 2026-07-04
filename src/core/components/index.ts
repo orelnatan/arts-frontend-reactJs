@@ -1,3 +1,2 @@
-
-export * from './app-navbar';
-export * from './logout-modal';
+export * from './app-navbar'
+export * from './logout-modal'

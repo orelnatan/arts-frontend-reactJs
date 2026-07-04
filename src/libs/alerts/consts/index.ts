@@ -1,2 +1,1 @@
-
-export * from './alert-config.const';
+export * from './alert-config.const'

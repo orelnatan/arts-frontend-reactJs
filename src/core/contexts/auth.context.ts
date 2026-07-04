@@ -1,11 +1,11 @@
-import { createContext } from 'react';
+import { createContext } from 'react'
 
-import type { User } from '../models';
+import type { User } from '../models'
 interface AuthContextType {
-  user: User | null;
-  setUser: (user: User | null) => void;
-  isLoading: boolean;
-  disconnect: () => void;
+  user: User | null
+  setUser: (user: User | null) => void
+  isLoading: boolean
+  disconnect: () => void
 }
 
-export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = createContext<AuthContextType | undefined>(undefined)

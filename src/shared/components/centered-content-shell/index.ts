@@ -1,2 +1,1 @@
-
-export { default as CenteredContentShell } from './CenteredContentShell';
+export { default as CenteredContentShell } from './CenteredContentShell'

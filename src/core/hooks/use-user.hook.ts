@@ -1,28 +1,28 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react'
 
-import { fetchUser } from '../api';
-import { type User } from '../models';
+import { fetchUser } from '../api'
+import { type User } from '../models'
 
 export const useUser = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const getUser = useCallback(async (): Promise<User> => {
-    setLoading(true);
-    setError(null);
+    setLoading(true)
+    setError(null)
 
     try {
-      const data = await fetchUser();
+      const data = await fetchUser()
 
-      return data; 
+      return data
     } catch (err: unknown) {
-      setError(String(err));
+      setError(String(err))
 
-      throw err; 
+      throw err
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  }, []);
+  }, [])
 
-  return { getUser, loading, error };
-};
+  return { getUser, loading, error }
+}

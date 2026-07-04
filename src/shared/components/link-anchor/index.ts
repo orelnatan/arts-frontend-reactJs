@@ -1,2 +1,1 @@
-
-export { default as LinkAnchor } from './LinkAnchor';
+export { default as LinkAnchor } from './LinkAnchor'

@@ -1,10 +1,16 @@
-import { Navigate } from 'react-router-dom';
-import type { RouteObject } from 'react-router-dom';
+import { Navigate } from 'react-router-dom'
+import type { RouteObject } from 'react-router-dom'
 
-import { AuthProtectedRoute } from '@arts/core';
+import { AuthProtectedRoute } from '@arts/core'
 
-import { ArtsLazy } from './arts.lazy';
-import { BrandsPage, CategoriesPage, FamiliesPage, ProductsPage, ProductViewPage } from './pages';
+import { ArtsLazy } from './arts.lazy'
+import {
+  BrandsPage,
+  CategoriesPage,
+  FamiliesPage,
+  ProductsPage,
+  ProductViewPage,
+} from './pages'
 
 export const artsRoutes: RouteObject[] = [
   {
@@ -45,8 +51,8 @@ export const artsRoutes: RouteObject[] = [
             path: ':productId/product-view',
             element: <ProductViewPage />,
           },
-        ]
+        ],
       },
     ],
   },
-];
+]

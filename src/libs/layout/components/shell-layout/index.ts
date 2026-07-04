@@ -1,2 +1,1 @@
-
-export { default as ShellLayout } from './ShellLayout';
+export { default as ShellLayout } from './ShellLayout'

@@ -1,5 +1,5 @@
-import { lazy } from 'react';
+import { lazy } from 'react'
 
 export const AuthLazy = lazy(() =>
-  import('./components').then(m => ({ default: m.AuthShell }))
-);
+  import('./components').then((m) => ({ default: m.AuthShell }))
+)

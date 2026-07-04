@@ -1,2 +1,1 @@
-
-export { default as UserThumbnailMenu } from './UserThumbnailMenu';
+export { default as UserThumbnailMenu } from './UserThumbnailMenu'

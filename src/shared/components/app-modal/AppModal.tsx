@@ -1,18 +1,19 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from 'react'
 
-import { Modal, type ModalProps } from '@mantine/core';
+import { Modal, type ModalProps } from '@mantine/core'
 
 interface AppModalProps extends ModalProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
-export default function AppModal({ 
+export default function AppModal({
   children,
   onClose,
   ...rest
 }: AppModalProps) {
   return (
-    <Modal centered
+    <Modal
+      centered
       onClose={onClose}
       overlayProps={{
         backgroundOpacity: 0.55,
@@ -22,5 +23,5 @@ export default function AppModal({
     >
       {children}
     </Modal>
-  );
+  )
 }

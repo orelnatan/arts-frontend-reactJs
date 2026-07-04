@@ -1,2 +1,1 @@
-
-export { default as ArtsShell } from './ArtsShell';
+export { default as ArtsShell } from './ArtsShell'

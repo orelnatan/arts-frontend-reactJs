@@ -1,4 +1,3 @@
-
 {
   "search": "חפש...",
   "brands-page": {
@@ -9,7 +8,7 @@
     "header": "קטגוריות",
     "fetch-categories-failed": "משיכת קטגוריות נכשלה"
   },
-   "families-page": {
+  "families-page": {
     "header": "משפחות",
     "fetch-families-failed": "משיכת משפחות נכשלה"
   },

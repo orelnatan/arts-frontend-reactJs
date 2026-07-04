@@ -1,4 +1,3 @@
-
-export * from './pages';
-export * from './components';
-export * from './arts.routes';
+export * from './pages'
+export * from './components'
+export * from './arts.routes'

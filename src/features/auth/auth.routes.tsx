@@ -1,8 +1,8 @@
-import { Navigate } from 'react-router-dom';
-import type { RouteObject } from 'react-router-dom';
+import { Navigate } from 'react-router-dom'
+import type { RouteObject } from 'react-router-dom'
 
-import { AuthLazy } from './auth.lazy';
-import { LoginPage, RegistrationPage } from './pages';
+import { AuthLazy } from './auth.lazy'
+import { LoginPage, RegistrationPage } from './pages'
 
 export const authRoutes: RouteObject[] = [
   {
@@ -23,4 +23,4 @@ export const authRoutes: RouteObject[] = [
       },
     ],
   },
-];
+]

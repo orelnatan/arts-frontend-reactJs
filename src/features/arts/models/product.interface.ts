@@ -1,10 +1,10 @@
-import type { Entity } from "./entity.interface";
+import type { Entity } from './entity.interface'
 
 export interface Product extends Entity {
-  height: number;
-  width: number;
-  weight: number;
-  added: string;
-  price: number;
-  familyId: number;
+  height: number
+  width: number
+  weight: number
+  added: string
+  price: number
+  familyId: number
 }

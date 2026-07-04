@@ -1,2 +1,1 @@
-
-export { default as ArtsHeader } from './ArtsHeader';
+export { default as ArtsHeader } from './ArtsHeader'

@@ -1,11 +1,11 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom'
 
-import { AppNavbar } from '@arts/core';
-import { ShellLayout, useLayoutContext } from '@arts/libs/layout';
+import { AppNavbar } from '@arts/core'
+import { ShellLayout, useLayoutContext } from '@arts/libs/layout'
 
 export default function ArtsShell() {
-  const { header } = useLayoutContext();
-  
+  const { header } = useLayoutContext()
+
   return (
     <ShellLayout
       header={header}

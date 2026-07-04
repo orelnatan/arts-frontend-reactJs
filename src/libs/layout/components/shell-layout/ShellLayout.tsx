@@ -1,47 +1,46 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from 'react'
 
-import { AppShell } from '@mantine/core';
+import { AppShell } from '@mantine/core'
 
 interface ShellLayoutProps {
-  children: ReactNode;
-  header?: ReactNode;
-  navbar?: ReactNode;
-  aside?: ReactNode;
-  footer?: ReactNode;
-  headerOpenedHeight?: number; 
-  headerClosedHeight?: number; 
-  headerOpen?: boolean;        
-  navbarOpenedWidth?: number;  
-  navbarClosedWidth?: number;  
-  navbarOpen?: boolean;        
-  asideOpenedWidth?: number;   
-  asideClosedWidth?: number;   
-  asideOpen?: boolean;       
-  footerHeight?: number;
+  children: ReactNode
+  header?: ReactNode
+  navbar?: ReactNode
+  aside?: ReactNode
+  footer?: ReactNode
+  headerOpenedHeight?: number
+  headerClosedHeight?: number
+  headerOpen?: boolean
+  navbarOpenedWidth?: number
+  navbarClosedWidth?: number
+  navbarOpen?: boolean
+  asideOpenedWidth?: number
+  asideClosedWidth?: number
+  asideOpen?: boolean
+  footerHeight?: number
 }
 
-export default function ShellLayout({ 
+export default function ShellLayout({
   children,
   header,
-  navbar, 
+  navbar,
   aside,
-  footer, 
+  footer,
   headerOpenedHeight = 0,
   headerClosedHeight = 0,
   headerOpen = false,
   navbarOpenedWidth = 0,
-  navbarClosedWidth = 0, 
+  navbarClosedWidth = 0,
   navbarOpen = false,
   asideOpenedWidth = 0,
   asideClosedWidth = 0,
   asideOpen = false,
-  footerHeight = 0
-}: ShellLayoutProps) {  
-
+  footerHeight = 0,
+}: ShellLayoutProps) {
   // Calculate dynamic dimensions based on open/closed states
-  const headerHeight = headerOpen ? headerOpenedHeight : headerClosedHeight;
-  const navbarWidth = navbarOpen ? navbarOpenedWidth : navbarClosedWidth;
-  const asideWidth = asideOpen ? asideOpenedWidth : asideClosedWidth;
+  const headerHeight = headerOpen ? headerOpenedHeight : headerClosedHeight
+  const navbarWidth = navbarOpen ? navbarOpenedWidth : navbarClosedWidth
+  const asideWidth = asideOpen ? asideOpenedWidth : asideClosedWidth
 
   return (
     <AppShell
@@ -56,7 +55,7 @@ export default function ShellLayout({
       aside={{
         width: aside ? asideWidth : 0,
         breakpoint: 'sm',
-        collapsed: { mobile: true }, 
+        collapsed: { mobile: true },
       }}
       transitionDuration={300}
       transitionTimingFunction="ease"
@@ -82,20 +81,16 @@ export default function ShellLayout({
 
       <AppShell.Aside
         style={{
-          transition: 'width 300ms ease', 
-          overflow: 'hidden', 
+          transition: 'width 300ms ease',
+          overflow: 'hidden',
         }}
       >
         {aside}
       </AppShell.Aside>
 
-      <AppShell.Main style={{ display: 'flex' }}>
-        {children}
-      </AppShell.Main>
+      <AppShell.Main style={{ display: 'flex' }}>{children}</AppShell.Main>
 
-      <AppShell.Footer>
-        {footer}
-      </AppShell.Footer>
+      <AppShell.Footer>{footer}</AppShell.Footer>
     </AppShell>
-  );
+  )
 }

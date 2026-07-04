@@ -1,2 +1,1 @@
-
-export * from './space.enum';
+export * from './space.enum'

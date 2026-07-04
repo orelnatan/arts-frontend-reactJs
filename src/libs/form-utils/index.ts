@@ -1,4 +1,3 @@
-
-export * from './components';
-export * from './validators';
-export * from './models';
+export * from './components'
+export * from './validators'
+export * from './models'

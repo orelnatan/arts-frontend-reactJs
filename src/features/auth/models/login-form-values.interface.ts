@@ -1,7 +1,6 @@
-
 export interface LoginFormValues {
-  username: string;
-  email: string;
-  password: string;
-  rememberMe: boolean;
+  username: string
+  email: string
+  password: string
+  rememberMe: boolean
 }

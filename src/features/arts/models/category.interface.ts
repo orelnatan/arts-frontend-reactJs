@@ -1,6 +1,6 @@
-import type { Entity } from "./entity.interface";
+import type { Entity } from './entity.interface'
 
 export interface Category extends Entity {
-  rank: number;
-  brandId: number;
+  rank: number
+  brandId: number
 }

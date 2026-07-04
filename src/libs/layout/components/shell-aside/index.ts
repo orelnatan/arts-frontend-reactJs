@@ -1,2 +1,1 @@
-
-export { default as ShellAside } from './ShellAside';
+export { default as ShellAside } from './ShellAside'

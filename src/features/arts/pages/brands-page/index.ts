@@ -1,2 +1,1 @@
-
-export { default as BrandsPage } from './BrandsPage';
+export { default as BrandsPage } from './BrandsPage'

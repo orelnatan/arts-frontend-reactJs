@@ -1,2 +1,1 @@
-
-export { default as ShellNavbar } from './ShellNavbar';
+export { default as ShellNavbar } from './ShellNavbar'

@@ -1,2 +1,1 @@
-
-export { default as ProductViewDrawer } from './ProductViewDrawer';
+export { default as ProductViewDrawer } from './ProductViewDrawer'

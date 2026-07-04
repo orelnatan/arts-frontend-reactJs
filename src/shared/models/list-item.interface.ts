@@ -1,76 +1,75 @@
-
 export interface ListItem<T = unknown> {
   // --- Identification & Core Data ---
   /** Unique identifier for React keys and data fetching */
-  id: string | number;
+  id: string | number
   /** The primary display text or raw name data */
-  name?: string | React.ReactNode;
+  name?: string | React.ReactNode
   /** The user-facing text label (often interchangeable with name) */
-  label?: string | React.ReactNode;
+  label?: string | React.ReactNode
   /** The underlying value sent to APIs or forms when selected */
-  value?: string; 
+  value?: string
   /** An attached CSS class to control object styling */
   class?: string
 
   // --- Subtext & Metadata ---
   /** Secondary text displayed below or next to the label */
-  caption?: string | React.ReactNode;
+  caption?: string | React.ReactNode
   /** A short description providing more context */
-  description?: string | React.ReactNode;
+  description?: string | React.ReactNode
   /** Supporting metadata or sub-labels (e.g., ["Admin", "Active"]) */
-  tags?: string[] | React.ReactNode;
+  tags?: string[] | React.ReactNode
 
   // --- Ordering & Hierarchies ---
   /** Position of the item in the list rendering */
-  index?: number;
+  index?: number
   /** For nested structures (trees, multi-level menus) */
-  children?: ListItem[];
+  children?: ListItem[]
   /** Reference to a parent item ID if working with flat hierarchical data */
-  parentId?: string | number;
+  parentId?: string | number
 
   // --- Navigation & Routing ---
   /** Internal application routing path (e.g., for React Router or Next.js) */
-  path?: string;
+  path?: string
   /** External URL link */
-  url?: string;
+  url?: string
   /** Target attribute for links (e.g., '_blank', '_self') */
-  target?: '_blank' | '_self' | '_parent' | '_top';
+  target?: '_blank' | '_self' | '_parent' | '_top'
 
   // --- Visuals & Media ---
   /** Icon name (string for icon fonts/libraries) or a renderable React node */
-  icon?: string | React.ReactNode;
+  icon?: string | React.ReactNode
   /** Trailing icon or element (e.g., an arrow indicating a submenu) */
-  trailingIcon?: string | React.ReactNode;
+  trailingIcon?: string | React.ReactNode
   /** URL for an image or user avatar associated with the item */
-  avatarUrl?: string;
+  avatarUrl?: string
   /** Hex code, CSS variable, or theme color name for custom item branding */
-  color?: string;
+  color?: string
 
   // --- Alignment & Order ---
   /** Direction of the corresponding content of the item */
-  dir?: 'ltr' | 'rtl';
+  dir?: 'ltr' | 'rtl'
 
   // --- States & Flags ---
   /** Prevents user interaction and visually grays out the item */
-  disabled?: boolean;
+  disabled?: boolean
   /** Visually highlights the item as currently selected */
-  selected?: boolean;
+  selected?: boolean
   /** Visually highlights the item as currently active */
-  active?: boolean;
+  active?: boolean
   /** Visually mark this item as currently checked */
-  checked?: boolean;
+  checked?: boolean
   /** Controls visibility without removing it from the data array */
-  hidden?: boolean;
+  hidden?: boolean
   /** Indicates the item is currently loading something (e.g., lazy loading children) */
-  loading?: boolean;
+  loading?: boolean
   /** For expandable list items */
-  isExpanded?: boolean;
+  isExpanded?: boolean
 
   // --- Escape Hatch for Custom Data ---
   /** Holds any custom, domain-specific data required by your app */
-  meta?: Record<string, T>;
+  meta?: Record<string, T>
 
   // --- Actions ---
   /** An indicator string used to map this menu item to a function inside a component registry */
-  actionKey?: string;
+  actionKey?: string
 }

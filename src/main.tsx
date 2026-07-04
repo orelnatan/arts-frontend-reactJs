@@ -1,36 +1,41 @@
-import '@mantine/core/styles.css';
-import '@mantine/notifications/styles.css';
+import '@mantine/core/styles.css'
+import '@mantine/notifications/styles.css'
 
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { BrowserRouter } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import { createTheme, MantineProvider } from '@mantine/core';
-import { Notifications } from '@mantine/notifications';
+import { createTheme, MantineProvider } from '@mantine/core'
+import { Notifications } from '@mantine/notifications'
 
-import { AuthProvider, DirectionProvider, LocaleProvider, ThemeProvider } from './core';
+import {
+  AuthProvider,
+  DirectionProvider,
+  LocaleProvider,
+  ThemeProvider,
+} from './core'
 
 import App from './App.tsx'
 
-import './i18n.ts';
-import './index.scss';
-import { LayoutProvider } from './libs/layout/index.ts';
+import './i18n.ts'
+import './index.scss'
+import { LayoutProvider } from './libs/layout/index.ts'
 
 const MANTINE_CONFIG = createTheme({
   fontFamily: 'heebo-regular',
-});
+})
 
 const TANSTACK_CONFIG = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 1000 * 60 * 5,
-      retry: false, 
-      refetchOnWindowFocus: false, 
+      retry: false,
+      refetchOnWindowFocus: false,
     },
   },
-});
+})
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -53,5 +58,5 @@ createRoot(document.getElementById('root')!).render(
         </AuthProvider>
       </QueryClientProvider>
     </BrowserRouter>
-  </StrictMode>,
+  </StrictMode>
 )

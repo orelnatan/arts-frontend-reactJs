@@ -1,6 +1,6 @@
-import { PageLayout } from '@arts/libs/layout';
+import { PageLayout } from '@arts/libs/layout'
 
-import './StatisticsPage.scss';
+import './StatisticsPage.scss'
 
 export default function StatisticsPage() {
   return (
@@ -11,4 +11,3 @@ export default function StatisticsPage() {
     </PageLayout>
   )
 }
-

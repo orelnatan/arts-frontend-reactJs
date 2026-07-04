@@ -1,25 +1,25 @@
-import { useTranslation } from 'react-i18next';
-import { Button, type ButtonVariant } from '@mantine/core';
+import { useTranslation } from 'react-i18next'
+import { Button, type ButtonVariant } from '@mantine/core'
 
-import './PrimaryButton.scss';
-import { SvgIcon } from '@arts/shared/components';
+import './PrimaryButton.scss'
+import { SvgIcon } from '@arts/shared/components'
 
 interface PrimaryButtonProps {
-  type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
-  label?: string; 
-  namespace?: string;
-  keyPrefix?: string;
-  loading?: boolean;
-  disabled?: boolean;
-  leftIcon?: string | null;
-  rightIcon?: string | null;
-  justify?: React.CSSProperties['justifyContent'];
-  variant?: ButtonVariant;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type']
+  label?: string
+  namespace?: string
+  keyPrefix?: string
+  loading?: boolean
+  disabled?: boolean
+  leftIcon?: string | null
+  rightIcon?: string | null
+  justify?: React.CSSProperties['justifyContent']
+  variant?: ButtonVariant
+  onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
 export default function PrimaryButton({
-  type = "submit",
+  type = 'submit',
   label,
   namespace,
   keyPrefix,
@@ -31,10 +31,10 @@ export default function PrimaryButton({
   variant = 'filled',
   onClick,
 }: PrimaryButtonProps) {
-  const { t } = useTranslation(namespace, { keyPrefix });
+  const { t } = useTranslation(namespace, { keyPrefix })
 
   return (
-    <div className='primary-button-main'>
+    <div className="primary-button-main">
       <Button
         variant={variant}
         loading={loading}
@@ -48,5 +48,5 @@ export default function PrimaryButton({
         {t(label ?? '')}
       </Button>
     </div>
-  );
+  )
 }

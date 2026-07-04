@@ -1,26 +1,25 @@
-import { type ReactNode } from 'react';
-import { Navigate } from 'react-router-dom';
+import { type ReactNode } from 'react'
+import { Navigate } from 'react-router-dom'
 
-import { useAuthContext } from '../hooks';
+import { useAuthContext } from '../hooks'
 
 interface AuthProtectedRouteProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 export const AuthProtectedRoute = ({ children }: AuthProtectedRouteProps) => {
-  const { user, isLoading } = useAuthContext();
-  
+  const { user, isLoading } = useAuthContext()
+
   // Show loading while we check the token on app load...
   if (isLoading) {
-    return <div>Loading session...</div>; 
+    return <div>Loading session...</div>
   }
 
   // Redirect to login if there is no user in context
   if (!user) {
-    return <Navigate to="/auth/login" replace />;
+    return <Navigate to="/auth/login" replace />
   }
 
   // If user exists, render the child routes
-  return <>{children}</>;
-};
-
+  return <>{children}</>
+}

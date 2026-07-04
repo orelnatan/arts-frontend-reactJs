@@ -1,25 +1,28 @@
-import { type PropsWithChildren, type ReactNode } from 'react';
+import { type PropsWithChildren, type ReactNode } from 'react'
 
-import './PageLayout.scss';
+import './PageLayout.scss'
 
 type PageLayoutProps = PropsWithChildren & {
-  header?: ReactNode;
-  headerHeight?: number;
-  noPadding?: boolean;
-  fullHeight?: boolean;
-};
+  header?: ReactNode
+  headerHeight?: number
+  noPadding?: boolean
+  fullHeight?: boolean
+}
 
-export default function PageLayout({ 
+export default function PageLayout({
   children,
   noPadding,
-  fullHeight
+  fullHeight,
 }: PageLayoutProps) {
   return (
-    <div className="page-layout-main" style={{
-      padding: noPadding ? 0 : 'auto',
-      height: fullHeight ? 'var(--full-host-height)' : 'auto'
-    }}>
+    <div
+      className="page-layout-main"
+      style={{
+        padding: noPadding ? 0 : 'auto',
+        height: fullHeight ? 'var(--full-host-height)' : 'auto',
+      }}
+    >
       {children}
     </div>
-  );
+  )
 }

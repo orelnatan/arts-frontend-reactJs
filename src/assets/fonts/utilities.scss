@@ -1,10 +1,9 @@
-
 // 1. Font Family Classes
 $fonts: (
-  "assistant-bold": assistant-bold,
-  "assistant-regular": assistant-regular,
-  "heebo-regular": heebo-regular,
-  "jenna-sue": jenna-sue
+  'assistant-bold': assistant-bold,
+  'assistant-regular': assistant-regular,
+  'heebo-regular': heebo-regular,
+  'jenna-sue': jenna-sue,
 );
 
 @each $name, $family in $fonts {

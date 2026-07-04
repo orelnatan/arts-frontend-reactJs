@@ -1,2 +1,1 @@
-
-export * from './home-shell';
+export * from './home-shell'

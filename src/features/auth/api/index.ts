@@ -1,2 +1,1 @@
-
-export * from './auth-login.api';
+export * from './auth-login.api'

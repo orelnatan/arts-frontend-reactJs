@@ -1,9 +1,11 @@
-import { createContext } from 'react';
+import { createContext } from 'react'
 
-import { Direction } from '../models'; 
+import { Direction } from '../models'
 
 interface DirectionContextType {
-  direction: Direction;
+  direction: Direction
 }
 
-export const DirectionContext = createContext<DirectionContextType | undefined>(undefined);
+export const DirectionContext = createContext<DirectionContextType | undefined>(
+  undefined
+)

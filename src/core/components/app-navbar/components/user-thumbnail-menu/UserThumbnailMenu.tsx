@@ -1,12 +1,12 @@
-import { type User } from "@arts/core/models";
-import { MenuBar, SvgIcon, Thumbnail } from "@arts/shared/components";
-import type { ListItem } from "@arts/shared/models";
-import { desktop, disconnect, profile, statistics } from "@arts/assets/images";
+import { type User } from '@arts/core/models'
+import { MenuBar, SvgIcon, Thumbnail } from '@arts/shared/components'
+import type { ListItem } from '@arts/shared/models'
+import { desktop, disconnect, profile, statistics } from '@arts/assets/images'
 
 interface UserThumbnailMenuProps {
-  user: User | null;
-  value?: string;
-  logout: () => void;
+  user: User | null
+  value?: string
+  logout: () => void
 }
 
 const USER_MENU: ListItem[] = [
@@ -22,14 +22,14 @@ const USER_MENU: ListItem[] = [
     label: 'user-menu.profile-label',
     icon: <SvgIcon icon={profile} />,
     value: 'system-profile',
-    path: '/home/profile'
+    path: '/home/profile',
   },
   {
     id: 'system-statistics',
     label: 'user-menu.statistics-label',
     icon: <SvgIcon icon={statistics} />,
     value: 'system-statistics',
-    path: '/home/statistics'
+    path: '/home/statistics',
   },
   {
     id: 'system-logout',
@@ -38,38 +38,33 @@ const USER_MENU: ListItem[] = [
     class: 'menu-bar-item-error-state',
     actionKey: 'logout',
     value: 'system-logout',
-  }
+  },
 ]
 
 export default function UserThumbnailMenu({
   user,
   value = '',
-  logout
+  logout,
 }: UserThumbnailMenuProps) {
   const actions: Record<string, () => void> = {
     logout: () => {
-      logout();
-    }
+      logout()
+    },
 
     // more actions here...
-  };
+  }
 
   return (
     <div className="user-locale-menu-main">
-      <MenuBar 
-        namespace='core'
-        keyPrefix='app-navbar'
-        position='top-end'
+      <MenuBar
+        namespace="core"
+        keyPrefix="app-navbar"
+        position="top-end"
         actives={[value]}
         items={USER_MENU}
-        onSelect={
-          item => item.actionKey && actions[item.actionKey]()
-        }
+        onSelect={(item) => item.actionKey && actions[item.actionKey]()}
       >
-        <Thumbnail 
-          image={user?.avatar}
-          name={user?.name}
-        />
+        <Thumbnail image={user?.avatar} name={user?.name} />
       </MenuBar>
     </div>
   )

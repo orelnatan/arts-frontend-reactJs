@@ -1,2 +1,1 @@
-
-export { default as HomeShell } from './HomeShell';
+export { default as HomeShell } from './HomeShell'

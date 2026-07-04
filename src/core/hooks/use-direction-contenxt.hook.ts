@@ -1,13 +1,15 @@
-import { useContext } from 'react';
+import { useContext } from 'react'
 
-import { DirectionContext } from '../contexts';
+import { DirectionContext } from '../contexts'
 
 export const useDirectionContext = () => {
-  const context = useContext(DirectionContext);
-  
+  const context = useContext(DirectionContext)
+
   if (!context) {
-    throw new Error('useDirectionContext must be used within a DirectionProvider');
+    throw new Error(
+      'useDirectionContext must be used within a DirectionProvider'
+    )
   }
-  
-  return context;
-};
+
+  return context
+}

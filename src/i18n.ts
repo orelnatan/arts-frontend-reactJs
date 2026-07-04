@@ -1,8 +1,8 @@
-import { initReactI18next } from 'react-i18next';
-import HttpBackend from 'i18next-http-backend';
-import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next'
+import HttpBackend from 'i18next-http-backend'
+import i18n from 'i18next'
 
-import { Locale } from './core';
+import { Locale } from './core'
 
 i18n
   // Load translation files via HTTP (public/locales/...)
@@ -13,7 +13,7 @@ i18n
   .init({
     fallbackLng: Locale.En,
     lng: Locale.En, // Default language
-    
+
     // Define all your namespaces (your domains)
     ns: ['auth', 'home', 'core', 'shared', 'arts'],
     defaultNS: 'shared', // Fallback namespace if none is specified
@@ -25,7 +25,7 @@ i18n
       escapeValue: false, // React already safeguards against XSS
     },
     // Clean up language codes if needed (e.g., en-US instead of en)
-    load: 'currentOnly' 
-  });
+    load: 'currentOnly',
+  })
 
-export default i18n;
+export default i18n

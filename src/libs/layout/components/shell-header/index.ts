@@ -1,2 +1,1 @@
-
-export { default as ShellHeader } from './ShellHeader';
+export { default as ShellHeader } from './ShellHeader'

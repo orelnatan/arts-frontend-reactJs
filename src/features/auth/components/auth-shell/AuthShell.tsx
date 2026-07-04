@@ -1,8 +1,8 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom'
 
-import { ShellLayout } from '@arts/libs/layout';
+import { ShellLayout } from '@arts/libs/layout'
 
-import { AuthHeader } from '../auth-header';
+import { AuthHeader } from '../auth-header'
 
 export default function AuthShell() {
   return (

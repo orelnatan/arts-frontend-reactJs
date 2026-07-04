@@ -1,5 +1,4 @@
-
 export enum Theme {
-  Aurora = "aurora",        // darken
-  Hyperion = "hyperion"       // lighten
+  Aurora = 'aurora', // darken
+  Hyperion = 'hyperion', // lighten
 }
