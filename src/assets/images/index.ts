@@ -14,6 +14,9 @@ import artPalette from './svg/art-palette.svg'
 import magnifyingGlass from './svg/magnifying-glass.svg'
 import cancelCircle from './svg/cancel-circle-close.svg'
 import sideArrow from './svg/side-arrow.svg'
+import notesPan from './svg/notes-pan.svg'
+import starFav from './svg/star-favorite.svg'
+import viewVision from './svg/view-vision-eye.svg'
 
 export {
   sideArrow,
@@ -31,4 +34,7 @@ export {
   artPalette,
   magnifyingGlass,
   cancelCircle,
+  notesPan,
+  starFav,
+  viewVision,
 }

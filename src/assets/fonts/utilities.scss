@@ -13,7 +13,7 @@ $fonts: (
 }
 
 // 2. Font Size Classes (font-size-X)
-$sizes: (10, 12, 14, 16, 20, 24, 32);
+$sizes: (10, 12, 14, 16, 18, 20, 24, 32);
 
 @each $size in $sizes {
   .font-size-#{$size} {

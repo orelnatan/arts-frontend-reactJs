@@ -1,15 +1,10 @@
 .product-spec-page-main {
   position: relative;
-  height: 100%;
 
   .close-circle-icon {
     position: absolute;
     padding: var(--spaces-4);
     color: var(--color-error);
-  }
-
-  .product-spec-outlet-container {
-    padding-top: var(--spaces-3);
   }
 
   img {

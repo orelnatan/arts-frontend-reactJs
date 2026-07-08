@@ -9,6 +9,7 @@ import { cancelCircle } from '@arts/assets/images'
 
 import { useFetchProduct } from '../../hooks'
 import type { Product } from '../../models'
+import { ProductIconsBar } from './components'
 import type { ProductSpecOutletContext } from './product-spec-outlet-context.interface'
 
 import './ProductSpecPage.scss'
@@ -59,6 +60,7 @@ export default function ProductSpecPage() {
         </span>
 
         <img src={productClone?.image} />
+        <ProductIconsBar />
 
         <Outlet
           context={

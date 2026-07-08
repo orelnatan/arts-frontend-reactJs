@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react'
-import { matchPath, useLocation, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useDisclosure } from '@mantine/hooks'
 
 import {
@@ -44,7 +44,6 @@ export default function AppNavbar({ children }: AppNavbarProps) {
   const { user, disconnect } = useAuthContext()
   const { theme, setTheme } = useThemeContext()
   const { locale, setLocale } = useLocaleContext()
-  const location = useLocation()
   const navigate = useNavigate()
 
   const handleThemeChange = async (theme: Theme): Promise<void> => {
@@ -72,14 +71,6 @@ export default function AppNavbar({ children }: AppNavbarProps) {
     navigate('/auth')
   }
 
-  const navigateArts = () => {
-    navigate('/arts')
-  }
-
-  const isArtsModuleActive = (): boolean => {
-    return !!matchPath({ path: '/arts', end: false }, location.pathname)
-  }
-
   return (
     <div className="app-navbar-main">
       <div className="app-navbar-logo">
@@ -89,20 +80,17 @@ export default function AppNavbar({ children }: AppNavbarProps) {
       <div className="app-navbar-content">{children}</div>
 
       <div className="app-navbar-system-controls">
-        <div
-          className="control-system-arts font-size-20"
-          style={{
-            color: isArtsModuleActive()
+        <NavLink
+          to={`/arts`}
+          className={'font-size-20'}
+          style={({ isActive }) => ({
+            color: isActive
               ? 'var(--color-app-navbar-arts-active)'
-              : '',
-          }}
+              : 'var(--color-app-navbar-arts-inactive)',
+          })}
         >
-          <SvgIcon
-            icon={artPalette}
-            style={{ cursor: 'pointer' }}
-            onClick={navigateArts}
-          />
-        </div>
+          <SvgIcon icon={artPalette} />
+        </NavLink>
 
         <div className="control-system-language font-size-20">
           <UserLocaleMenu

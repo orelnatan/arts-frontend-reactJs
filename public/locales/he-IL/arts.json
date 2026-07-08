@@ -19,6 +19,19 @@
   "product-spec-page": {
     "fetch-product-failed": "משיכת המוצר נכשלה"
   },
+  "view-product-page": {
+    "general": "כללי",
+    "specs": "מפרט",
+    "id": "מזהה",
+    "index": "אינדקס",
+    "serial": "מספר סידורי",
+    "familyId": "מזהה משפחה",
+    "added": "תאריך הוספה",
+    "height": "גובה",
+    "width": "רוחב",
+    "weight": "משקל",
+    "price": "מחיר"
+  },
   "entity-card": {
     "view": "צפייה"
   }
