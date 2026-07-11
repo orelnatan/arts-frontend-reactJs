@@ -1,2 +1,10 @@
 .update-product-page-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
+  form {
+    padding: 0 var(--spaces-5);
+  }
 }

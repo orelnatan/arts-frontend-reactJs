@@ -1,8 +1,10 @@
-import { hasLength, isEmail } from '@mantine/form'
+import { hasLength, isEmail, type FormValidateInput } from '@mantine/form'
 
 import { password } from '@arts/libs/form-utils'
 
-export const VALIDATION_SCHEMA = {
+import type { LoginFormValues } from './login-form-values.interface'
+
+export const VALIDATION_SCHEMA: FormValidateInput<LoginFormValues> = {
   username: (value: string) => {
     return hasLength({ min: 5, max: 15 }, 'validation.username-length')(value)
   },

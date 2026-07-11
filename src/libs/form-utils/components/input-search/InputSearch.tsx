@@ -6,9 +6,10 @@ import { useDebounce } from 'use-debounce'
 import { SvgIcon } from '@arts/shared/components'
 import { magnifyingGlass } from '@arts/assets/images'
 
-interface InputTextProps extends Omit<TextInputProps, 'onChange'> {
+interface InputTextProps extends Omit<TextInputProps, 'onChange' | 'label'> {
   namespace?: string
   keyPrefix?: string
+  label?: string
   debounceMs?: number
   onChange?: (value: string) => void
 }
@@ -16,6 +17,7 @@ interface InputTextProps extends Omit<TextInputProps, 'onChange'> {
 export default function InputSearch({
   namespace,
   keyPrefix,
+  label,
   debounceMs = 0,
   onChange,
   ...props
@@ -31,7 +33,8 @@ export default function InputSearch({
   return (
     <TextInput
       {...props}
-      placeholder={t(props.placeholder ?? '')}
+      label={label ? t(label) : ''}
+      placeholder={props.placeholder ? t(props.placeholder) : ''}
       rightSection={<SvgIcon icon={magnifyingGlass} />}
       error={typeof props.error === 'string' ? t(props.error) : null}
       onChange={(event) => {

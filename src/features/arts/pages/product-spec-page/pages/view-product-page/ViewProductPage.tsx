@@ -1,18 +1,19 @@
 import { useOutletContext } from 'react-router-dom'
 
 import { PageLayout } from '@arts/libs/layout'
+import { Caption, NumericPrettier } from '@arts/shared/components'
 
 import type { ProductSpecOutletContext } from '../../product-spec-outlet-context.interface'
 
 import './ViewProductPage.scss'
-import { Caption } from '@arts/shared/components'
+import { dateFormat } from '@arts/shared/utils'
 
 export default function ViewProductPage() {
   const context = useOutletContext<ProductSpecOutletContext>()
   const product = context?.product
 
   return (
-    <PageLayout>
+    <PageLayout key="view-product-page-layout">
       <div className="view-product-page-main">
         <h2 className="assistant-bold">{product?.name}</h2>
         <p>{product?.description}</p>
@@ -68,7 +69,7 @@ export default function ViewProductPage() {
                 </Caption>
                 :
               </strong>{' '}
-              {product?.added}
+              {dateFormat(product?.added)}
             </li>
           </ul>
         </div>
@@ -88,7 +89,14 @@ export default function ViewProductPage() {
                 </Caption>
                 :
               </strong>{' '}
-              {product?.height}
+              <NumericPrettier
+                value={product?.height}
+                displayType="text"
+                decimalScale={2}
+                namespace="arts"
+                keyPrefix="view-product-page"
+                suffix="cm"
+              />
             </li>
             <li>
               <strong>
@@ -97,7 +105,14 @@ export default function ViewProductPage() {
                 </Caption>
                 :
               </strong>{' '}
-              {product?.width}
+              <NumericPrettier
+                value={product?.width}
+                displayType="text"
+                decimalScale={2}
+                namespace="arts"
+                keyPrefix="view-product-page"
+                suffix="cm"
+              />
             </li>
             <li>
               <strong>
@@ -106,7 +121,14 @@ export default function ViewProductPage() {
                 </Caption>
                 :
               </strong>{' '}
-              {product?.weight}
+              <NumericPrettier
+                value={product?.weight}
+                displayType="text"
+                decimalScale={2}
+                namespace="arts"
+                keyPrefix="view-product-page"
+                suffix="kg"
+              />
             </li>
             <li>
               <strong>
@@ -115,7 +137,14 @@ export default function ViewProductPage() {
                 </Caption>
                 :
               </strong>{' '}
-              ${product ? (product.price / 100).toFixed(2) : ''}
+              <NumericPrettier
+                value={product?.price}
+                thousandSeparator={true}
+                displayType="text"
+                namespace="arts"
+                keyPrefix="view-product-page"
+                suffix="usd"
+              />
             </li>
           </ul>
         </div>

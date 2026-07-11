@@ -27,11 +27,13 @@ const POSITION_TO_TRANSITION: Record<
 
 interface SideDrawerProps extends Omit<DrawerProps, 'position'> {
   withHeader?: boolean
+  overflowHidden?: boolean
   children: ReactNode
 }
 
 export default function SideDrawer({
   withHeader = false,
+  overflowHidden = false,
   children,
   ...rest
 }: SideDrawerProps) {
@@ -50,6 +52,7 @@ export default function SideDrawer({
       }}
       styles={{
         body: {
+          overflow: overflowHidden ? 'hidden' : 'auto',
           height: withHeader
             ? 'calc(var(--full-host-height) - 60px)'
             : 'var(--full-host-height)',

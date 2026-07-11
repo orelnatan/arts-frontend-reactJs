@@ -1,24 +1,24 @@
 import { useTranslation } from 'react-i18next'
-import { TextInput, type TextInputProps } from '@mantine/core'
+import { Textarea, type TextareaProps } from '@mantine/core'
 
-interface InputTextProps extends Omit<TextInputProps, 'onChange' | 'label'> {
+interface InputTextareaProps extends Omit<TextareaProps, 'onChange' | 'label'> {
   namespace?: string
   keyPrefix?: string
   label?: string
   onChange?: (value: string) => void
 }
 
-export default function InputText({
+export default function InputTextarea({
   namespace,
   keyPrefix,
   label,
   onChange,
   ...props
-}: InputTextProps) {
+}: InputTextareaProps) {
   const { t } = useTranslation(namespace, { keyPrefix })
 
   return (
-    <TextInput
+    <Textarea
       {...props}
       label={label ? t(label) : ''}
       placeholder={props.placeholder ? t(props.placeholder) : ''}

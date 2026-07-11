@@ -1,30 +1,33 @@
 import { useTranslation } from 'react-i18next'
-import { TextInput, type TextInputProps } from '@mantine/core'
+import { NumberInput, type NumberInputProps } from '@mantine/core'
 
-interface InputTextProps extends Omit<TextInputProps, 'onChange' | 'label'> {
+interface InputNumberProps extends Omit<
+  NumberInputProps,
+  'onChange' | 'label'
+> {
   namespace?: string
   keyPrefix?: string
   label?: string
-  onChange?: (value: string) => void
+  onChange?: (value: number) => void
 }
 
-export default function InputText({
+export default function InputNumber({
   namespace,
   keyPrefix,
   label,
   onChange,
   ...props
-}: InputTextProps) {
+}: InputNumberProps) {
   const { t } = useTranslation(namespace, { keyPrefix })
 
   return (
-    <TextInput
+    <NumberInput
       {...props}
       label={label ? t(label) : ''}
       placeholder={props.placeholder ? t(props.placeholder) : ''}
       error={typeof props.error === 'string' ? t(props.error) : null}
       onChange={(event) => {
-        onChange?.(event.currentTarget.value)
+        onChange?.(+event)
       }}
     />
   )

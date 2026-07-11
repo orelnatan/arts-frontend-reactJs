@@ -1,6 +1,7 @@
-import type { Entity } from './entity.interface'
-
-export interface Product extends Entity {
+export interface ProductFormValues {
+  image: string
+  name: string
+  description: string
   height: string
   width: string
   weight: string

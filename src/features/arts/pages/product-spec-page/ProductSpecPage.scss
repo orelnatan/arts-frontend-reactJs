@@ -1,5 +1,8 @@
 .product-spec-page-main {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
   .close-circle-icon {
     position: absolute;

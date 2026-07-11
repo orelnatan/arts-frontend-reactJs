@@ -30,7 +30,23 @@
     "height": "Height",
     "width": "Width",
     "weight": "Weight",
-    "price": "Price"
+    "price": "Price",
+    "usd": "USD",
+    "cm": "cm",
+    "kg": "kg"
+  },
+  "update-product-page": {
+    "image": "Product Image URL",
+    "name": "Product Name",
+    "description": "Description",
+    "height": "Height (cm)",
+    "width": "Width (cm)",
+    "weight": "Weight (kg)",
+    "added": "Date Added",
+    "price": "Price (USD)",
+    "familyId": "Family ID",
+    "submit": "Submit Product",
+    "validation.name-length": "Must be 3-35 characters long"
   },
   "entity-card": {
     "view": "View"

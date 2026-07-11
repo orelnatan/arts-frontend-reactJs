@@ -30,7 +30,21 @@
     "height": "גובה",
     "width": "רוחב",
     "weight": "משקל",
-    "price": "מחיר"
+    "price": "מחיר",
+    "usd": "דולר",
+    "cm": "סמ",
+    "kg": "קילו"
+  },
+  "update-product-page": {
+    "image": "כתובת תמונת מוצר",
+    "name": "שם המוצר",
+    "description": "תיאור",
+    "height": "גובה (ס״מ)",
+    "width": "רוחב (ס״מ)",
+    "weight": "משקל (ק״ג)",
+    "added": "תאריך הוספה",
+    "price": "מחיר (דולר)",
+    "familyId": "מזהה קבוצה"
   },
   "entity-card": {
     "view": "צפייה"

@@ -1,4 +1,4 @@
-import { ReactSVG } from 'react-svg'
+import { ReactSVG as ReactSVG } from 'react-svg'
 
 import './SvgIcon.scss'
 

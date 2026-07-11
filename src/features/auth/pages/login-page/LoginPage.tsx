@@ -18,7 +18,7 @@ import {
 } from '@arts/libs/form-utils'
 
 import { useLogin } from '../../hooks'
-import type { LoginFormValues } from '../../models'
+import type { LoginFormValues } from './login-form-values.interface'
 import { VALIDATION_SCHEMA } from './validation-schema.const'
 
 import './LoginPage.scss'

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { authLogin } from '../api'
-import type { LoginFormValues } from '../models'
+import type { LoginFormValues } from '../pages'
 
 export const useLogin = () => {
   const [loading, setLoading] = useState(false)
