@@ -12,7 +12,14 @@ import {
   useUpdateLocale,
   useUpdateTheme,
 } from '@arts/core'
-import { artPalette, logo, moon, sun } from '@arts/assets/images'
+import {
+  artPalette,
+  logo,
+  moon,
+  starFavFull,
+  starFavHalf,
+  sun,
+} from '@arts/assets/images'
 import { Caption, Spinner, SvgIcon } from '@arts/shared/components'
 import { errorAlert } from '@arts/libs/alerts'
 
@@ -81,7 +88,21 @@ export default function AppNavbar({ children }: AppNavbarProps) {
 
       <div className="app-navbar-system-controls">
         <NavLink
-          to={`/arts`}
+          to={`/arts/favorites`}
+          className={'font-size-20'}
+          style={({ isActive }) => ({
+            color: isActive
+              ? 'var(--color-app-navbar-fav-active)'
+              : 'var(--color-app-navbar-fav-inactive)',
+          })}
+        >
+          {({ isActive }) => (
+            <SvgIcon icon={isActive ? starFavFull : starFavHalf} />
+          )}
+        </NavLink>
+
+        <NavLink
+          to={`/arts/brands`}
           className={'font-size-20'}
           style={({ isActive }) => ({
             color: isActive

@@ -1,30 +1,31 @@
 import { useTranslation } from 'react-i18next'
-import { NumberInput, type NumberInputProps } from '@mantine/core'
+import { DatePickerInput, type DatePickerInputProps } from '@mantine/dates'
 
-interface InputNumberProps extends Omit<NumberInputProps, 'onChange'> {
+interface InputDateProps extends Omit<DatePickerInputProps, 'onChange'> {
   namespace?: string
   keyPrefix?: string
   label?: string
-  onChange?: (value: number) => void
+  onChange?: (value: string) => void
 }
 
-export default function InputNumber({
+export default function InputDate({
   namespace,
   keyPrefix,
   label,
   onChange,
   ...props
-}: InputNumberProps) {
+}: InputDateProps) {
   const { t } = useTranslation(namespace, { keyPrefix })
 
   return (
-    <NumberInput
+    <DatePickerInput
+      type="default"
       {...props}
       label={label ? t(label) : ''}
       placeholder={props.placeholder ? t(props.placeholder) : ''}
       error={typeof props.error === 'string' ? t(props.error) : null}
-      onChange={(event) => {
-        onChange?.(+event)
+      onChange={(value) => {
+        onChange?.(String(value))
       }}
     />
   )

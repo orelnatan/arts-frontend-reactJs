@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { Textarea, type TextareaProps } from '@mantine/core'
 
-interface InputTextareaProps extends Omit<TextareaProps, 'onChange' | 'label'> {
+interface InputTextareaProps extends Omit<TextareaProps, 'onChange'> {
   namespace?: string
   keyPrefix?: string
   label?: string

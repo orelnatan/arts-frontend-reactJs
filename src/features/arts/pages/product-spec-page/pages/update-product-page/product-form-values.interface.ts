@@ -2,10 +2,10 @@ export interface ProductFormValues {
   image: string
   name: string
   description: string
-  height: string
-  width: string
-  weight: string
+  height: number
+  width: number
+  weight: number
   added: string
-  price: string
+  price: number
   familyId: number
 }

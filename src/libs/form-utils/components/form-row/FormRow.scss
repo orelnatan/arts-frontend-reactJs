@@ -1,6 +1,7 @@
 .form-row-main {
   display: flex;
   width: 100%;
+  overflow: hidden;
 
   // Gap Sizes
   &.gap-sm {

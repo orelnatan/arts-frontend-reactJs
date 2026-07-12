@@ -5,6 +5,7 @@ import { AuthProtectedRoute } from '@arts/core'
 
 import { ArtsLazy } from './arts.lazy'
 import {
+  FavoritesPage,
   BrandsPage,
   CategoriesPage,
   FamiliesPage,
@@ -24,6 +25,10 @@ export const artsRoutes: RouteObject[] = [
       {
         index: true,
         element: <Navigate to="brands" replace />,
+      },
+      {
+        path: 'favorites',
+        element: <FavoritesPage />,
       },
       {
         path: 'brands',

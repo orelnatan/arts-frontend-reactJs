@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { TextInput, type TextInputProps } from '@mantine/core'
 
-interface InputTextProps extends Omit<TextInputProps, 'onChange' | 'label'> {
+interface InputTextProps extends Omit<TextInputProps, 'onChange'> {
   namespace?: string
   keyPrefix?: string
   label?: string

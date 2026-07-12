@@ -2,11 +2,11 @@ import { useOutletContext } from 'react-router-dom'
 
 import { PageLayout } from '@arts/libs/layout'
 import { Caption, NumericPrettier } from '@arts/shared/components'
+import { dateFormatter } from '@arts/shared/utils'
 
 import type { ProductSpecOutletContext } from '../../product-spec-outlet-context.interface'
 
 import './ViewProductPage.scss'
-import { dateFormat } from '@arts/shared/utils'
 
 export default function ViewProductPage() {
   const context = useOutletContext<ProductSpecOutletContext>()
@@ -69,7 +69,7 @@ export default function ViewProductPage() {
                 </Caption>
                 :
               </strong>{' '}
-              {dateFormat(product?.added)}
+              {dateFormatter(product?.added)}
             </li>
           </ul>
         </div>

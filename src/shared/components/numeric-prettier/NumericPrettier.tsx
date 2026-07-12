@@ -16,13 +16,13 @@ export default function NumericPrettier({
   keyPrefix,
   prefix = '',
   suffix = '',
-  ...rest
+  ...props
 }: NumericPrettierProps) {
   const { t } = useTranslation(namespace, { keyPrefix })
 
   return (
     <NumericFormat
-      {...rest}
+      {...props}
       prefix={prefix ? ` ${t(prefix)} ` : ''}
       suffix={suffix ? ` ${t(suffix)} ` : ''}
     />

@@ -3,9 +3,12 @@ import { useOutletContext } from 'react-router-dom'
 import { useForm } from '@mantine/form'
 
 import { PageLayout } from '@arts/libs/layout'
+import { decimalFormatter } from '@arts/shared/utils'
 import {
   FormField,
   FormRow,
+  InputDate,
+  InputNumber,
   InputText,
   InputTextarea,
   PrimaryButton,
@@ -30,11 +33,11 @@ export default function UpdateProductPage() {
       image: '',
       name: '',
       description: '',
-      height: '',
-      width: '',
-      weight: '',
+      height: 0,
+      width: 0,
+      weight: 0,
       added: '',
-      price: '',
+      price: 0,
       familyId: 0,
     },
     validate: VALIDATION_SCHEMA,
@@ -46,11 +49,11 @@ export default function UpdateProductPage() {
         image: product.image ?? '',
         name: product.name ?? '',
         description: product.description ?? '',
-        height: product.height ?? '',
-        width: product.width ?? '',
-        weight: product.weight ?? '',
+        height: product.height ?? 0,
+        width: product.width ?? 0,
+        weight: product.weight ?? 0,
         added: product.added ?? '',
-        price: product.price ?? '',
+        price: product.price ?? 0,
         familyId: product.familyId ?? 0,
       })
     }
@@ -79,6 +82,20 @@ export default function UpdateProductPage() {
                 }}
               />
             </FormField>
+
+            <FormField>
+              <InputDate
+                namespace="arts"
+                keyPrefix="update-product-page"
+                label="added"
+                placeholder="added"
+                value={form.values.added}
+                error={submitted ? form.errors.added : null}
+                onChange={(event) => {
+                  form.setFieldValue('added', event)
+                }}
+              />
+            </FormField>
           </FormRow>
 
           <FormRow marginTopSize={Space.Sm}>
@@ -100,12 +117,15 @@ export default function UpdateProductPage() {
 
           <FormRow marginTopSize={Space.Lg}>
             <FormField>
-              <InputText
+              <InputNumber
+                hideControls
                 namespace="arts"
                 keyPrefix="update-product-page"
                 label="height"
                 placeholder="height"
-                value={form.values.height}
+                value={decimalFormatter(form.values.height, {
+                  decimalScale: 2,
+                })}
                 error={submitted ? form.errors.height : null}
                 onChange={(event) => {
                   form.setFieldValue('height', event)
@@ -114,12 +134,13 @@ export default function UpdateProductPage() {
             </FormField>
 
             <FormField>
-              <InputText
+              <InputNumber
+                hideControls
                 namespace="arts"
                 keyPrefix="update-product-page"
                 label="width"
                 placeholder="width"
-                value={form.values.width}
+                value={decimalFormatter(form.values.width, { decimalScale: 2 })}
                 error={submitted ? form.errors.width : null}
                 onChange={(event) => {
                   form.setFieldValue('width', event)
@@ -128,12 +149,15 @@ export default function UpdateProductPage() {
             </FormField>
 
             <FormField>
-              <InputText
+              <InputNumber
+                hideControls
                 namespace="arts"
                 keyPrefix="update-product-page"
                 label="weight"
                 placeholder="weight"
-                value={form.values.weight}
+                value={decimalFormatter(form.values.weight, {
+                  decimalScale: 2,
+                })}
                 error={submitted ? form.errors.weight : null}
                 onChange={(event) => {
                   form.setFieldValue('weight', event)
@@ -144,7 +168,8 @@ export default function UpdateProductPage() {
 
           <FormRow marginTopSize={Space.Lg}>
             <FormField>
-              <InputText
+              <InputNumber
+                hideControls
                 disabled
                 namespace="arts"
                 keyPrefix="update-product-page"
@@ -156,7 +181,8 @@ export default function UpdateProductPage() {
             </FormField>
 
             <FormField>
-              <InputText
+              <InputNumber
+                hideControls
                 namespace="arts"
                 keyPrefix="update-product-page"
                 label="price"
@@ -178,6 +204,7 @@ export default function UpdateProductPage() {
               keyPrefix="update-product-page"
               label="submit"
               justify="center"
+              bottomCornerRadius
               onClick={() => {
                 setSubmitted(true)
 

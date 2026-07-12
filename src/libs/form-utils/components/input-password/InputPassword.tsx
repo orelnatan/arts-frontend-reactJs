@@ -1,10 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { PasswordInput, type PasswordInputProps } from '@mantine/core'
 
-interface InputPasswordProps extends Omit<
-  PasswordInputProps,
-  'onChange' | 'label'
-> {
+interface InputPasswordProps extends Omit<PasswordInputProps, 'onChange'> {
   namespace?: string
   keyPrefix?: string
   label?: string

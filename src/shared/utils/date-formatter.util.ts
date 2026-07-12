@@ -1,6 +1,6 @@
 import { parseISO, format as dataFnsFormat } from 'date-fns'
 
-export function dateFormat(
+export function dateFormatter(
   value?: string,
   format: string = 'dd/MM/yyyy'
 ): string {

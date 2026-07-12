@@ -1,4 +1,16 @@
 .primary-button-main {
+  overflow: hidden;
+
+  &.top-corner-radius {
+    border-top-left-radius: var(--corner-radius-18);
+    border-top-right-radius: var(--corner-radius-18);
+  }
+
+  &.bottom-corner-radius {
+    border-bottom-left-radius: var(--corner-radius-18);
+    border-bottom-right-radius: var(--corner-radius-18);
+  }
+
   button {
     width: var(--full-host-width);
   }

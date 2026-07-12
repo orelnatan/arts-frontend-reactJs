@@ -15,7 +15,8 @@ import magnifyingGlass from './svg/magnifying-glass.svg'
 import cancelCircle from './svg/cancel-circle-close.svg'
 import sideArrow from './svg/side-arrow.svg'
 import notesPan from './svg/notes-pan.svg'
-import starFav from './svg/star-favorite.svg'
+import starFavHalf from './svg/star-fav-half.svg'
+import starFavFull from './svg/star-fav-full.svg'
 import viewVision from './svg/view-vision-eye.svg'
 
 export {
@@ -35,6 +36,7 @@ export {
   magnifyingGlass,
   cancelCircle,
   notesPan,
-  starFav,
+  starFavHalf,
   viewVision,
+  starFavFull,
 }

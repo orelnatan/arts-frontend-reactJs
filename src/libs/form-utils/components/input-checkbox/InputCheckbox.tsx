@@ -22,7 +22,7 @@ export default function InputCheckbox({
     <div className="input-checkbox-main">
       <Checkbox
         {...props}
-        label={t(props.label ?? '')}
+        label={props.label ? t(props?.label) : ''}
         error={typeof props.error === 'string' ? t(props.error) : null}
         onChange={(event) => {
           onChange?.(event.currentTarget.checked)

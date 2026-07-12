@@ -6,7 +6,7 @@ import { useDebounce } from 'use-debounce'
 import { SvgIcon } from '@arts/shared/components'
 import { magnifyingGlass } from '@arts/assets/images'
 
-interface InputTextProps extends Omit<TextInputProps, 'onChange' | 'label'> {
+interface InputTextProps extends Omit<TextInputProps, 'onChange'> {
   namespace?: string
   keyPrefix?: string
   label?: string

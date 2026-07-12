@@ -1,10 +1,11 @@
 import { useTranslation } from 'react-i18next'
-import { Button, type ButtonVariant } from '@mantine/core'
+import { Button, type ButtonProps, type ButtonVariant } from '@mantine/core'
 
-import './PrimaryButton.scss'
 import { SvgIcon } from '@arts/shared/components'
 
-interface PrimaryButtonProps {
+import './PrimaryButton.scss'
+
+interface PrimaryButtonProps extends ButtonProps {
   type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type']
   label?: string
   namespace?: string
@@ -13,6 +14,8 @@ interface PrimaryButtonProps {
   disabled?: boolean
   leftIcon?: string | null
   rightIcon?: string | null
+  topCornerRadius?: boolean
+  bottomCornerRadius?: boolean
   justify?: React.CSSProperties['justifyContent']
   variant?: ButtonVariant
   onClick?: React.MouseEventHandler<HTMLButtonElement>
@@ -28,14 +31,20 @@ export default function PrimaryButton({
   leftIcon = null,
   rightIcon = null,
   justify = 'space-between',
+  topCornerRadius,
+  bottomCornerRadius,
   variant = 'filled',
   onClick,
+  ...props
 }: PrimaryButtonProps) {
   const { t } = useTranslation(namespace, { keyPrefix })
 
   return (
-    <div className="primary-button-main">
+    <div
+      className={`primary-button-main ${topCornerRadius ? 'top-corner-radius' : ''} ${bottomCornerRadius ? 'bottom-corner-radius' : ''}`}
+    >
       <Button
+        style={props.style}
         variant={variant}
         loading={loading}
         disabled={disabled}

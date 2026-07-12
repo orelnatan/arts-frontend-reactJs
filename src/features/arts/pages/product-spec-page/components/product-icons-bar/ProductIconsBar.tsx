@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
 
 import { SvgIcon } from '@arts/shared/components'
-import { notesPan, starFav, viewVision } from '@arts/assets/images'
+import { notesPan, starFavHalf, viewVision } from '@arts/assets/images'
 
 import './ProductIconsBar.scss'
 
@@ -51,7 +51,7 @@ export default function ProductIconsBar({
         }}
       >
         <SvgIcon
-          icon={starFav}
+          icon={starFavHalf}
           style={{ cursor: 'pointer' }}
           onClick={toggleFavorite}
         />

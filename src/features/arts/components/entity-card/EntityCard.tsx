@@ -2,11 +2,11 @@ import { Card, Image, Group } from '@mantine/core'
 
 import { PrimaryButton } from '@arts/libs/form-utils'
 import { eyeSee } from '@arts/assets/images'
+import { highlightText } from '@arts/shared/utils'
 
 import type { Entity } from '../../models'
 
 import './EntityCard.scss'
-import { highlightText } from '@arts/shared/utils'
 
 interface EntityCardProps {
   entity: Entity
