@@ -36,7 +36,7 @@
     "kg": "kg"
   },
   "update-product-page": {
-    "image": "Product Image URL",
+    "image": "Change Image",
     "name": "Product Name",
     "description": "Description",
     "height": "Height (cm)",
@@ -46,7 +46,23 @@
     "price": "Price (USD)",
     "familyId": "Family ID",
     "submit": "Submit Product",
-    "validation.name-length": "Must be 3-35 characters long"
+    "product-update-success-title": "Product updated successfully",
+    "product-update-success-note": "This product was updated!",
+    "product-update-failed": "Failed to update product",
+    "validation.name-length": "Must be 3-35 characters long",
+    "validation.description-length": "Must be 15-250 characters long",
+    "validation.height-required": "Height is required",
+    "validation.height-positive": "Height must be greater than 0 cm",
+    "validation.height-too-large": "Height seems too large",
+    "validation.weight-required": "Weight is required",
+    "validation.weight-positive": "Weight must be greater than 0 kg",
+    "validation.weight-too-heavy": "Weight seems too heavy",
+    "validation.width-required": "Width is required",
+    "validation.width-positive": "Width must be greater than 0 cm",
+    "validation.width-too-large": "Width seems too large",
+    "validation.price-required": "Price is required",
+    "validation.price-negative": "Price cannot be negative",
+    "validation.price-too-high": "Price exceeds the limit"
   },
   "entity-card": {
     "view": "View"

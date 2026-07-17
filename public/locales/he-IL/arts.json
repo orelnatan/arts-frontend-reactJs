@@ -1,28 +1,28 @@
 {
-  "search": "חפש...",
+  "search": "חיפוש...",
   "brands-page": {
-    "header": "המותגים הטובים ביותר שלנו",
-    "fetch-brands-failed": "משיכת מותגים נכשלה"
+    "header": "כל המותגים המובילים שלנו",
+    "fetch-brands-failed": "טעינת המותגים נכשלה"
   },
   "categories-page": {
     "header": "קטגוריות",
-    "fetch-categories-failed": "משיכת קטגוריות נכשלה"
+    "fetch-categories-failed": "טעינת הקטגוריות נכשלה"
   },
   "families-page": {
     "header": "משפחות",
-    "fetch-families-failed": "משיכת משפחות נכשלה"
+    "fetch-families-failed": "טעינת המשפחות נכשלה"
   },
   "products-page": {
     "header": "מוצרים",
-    "fetch-products-failed": "משיכת מוצרים נכשלה"
+    "fetch-products-failed": "טעינת המוצרים נכשלה"
   },
   "product-spec-page": {
-    "fetch-product-failed": "משיכת המוצר נכשלה"
+    "fetch-product-failed": "טעינת מוצר זה נכשלה"
   },
   "view-product-page": {
     "general": "כללי",
-    "specs": "מפרט",
-    "id": "מזהה",
+    "specs": "מפרט טכני",
+    "id": "מזהה (ID)",
     "index": "אינדקס",
     "serial": "מספר סידורי",
     "familyId": "מזהה משפחה",
@@ -31,20 +31,38 @@
     "width": "רוחב",
     "weight": "משקל",
     "price": "מחיר",
-    "usd": "דולר",
-    "cm": "סמ",
-    "kg": "קילו"
+    "usd": "דולר (USD)",
+    "cm": "ס\"מ",
+    "kg": "ק\"ג"
   },
   "update-product-page": {
-    "image": "כתובת תמונת מוצר",
+    "image": "שינוי תמונה",
     "name": "שם המוצר",
     "description": "תיאור",
-    "height": "גובה (ס״מ)",
-    "width": "רוחב (ס״מ)",
-    "weight": "משקל (ק״ג)",
+    "height": "גובה (ס\"מ)",
+    "width": "רוחב (ס\"מ)",
+    "weight": "משקל (ק\"ג)",
     "added": "תאריך הוספה",
-    "price": "מחיר (דולר)",
-    "familyId": "מזהה קבוצה"
+    "price": "מחיר (USD)",
+    "familyId": "מזהה משפחה",
+    "submit": "עדכון מוצר",
+    "product-update-success-title": "המוצר עודכן בהצלחה",
+    "product-update-success-note": "מוצר זה עודכן!",
+    "product-update-failed": "עדכון המוצר נכשל",
+    "validation.name-length": "חייב להיות באורך של 3-35 תווים",
+    "validation.description-length": "חייב להיות באורך של 15-250 תווים",
+    "validation.height-required": "שדה גובה הוא חובה",
+    "validation.height-positive": "הגובה חייב להיות גדול מ-0 ס\"מ",
+    "validation.height-too-large": "הגובה נראה גדול מדי",
+    "validation.weight-required": "שדה משקל הוא חובה",
+    "validation.weight-positive": "המשקל חייב להיות גדול מ-0 ק\"ג",
+    "validation.weight-too-heavy": "המשקל נראה כבד מדי",
+    "validation.width-required": "שדה רוחב הוא חובה",
+    "validation.width-positive": "הרוחב חייב להיות גדול מ-0 ס\"מ",
+    "validation.width-too-large": "הרוחב נראה גדול מדי",
+    "validation.price-required": "שדה מחיר הוא חובה",
+    "validation.price-negative": "המחיר אינו יכול להיות שלילי",
+    "validation.price-too-high": "המחיר חורג מהמגבלה"
   },
   "entity-card": {
     "view": "צפייה"

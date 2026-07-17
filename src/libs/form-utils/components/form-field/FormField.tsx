@@ -6,18 +6,20 @@ import './FormField.scss'
 type FormFieldProps = PropsWithChildren & {
   marginTopSize?: Space
   widthPx?: number
+  maxWidth?: number
 }
 
 export default function FormField({
   children,
   marginTopSize,
   widthPx,
+  maxWidth,
 }: FormFieldProps) {
   return (
     <div
       className={`
       form-field-main ${marginTopSize ? `margin-top-${marginTopSize.toLowerCase()}` : ''}`}
-      style={{ width: `${widthPx}px` }}
+      style={{ width: `${widthPx}px`, maxWidth: `${maxWidth}px` }}
     >
       {children}
     </div>

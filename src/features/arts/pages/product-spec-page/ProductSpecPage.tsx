@@ -16,9 +16,10 @@ import './ProductSpecPage.scss'
 
 export default function ProductSpecPage() {
   const context = useOutletContext<ProductSpecOutletContext>()
+  const [image, setImage] = useState<string | null>(null)
   const { direction } = useDirectionContext()
   const { familyId, productId } = useParams()
-  const { product, error } = useFetchProduct(
+  const { product, error, loading } = useFetchProduct(
     Number(productId),
     Number(familyId)
   )
@@ -45,31 +46,42 @@ export default function ProductSpecPage() {
 
   return (
     <PageLayout fullHeight noPadding>
-      <div className="product-spec-page-main">
-        <span
-          className="close-circle-icon font-size-24"
-          style={{
-            [direction === Direction.LTR ? 'right' : 'left']: 0,
-          }}
-        >
-          <SvgIcon
-            icon={cancelCircle}
-            style={{ cursor: 'pointer' }}
-            onClick={context.handleClose}
+      {loading ? (
+        <p>Loading Product...</p>
+      ) : (
+        <div className="product-spec-page-main">
+          <span
+            className="close-circle-icon font-size-24"
+            style={{
+              [direction === Direction.LTR ? 'right' : 'left']: 0,
+            }}
+          >
+            <SvgIcon
+              icon={cancelCircle}
+              style={{ cursor: 'pointer' }}
+              onClick={context.handleClose}
+            />
+          </span>
+
+          <img
+            src={
+              image ? `data:image/jpeg;base64,${image}` : productClone?.image
+            }
           />
-        </span>
+          <ProductIconsBar />
 
-        <img src={productClone?.image} />
-        <ProductIconsBar />
-
-        <Outlet
-          context={
-            {
-              product: productClone as Product,
-            } satisfies ProductSpecOutletContext
-          }
-        />
-      </div>
+          <Outlet
+            context={
+              {
+                product: productClone as Product,
+                imageChange: (value) => {
+                  setImage(value)
+                },
+              } satisfies ProductSpecOutletContext
+            }
+          />
+        </div>
+      )}
     </PageLayout>
   )
 }

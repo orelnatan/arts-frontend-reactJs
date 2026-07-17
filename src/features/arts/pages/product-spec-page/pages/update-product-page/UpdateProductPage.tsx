@@ -3,11 +3,19 @@ import { useOutletContext } from 'react-router-dom'
 import { useForm } from '@mantine/form'
 
 import { PageLayout } from '@arts/libs/layout'
+import { errorAlert, successAlert } from '@arts/libs/alerts'
 import { decimalFormatter } from '@arts/shared/utils'
+import { useUploadImage } from '@arts/shared/hooks'
+import {
+  useSetCachedProduct,
+  useUpdateProduct,
+} from '@arts/features/arts/hooks'
+import { Caption } from '@arts/shared/components'
 import {
   FormField,
   FormRow,
   InputDate,
+  InputImage,
   InputNumber,
   InputText,
   InputTextarea,
@@ -20,9 +28,41 @@ import type { ProductFormValues } from './product-form-values.interface'
 import { VALIDATION_SCHEMA } from './validation-schema.const'
 
 import './UpdateProductPage.scss'
+import type { Product } from '@arts/features/arts/models'
+
+const showErrorAlert = (key: string, err: unknown) => {
+  errorAlert({
+    title: (
+      <Caption namespace="arts" keyPrefix="update-product-page">
+        {key}
+      </Caption>
+    ),
+    message: (err as Error).message,
+  })
+}
+
+const showSuccessAlert = () => {
+  successAlert({
+    title: (
+      <Caption namespace="arts" keyPrefix="update-product-page">
+        product-update-success-title
+      </Caption>
+    ),
+    message: (
+      <Caption namespace="arts" keyPrefix="update-product-page">
+        product-update-success-note
+      </Caption>
+    ),
+  })
+}
 
 export default function UpdateProductPage() {
-  const [submitted, setSubmitted] = useState(false)
+  const [submitted, setSubmitted] = useState<boolean>(false)
+  const [updating, setUpdating] = useState<boolean>(false)
+  const [newPhoto, setNewPhoto] = useState<string | null>(null)
+  const { triggerUpload } = useUploadImage()
+  const { triggerUpdate } = useUpdateProduct()
+  const { updateProduct } = useSetCachedProduct()
   const context = useOutletContext<ProductSpecOutletContext>()
 
   const product = context?.product
@@ -44,9 +84,16 @@ export default function UpdateProductPage() {
   })
 
   useEffect(() => {
+    return () => {
+      context.imageChange?.(null)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
     if (product) {
       form.setValues({
-        image: product.image ?? '',
+        image: product.image ?? null,
         name: product.name ?? '',
         description: product.description ?? '',
         height: product.height ?? 0,
@@ -61,7 +108,24 @@ export default function UpdateProductPage() {
   }, [product])
 
   const handleSubmit = async (values: ProductFormValues): Promise<void> => {
-    console.log(values)
+    setUpdating(true)
+
+    try {
+      if (newPhoto) {
+        values.image = (await triggerUpload(newPhoto)).data.display_url
+      }
+
+      const updatedProduct = { ...product, ...values } as Product
+
+      await triggerUpdate(updatedProduct)
+      updateProduct(updatedProduct)
+
+      showSuccessAlert()
+    } catch (err) {
+      showErrorAlert('product-update-failed', err)
+    } finally {
+      setUpdating(false)
+    }
   }
 
   return (
@@ -110,6 +174,23 @@ export default function UpdateProductPage() {
                 error={submitted ? form.errors.description : null}
                 onChange={(event) => {
                   form.setFieldValue('description', event)
+                }}
+              />
+            </FormField>
+          </FormRow>
+
+          <FormRow marginTopSize={Space.Lg}>
+            <FormField maxWidth={408}>
+              <InputImage
+                namespace="arts"
+                keyPrefix="update-product-page"
+                label="image"
+                placeholder="image"
+                error={submitted ? form.errors.image : null}
+                onChange={(event) => {
+                  context.imageChange?.(event)
+
+                  setNewPhoto(event)
                 }}
               />
             </FormField>
@@ -205,6 +286,7 @@ export default function UpdateProductPage() {
               label="submit"
               justify="center"
               bottomCornerRadius
+              loading={updating}
               onClick={() => {
                 setSubmitted(true)
 

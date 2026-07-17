@@ -1,5 +1,5 @@
 export interface ProductFormValues {
-  image: string
+  image: string | null
   name: string
   description: string
   height: number
