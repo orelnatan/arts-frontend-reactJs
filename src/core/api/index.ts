@@ -1,3 +1,3 @@
-export * from './fetch-user.api'
-export * from './update-locale.api'
-export * from './update-theme.api'
+export * from './users.api'
+export * from './locale.api'
+export * from './theme.api'

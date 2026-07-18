@@ -2,7 +2,7 @@ import { api } from '@arts/core'
 
 import type { Family } from '../models'
 
-interface FamiliesResponse {
+export interface FamiliesResponse {
   success: boolean
   data: Family[]
 }

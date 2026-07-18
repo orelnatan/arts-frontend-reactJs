@@ -180,7 +180,7 @@ export default function UpdateProductPage() {
           </FormRow>
 
           <FormRow marginTopSize={Space.Lg}>
-            <FormField maxWidth={408}>
+            <FormField>
               <InputImage
                 namespace="arts"
                 keyPrefix="update-product-page"

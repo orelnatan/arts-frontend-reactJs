@@ -2,7 +2,7 @@ import { api } from '@arts/core'
 
 import type { Brand } from '../models'
 
-interface BrandsResponse {
+export interface BrandsResponse {
   success: boolean
   data: Brand[]
 }

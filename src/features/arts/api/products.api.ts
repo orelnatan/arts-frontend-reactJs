@@ -2,14 +2,19 @@ import { api } from '@arts/core'
 
 import type { Product } from '../models'
 
-interface ProductsListResponse {
+export interface ProductsListResponse {
   success: boolean
   data: Product[]
 }
 
-interface SingularProductResponse {
+export interface SingularProductResponse {
   success: boolean
   data: Product
+}
+
+export interface UpdateProductResponse {
+  success: boolean
+  message?: string
 }
 
 export const fetchProducts = async (familyId: number): Promise<Product[]> => {
@@ -23,4 +28,13 @@ export const fetchProducts = async (familyId: number): Promise<Product[]> => {
 export const fetchProductById = async (id: number): Promise<Product> => {
   return (await api.GET<SingularProductResponse>(`/get-product-by-id/${id}`))
     .data
+}
+
+export const updateProduct = async (
+  product: Product
+): Promise<UpdateProductResponse> => {
+  return await api.PUT<UpdateProductResponse>(
+    `/update-product/${product.id}`,
+    product
+  )
 }

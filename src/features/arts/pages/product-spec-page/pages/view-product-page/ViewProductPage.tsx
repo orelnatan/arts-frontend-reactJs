@@ -13,7 +13,7 @@ export default function ViewProductPage() {
   const product = context?.product
 
   return (
-    <PageLayout key="view-product-page-layout">
+    <PageLayout key="view-product-page-layout" noPadding>
       <div className="view-product-page-main">
         <h2 className="assistant-bold">{product?.name}</h2>
         <p>{product?.description}</p>

@@ -2,7 +2,7 @@ import { api } from '@arts/core'
 
 import type { Category } from '../models'
 
-interface CategoriesResponse {
+export interface CategoriesResponse {
   success: boolean
   data: Category[]
 }
