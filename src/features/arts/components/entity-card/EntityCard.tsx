@@ -1,26 +1,33 @@
 import { Card, Image, Group } from '@mantine/core'
 
 import { PrimaryButton } from '@arts/libs/form-utils'
-import { eyeSee } from '@arts/assets/images'
+import { eyeSee, starFavFull } from '@arts/assets/images'
 import { highlightText } from '@arts/shared/utils'
 
 import type { Entity } from '../../models'
 
 import './EntityCard.scss'
+import { SvgIcon } from '@arts/shared/components'
 
 interface EntityCardProps {
   entity: Entity
   highlightQuery?: string
+  isFavorite?: boolean
   view?: () => void
 }
 
 export default function EntityCard({
   entity,
   highlightQuery = '',
+  isFavorite,
   view,
 }: EntityCardProps) {
   return (
     <div className="entity-card-main">
+      <span className="favorite-entity-icon font-size-24">
+        {isFavorite && <SvgIcon icon={starFavFull} />}
+      </span>
+
       <Card shadow="sm" padding="md" withBorder>
         <Card.Section>
           <Image src={entity.image} height={160} alt={entity.name} />

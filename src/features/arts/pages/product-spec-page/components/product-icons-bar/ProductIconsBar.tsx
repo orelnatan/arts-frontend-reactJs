@@ -1,18 +1,27 @@
 import { NavLink } from 'react-router-dom'
 
-import { SvgIcon } from '@arts/shared/components'
-import { notesPan, starFavHalf, viewVision } from '@arts/assets/images'
+import { Spinner, SvgIcon } from '@arts/shared/components'
+import {
+  notesPan,
+  starFavFull,
+  starFavHalf,
+  viewVision,
+} from '@arts/assets/images'
 
 import './ProductIconsBar.scss'
 
 interface ProductIconsBarProps {
   isFavorite?: boolean
-  toggleFavorite?: () => void
+  loading?: boolean
+  addFavorite?: () => void
+  removeFavorite?: () => void
 }
 
 export default function ProductIconsBar({
   isFavorite,
-  toggleFavorite,
+  loading,
+  addFavorite,
+  removeFavorite,
 }: ProductIconsBarProps) {
   return (
     <div className="product-icons-bar-main">
@@ -43,18 +52,22 @@ export default function ProductIconsBar({
       </NavLink>
 
       <span
-        className="font-size-20"
+        className="favorite-star font-size-20"
         style={{
           color: isFavorite
             ? 'var(--color-app-drawer-icon-favorite)'
             : 'var(--color-app-drawer-icon-inactive)',
         }}
       >
-        <SvgIcon
-          icon={starFavHalf}
-          style={{ cursor: 'pointer' }}
-          onClick={toggleFavorite}
-        />
+        {loading ? (
+          <Spinner size={20} color="var(--color-app-navbar-text)" />
+        ) : (
+          <SvgIcon
+            icon={isFavorite ? starFavFull : starFavHalf}
+            style={{ cursor: 'pointer' }}
+            onClick={isFavorite ? removeFavorite : addFavorite}
+          />
+        )}
       </span>
     </div>
   )

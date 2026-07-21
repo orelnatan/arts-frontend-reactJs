@@ -5,13 +5,14 @@ import { PageLayout, ShellHeader } from '@arts/libs/layout'
 import { errorAlert } from '@arts/libs/alerts'
 import { Caption, CenteredContentShell } from '@arts/shared/components'
 
-import { useFetchProducts } from '../../hooks'
+import { useFavoritesContext, useFetchProducts } from '../../hooks'
 import { filterEntities } from '../../utils'
 import { ArtsHeader, EntityCard, ProductSpecDrawer } from '../../components'
 
 import './ProductsPage.scss'
 
 export default function ProductsPage() {
+  const { isFavorite } = useFavoritesContext()
   const { brandId, categoryId, familyId } = useParams()
   const { products, loading, error } = useFetchProducts(Number(familyId))
   const [keyword, setKeyword] = useState('')
@@ -70,6 +71,7 @@ export default function ProductsPage() {
                   key={product.id}
                   entity={product}
                   highlightQuery={keyword}
+                  isFavorite={isFavorite(product.id)}
                   view={() => showProduct(product.id)}
                 />
               ))}

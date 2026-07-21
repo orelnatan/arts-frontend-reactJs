@@ -1,13 +1,21 @@
 .entity-card-main {
+  position: relative;
   width: 275px;
 
-  .entity-card-header {
-    color: var(--color-entity-card-header-text);
+  .favorite-entity-icon {
+    position: absolute;
+    padding: var(--spaces-4);
+    z-index: 9;
+    color: var(--color-entity-icon-favorite);
   }
 
   .entity-card-description {
     height: 100%;
     color: var(--color-entity-card-description-text);
+  }
+
+  .entity-card-header {
+    color: var(--color-entity-card-header-text);
   }
 
   .entity-card-view-control {
