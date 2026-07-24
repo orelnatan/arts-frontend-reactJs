@@ -1,4 +1,5 @@
 import { QueryClient, useQuery, useQueryClient } from '@tanstack/react-query'
+
 import type { Product } from '../models'
 import { fetchProductById } from '../api'
 

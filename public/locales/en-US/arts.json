@@ -64,6 +64,10 @@
     "validation.price-negative": "Price cannot be negative",
     "validation.price-too-high": "Price exceeds the limit"
   },
+  "favorites-page": {
+    "favorites-title": "Your favorite ones...",
+    "fetch-favorites-failed": "Failed to fetch favorites list"
+  },
   "entity-card": {
     "view": "View"
   }

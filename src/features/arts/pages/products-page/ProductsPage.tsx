@@ -80,7 +80,10 @@ export default function ProductsPage() {
         </div>
       </PageLayout>
 
-      <ProductSpecDrawer />
+      <ProductSpecDrawer
+        activeRoutePattern={/\/products\/\d+\/product-spec(\/|$)/}
+        returnUrl="../products"
+      />
     </>
   )
 }

@@ -2,17 +2,24 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 import { SideDrawer } from '@arts/shared/components'
 
-export default function ProductSpecDrawer() {
+interface ProductSpecDrawerProps {
+  activeRoutePattern: RegExp
+  returnUrl: string
+}
+
+export default function ProductSpecDrawer({
+  activeRoutePattern,
+  returnUrl,
+}: ProductSpecDrawerProps) {
   const location = useLocation()
   const navigate = useNavigate()
 
   const isProductSpecActive = (): boolean => {
-    // Matches .../products/[id]/product-spec exactly OR with nested sub-paths
-    return /\/products\/\d+\/product-spec(\/|$)/.test(location.pathname)
+    return activeRoutePattern.test(location.pathname)
   }
 
   const handleClose = () => {
-    navigate('../products', { relative: 'path' })
+    navigate(returnUrl, { relative: 'path' })
   }
 
   return (

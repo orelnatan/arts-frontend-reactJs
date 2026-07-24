@@ -29,6 +29,7 @@ export const artsRoutes: RouteObject[] = [
       {
         path: 'favorites',
         element: <FavoritesPage />,
+        children: [...productSpecPageRoutes],
       },
       {
         path: 'brands',
