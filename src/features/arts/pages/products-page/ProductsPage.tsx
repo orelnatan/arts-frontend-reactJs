@@ -5,7 +5,7 @@ import { PageLayout, ShellHeader } from '@arts/libs/layout'
 import { errorAlert } from '@arts/libs/alerts'
 import { Caption, CenteredContentShell } from '@arts/shared/components'
 
-import { useFavoritesContext, useFetchProducts } from '../../hooks'
+import { useFavoritesContext, useProductsContext } from '../../hooks'
 import { filterEntities } from '../../utils'
 import { ArtsHeader, EntityCard, ProductSpecDrawer } from '../../components'
 
@@ -14,13 +14,17 @@ import './ProductsPage.scss'
 export default function ProductsPage() {
   const { isFavorite } = useFavoritesContext()
   const { brandId, categoryId, familyId } = useParams()
-  const { products, loading, error } = useFetchProducts(Number(familyId))
+  const { products, loading, error, loadProducts } = useProductsContext()
   const [keyword, setKeyword] = useState('')
   const navigate = useNavigate()
 
   const filteredProducts = useMemo(() => {
-    return filterEntities(products, keyword)
-  }, [products, keyword])
+    return filterEntities(products[Number(familyId)], keyword) || []
+  }, [products, keyword, familyId])
+
+  useEffect(() => {
+    loadProducts(Number(familyId))
+  }, [loadProducts, familyId])
 
   useEffect(() => {
     if (error) {

@@ -1,1 +1,5 @@
+export * from './brands.provider'
+export * from './categories.provider'
+export * from './families.provider'
+export * from './products.provider'
 export * from './favorites.provider'

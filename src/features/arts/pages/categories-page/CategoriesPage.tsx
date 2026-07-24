@@ -5,7 +5,7 @@ import { PageLayout, ShellHeader } from '@arts/libs/layout'
 import { errorAlert } from '@arts/libs/alerts'
 import { Caption, CenteredContentShell } from '@arts/shared/components'
 
-import { useFetchCategories } from '../../hooks'
+import { useCategoriesContext } from '../../hooks'
 import { filterEntities } from '../../utils'
 import { ArtsHeader, EntityCard } from '../../components'
 
@@ -13,13 +13,17 @@ import './CategoriesPage.scss'
 
 export default function CategoriesPage() {
   const { brandId } = useParams()
-  const { categories, loading, error } = useFetchCategories(Number(brandId))
+  const { categories, loading, error, loadCategories } = useCategoriesContext()
   const [keyword, setKeyword] = useState('')
   const navigate = useNavigate()
 
   const filteredCategories = useMemo(() => {
-    return filterEntities(categories, keyword)
-  }, [categories, keyword])
+    return filterEntities(categories[Number(brandId)], keyword) || []
+  }, [categories, keyword, brandId])
+
+  useEffect(() => {
+    loadCategories(Number(brandId))
+  }, [loadCategories, brandId])
 
   useEffect(() => {
     if (error) {

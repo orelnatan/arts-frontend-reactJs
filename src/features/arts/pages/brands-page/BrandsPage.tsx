@@ -5,20 +5,24 @@ import { PageLayout, ShellHeader } from '@arts/libs/layout'
 import { errorAlert } from '@arts/libs/alerts'
 import { Caption, CenteredContentShell } from '@arts/shared/components'
 
-import { useFetchBrands } from '../../hooks'
+import { useBrandsContext } from '../../hooks'
 import { filterEntities } from '../../utils'
 import { ArtsHeader, EntityCard } from '../../components'
 
 import './BrandsPage.scss'
 
 export default function BrandsPage() {
-  const { brands, loading, error } = useFetchBrands()
+  const { brands, loading, error, loadBrands } = useBrandsContext()
   const [keyword, setKeyword] = useState('')
   const navigate = useNavigate()
 
   const filteredBrands = useMemo(() => {
     return filterEntities(brands, keyword)
   }, [brands, keyword])
+
+  useEffect(() => {
+    loadBrands()
+  }, [loadBrands])
 
   useEffect(() => {
     if (error) {

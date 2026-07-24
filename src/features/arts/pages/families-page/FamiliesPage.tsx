@@ -5,7 +5,7 @@ import { PageLayout, ShellHeader } from '@arts/libs/layout'
 import { errorAlert } from '@arts/libs/alerts'
 import { Caption, CenteredContentShell } from '@arts/shared/components'
 
-import { useFetchFamilies } from '../../hooks'
+import { useFamiliesContext } from '../../hooks'
 import { filterEntities } from '../../utils'
 import { ArtsHeader, EntityCard } from '../../components'
 
@@ -13,13 +13,17 @@ import './FamiliesPage.scss'
 
 export default function FamiliesPage() {
   const { brandId, categoryId } = useParams()
-  const { families, loading, error } = useFetchFamilies(Number(categoryId))
+  const { families, loading, error, loadFamilies } = useFamiliesContext()
   const [keyword, setKeyword] = useState('')
   const navigate = useNavigate()
 
   const filteredFamilies = useMemo(() => {
-    return filterEntities(families, keyword)
-  }, [families, keyword])
+    return filterEntities(families[Number(categoryId)], keyword) || []
+  }, [families, keyword, categoryId])
+
+  useEffect(() => {
+    loadFamilies(Number(categoryId))
+  }, [loadFamilies, categoryId])
 
   useEffect(() => {
     if (error) {
