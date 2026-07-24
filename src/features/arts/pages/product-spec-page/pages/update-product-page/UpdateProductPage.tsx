@@ -6,10 +6,7 @@ import { PageLayout } from '@arts/libs/layout'
 import { errorAlert, successAlert } from '@arts/libs/alerts'
 import { decimalFormatter } from '@arts/shared/utils'
 import { useUploadImage } from '@arts/shared/hooks'
-import {
-  useSetCachedProduct,
-  useUpdateProduct,
-} from '@arts/features/arts/hooks'
+import { useProductsContext, useUpdateProduct } from '@arts/features/arts/hooks'
 import { Caption } from '@arts/shared/components'
 import {
   FormField,
@@ -62,7 +59,7 @@ export default function UpdateProductPage() {
   const [newPhoto, setNewPhoto] = useState<string | null>(null)
   const { triggerUpload } = useUploadImage()
   const { triggerUpdate } = useUpdateProduct()
-  const { updateProduct } = useSetCachedProduct()
+  const { updateProduct } = useProductsContext()
   const context = useOutletContext<ProductSpecOutletContext>()
 
   const product = context?.product

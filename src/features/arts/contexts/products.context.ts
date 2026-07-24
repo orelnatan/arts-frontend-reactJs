@@ -7,6 +7,7 @@ export interface ProductsContextType {
   loading: boolean
   error: string | null
   loadProducts: (familyId: number) => Promise<void>
+  updateProduct: (updatedProduct: Product) => void
 }
 
 export const ProductsContext = createContext<ProductsContextType | undefined>(

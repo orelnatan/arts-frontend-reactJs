@@ -1,5 +1,4 @@
 import { useEffect, useState, type ReactNode } from 'react'
-import { useQueryClient } from '@tanstack/react-query'
 
 import { AuthContext } from '../contexts'
 import { useToken, useUser } from '../hooks'
@@ -8,7 +7,6 @@ import type { User } from '../models'
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null)
   const [isInitializing, setIsInitializing] = useState(true)
-  const queryClient = useQueryClient()
 
   const { token, removeToken } = useToken()
   const { getUser } = useUser()
@@ -33,7 +31,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const disconnect = () => {
     removeToken()
     setUser(null)
-    queryClient.clear()
   }
 
   return (

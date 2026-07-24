@@ -31,14 +31,29 @@ export const ProductsProvider = ({ children }: { children: ReactNode }) => {
     [products]
   )
 
+  const updateProduct = useCallback((updatedProduct: Product) => {
+    setProducts((prev) => {
+      const familyId = updatedProduct.familyId
+      const familyProducts = prev[familyId]
+
+      return {
+        ...prev,
+        [familyId]: familyProducts.map((product) =>
+          product.id === updatedProduct.id ? updatedProduct : product
+        ),
+      }
+    })
+  }, [])
+
   const value = useMemo(
     () => ({
       products,
       loading,
       error,
       loadProducts,
+      updateProduct,
     }),
-    [products, loading, error, loadProducts]
+    [products, loading, error, loadProducts, updateProduct]
   )
 
   return (

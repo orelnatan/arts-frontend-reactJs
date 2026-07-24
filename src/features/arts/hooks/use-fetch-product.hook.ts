@@ -1,39 +1,44 @@
-import { QueryClient, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useState, useCallback, useEffect } from 'react'
 
-import type { Product } from '../models'
+import { useProductsContext } from './use-products-context.hook'
 import { fetchProductById } from '../api'
+import type { Product } from '../models'
 
 export const useFetchProduct = (productId: number, familyId?: number) => {
-  const queryClient = useQueryClient()
+  const { products } = useProductsContext()
 
-  const { data, isLoading, error } = useQuery<Product, Error>({
-    queryKey: ['product', productId],
-    queryFn: () => fetchProductById(productId),
-    enabled: !!productId,
-    initialData: () => getProductFromCache(queryClient, productId, familyId),
-    staleTime: 10000,
-  })
+  const [product, setProduct] = useState<Product | null>(null)
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
 
-  return {
-    product: data ?? null,
-    loading: isLoading,
-    error: error ? error.message : null,
-  }
-}
+  const getProduct = useCallback(async () => {
+    // 1. Check if product exists under the specified familyId
+    if (familyId && products[familyId]) {
+      setProduct(
+        products[familyId].find(
+          (product) => product.id === productId
+        ) as Product
+      )
+      return
+    }
 
-const getProductFromCache = (
-  queryClient: QueryClient,
-  productId: number,
-  familyId?: number
-): Product | undefined => {
-  if (!familyId) return undefined
+    // 2. Not found in context -> fetch from API
+    setLoading(true)
+    setError(null)
 
-  // 1. Look up the cached product list using its query key
-  const cachedProducts = queryClient.getQueryData<Product[]>([
-    'products',
-    familyId,
-  ])
+    try {
+      const data = await fetchProductById(productId)
+      setProduct(data)
+    } catch (err) {
+      setError(String(err))
+    } finally {
+      setLoading(false)
+    }
+  }, [productId, familyId, products])
 
-  // 2. Find and return the specific product inside that cached list
-  return cachedProducts?.find((product) => product.id === productId)
+  useEffect(() => {
+    getProduct()
+  }, [getProduct])
+
+  return { product, loading, error, getProduct }
 }
