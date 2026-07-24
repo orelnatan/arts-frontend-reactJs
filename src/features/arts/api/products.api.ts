@@ -17,6 +17,19 @@ export interface UpdateProductResponse {
   message?: string
 }
 
+export interface FetchProductsByIdsResponse {
+  success: boolean
+  data: Product[]
+}
+
+export const fetchProductsByIds = async (ids: number[]): Promise<Product[]> => {
+  return (
+    await api.POST<FetchProductsByIdsResponse>('/get-products-by-ids', {
+      ids,
+    })
+  ).data
+}
+
 export const fetchProducts = async (familyId: number): Promise<Product[]> => {
   return (
     await api.GET<ProductsListResponse>(

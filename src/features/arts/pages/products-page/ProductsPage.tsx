@@ -14,7 +14,8 @@ import './ProductsPage.scss'
 export default function ProductsPage() {
   const { isFavorite } = useFavoritesContext()
   const { brandId, categoryId, familyId } = useParams()
-  const { products, loading, error, loadProducts } = useProductsContext()
+  const { products, loadingProducts, error, loadProducts } =
+    useProductsContext()
   const [keyword, setKeyword] = useState('')
   const navigate = useNavigate()
 
@@ -62,7 +63,7 @@ export default function ProductsPage() {
 
       <PageLayout>
         <div className="products-page-main">
-          {loading && <p>Loading...</p>}
+          {loadingProducts && <p>Loading...</p>}
 
           <div className="products-list-container">
             <CenteredContentShell

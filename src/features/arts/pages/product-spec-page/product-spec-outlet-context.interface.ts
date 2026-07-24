@@ -4,4 +4,5 @@ export interface ProductSpecOutletContext {
   product?: Product
   imageChange?: (value: string | null) => void
   handleClose?: () => void
+  cloaseOnFavoriteToggle?: boolean
 }

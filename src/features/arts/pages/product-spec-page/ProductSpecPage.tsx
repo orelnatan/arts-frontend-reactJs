@@ -10,7 +10,7 @@ import { cancelCircle } from '@arts/assets/images'
 import {
   useAddFavorite,
   useFavoritesContext,
-  useFetchProduct,
+  useProductsContext,
   useRemoveFavorite,
 } from '../../hooks'
 import type { Product } from '../../models'
@@ -38,22 +38,15 @@ export default function ProductSpecPage() {
   const productNumber = Number(productId)
   const familyNumber = Number(familyId)
 
+  const { product, loadingProduct, loadProduct, error } = useProductsContext()
   const { isFavorite, addFavorite, removeFavorite } = useFavoritesContext()
   const { triggerAddFavorite, loading: loadingAddFavorite } = useAddFavorite()
   const { triggerRemoveFavorite, loading: loadingRemoveFavorite } =
     useRemoveFavorite()
-  const {
-    product,
-    error,
-    loading: loadingProduct,
-  } = useFetchProduct(productNumber, familyNumber)
-  // Caches the product data locally so it remains available when the route changes back to empty
-  const [productClone, setProductClone] = useState<Product | null>(null)
 
-  // Updates the clone during render phase to keep data stable during close transitions
-  if (product && product !== productClone) {
-    setProductClone(product)
-  }
+  useEffect(() => {
+    loadProduct(productNumber, familyNumber)
+  }, [loadProduct, productNumber, familyNumber])
 
   useEffect(() => {
     if (error) {
@@ -66,6 +59,10 @@ export default function ProductSpecPage() {
       await triggerAddFavorite(productNumber)
 
       addFavorite(productNumber)
+
+      if (context.cloaseOnFavoriteToggle) {
+        context.handleClose?.()
+      }
     } catch (err) {
       showErrorAlert('add-favorite-failed', err)
     }
@@ -76,6 +73,10 @@ export default function ProductSpecPage() {
       await triggerRemoveFavorite(productNumber)
 
       removeFavorite(productNumber)
+
+      if (context.cloaseOnFavoriteToggle) {
+        context.handleClose?.()
+      }
     } catch (err) {
       showErrorAlert('remove-favorite-failed', err)
     }
@@ -101,9 +102,7 @@ export default function ProductSpecPage() {
           </span>
 
           <img
-            src={
-              image ? `data:image/jpeg;base64,${image}` : productClone?.image
-            }
+            src={image ? `data:image/jpeg;base64,${image}` : product?.image}
           />
           <ProductIconsBar
             isFavorite={isFavorite(productNumber)}
@@ -115,7 +114,7 @@ export default function ProductSpecPage() {
           <Outlet
             context={
               {
-                product: productClone as Product,
+                product: product as Product,
                 imageChange: (value) => {
                   setImage(value)
                 },

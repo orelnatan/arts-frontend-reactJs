@@ -1,44 +1,31 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 
-import { useProductsContext } from './use-products-context.hook'
 import { fetchProductById } from '../api'
 import type { Product } from '../models'
 
-export const useFetchProduct = (productId: number, familyId?: number) => {
-  const { products } = useProductsContext()
-
-  const [product, setProduct] = useState<Product | null>(null)
-  const [loading, setLoading] = useState<boolean>(false)
+export const useFetchProduct = () => {
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const getProduct = useCallback(async () => {
-    // 1. Check if product exists under the specified familyId
-    if (familyId && products[familyId]) {
-      setProduct(
-        products[familyId].find(
-          (product) => product.id === productId
-        ) as Product
-      )
-      return
-    }
+  const getProduct = useCallback(
+    async (productId: number): Promise<Product> => {
+      setLoading(true)
+      setError(null)
 
-    // 2. Not found in context -> fetch from API
-    setLoading(true)
-    setError(null)
+      try {
+        const product = await fetchProductById(productId)
 
-    try {
-      const data = await fetchProductById(productId)
-      setProduct(data)
-    } catch (err) {
-      setError(String(err))
-    } finally {
-      setLoading(false)
-    }
-  }, [productId, familyId, products])
+        return product
+      } catch (err: unknown) {
+        setError(String(err))
 
-  useEffect(() => {
-    getProduct()
-  }, [getProduct])
+        throw err
+      } finally {
+        setLoading(false)
+      }
+    },
+    []
+  )
 
-  return { product, loading, error, getProduct }
+  return { getProduct, loading, error }
 }

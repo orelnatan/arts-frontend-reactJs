@@ -5,9 +5,11 @@ import { SideDrawer } from '@arts/shared/components'
 interface ProductSpecDrawerProps {
   activeRoutePattern: RegExp
   returnUrl: string
+  cloaseOnFavoriteToggle?: boolean
 }
 
 export default function ProductSpecDrawer({
+  cloaseOnFavoriteToggle,
   activeRoutePattern,
   returnUrl,
 }: ProductSpecDrawerProps) {
@@ -30,7 +32,7 @@ export default function ProductSpecDrawer({
       radius={'var(--corner-radius-14)'}
       withOverlay={false}
     >
-      <Outlet context={{ handleClose }} />
+      <Outlet context={{ handleClose, cloaseOnFavoriteToggle }} />
     </SideDrawer>
   )
 }

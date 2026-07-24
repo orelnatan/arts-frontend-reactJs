@@ -4,9 +4,18 @@ import type { Product } from '../models'
 
 export interface ProductsContextType {
   products: Record<number, Product[]>
-  loading: boolean
+  favorites: Product[]
+  product: Product | null
+  loadingProduct: boolean
+  loadingProducts: boolean
+  loadingFavorites: boolean
+  loadingFavoritesIds: boolean
   error: string | null
   loadProducts: (familyId: number) => Promise<void>
+  loadProduct: (
+    productId: number,
+    familyId?: number
+  ) => Promise<Product | undefined>
   updateProduct: (updatedProduct: Product) => void
 }
 
