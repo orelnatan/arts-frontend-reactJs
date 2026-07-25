@@ -60,7 +60,7 @@ export default function ProductIconsBar({
         }}
       >
         {loading ? (
-          <Spinner size={20} color="var(--color-app-navbar-text)" />
+          <Spinner size={20} color="var(--color-app-drawer-icon-inactive)" />
         ) : (
           <SvgIcon
             icon={isFavorite ? starFavFull : starFavHalf}

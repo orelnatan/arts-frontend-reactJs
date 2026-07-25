@@ -46,6 +46,8 @@ export default function CategoriesPage() {
     navigate(`/arts/brands`)
   }
 
+  const empty = !loading && !filteredCategories.length
+
   return (
     <>
       <ShellHeader>
@@ -69,6 +71,15 @@ export default function CategoriesPage() {
               maxElementsPerRow={4}
               gap={16}
             >
+              {empty && (
+                <h2
+                  className="text-align-center assistant-bold"
+                  style={{ width: '100%' }}
+                >
+                  <Caption namespace="shared">empty-list</Caption>
+                </h2>
+              )}
+
               {filteredCategories.map((category) => (
                 <EntityCard
                   key={category.id}

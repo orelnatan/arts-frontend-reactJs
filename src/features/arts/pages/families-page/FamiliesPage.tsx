@@ -46,6 +46,8 @@ export default function FamiliesPage() {
     navigate(`/arts/brands/${brandId}/categories`)
   }
 
+  const empty = !loading && !filteredFamilies.length
+
   return (
     <>
       <ShellHeader>
@@ -69,6 +71,15 @@ export default function FamiliesPage() {
               maxElementsPerRow={4}
               gap={16}
             >
+              {empty && (
+                <h2
+                  className="text-align-center assistant-bold"
+                  style={{ width: '100%' }}
+                >
+                  <Caption namespace="shared">empty-list</Caption>
+                </h2>
+              )}
+
               {filteredFamilies.map((family) => (
                 <EntityCard
                   key={family.id}

@@ -17,7 +17,7 @@ export default function BrandsPage() {
   const navigate = useNavigate()
 
   const filteredBrands = useMemo(() => {
-    return filterEntities(brands, keyword)
+    return filterEntities(brands, keyword) || []
   }, [brands, keyword])
 
   useEffect(() => {
@@ -41,6 +41,8 @@ export default function BrandsPage() {
     navigate(`${brandId}/categories`)
   }
 
+  const empty = !loading && !filteredBrands.length
+
   return (
     <>
       <ShellHeader>
@@ -62,6 +64,15 @@ export default function BrandsPage() {
               maxElementsPerRow={4}
               gap={16}
             >
+              {empty && (
+                <h2
+                  className="text-align-center assistant-bold"
+                  style={{ width: '100%' }}
+                >
+                  <Caption namespace="shared">empty-list</Caption>
+                </h2>
+              )}
+
               {filteredBrands.map((brand) => (
                 <EntityCard
                   key={brand.id}

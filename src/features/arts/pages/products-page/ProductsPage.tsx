@@ -48,6 +48,8 @@ export default function ProductsPage() {
     navigate(`/arts/brands/${brandId}/categories/${categoryId}/families`)
   }
 
+  const empty = !loadingProducts && !filteredProducts.length
+
   return (
     <>
       <ShellHeader>
@@ -71,6 +73,15 @@ export default function ProductsPage() {
               maxElementsPerRow={4}
               gap={16}
             >
+              {empty && (
+                <h2
+                  className="text-align-center assistant-bold"
+                  style={{ width: '100%' }}
+                >
+                  <Caption namespace="shared">empty-list</Caption>
+                </h2>
+              )}
+
               {filteredProducts.map((product) => (
                 <EntityCard
                   key={product.id}

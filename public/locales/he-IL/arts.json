@@ -64,6 +64,10 @@
     "validation.price-negative": "המחיר אינו יכול להיות שלילי",
     "validation.price-too-high": "המחיר חורג מהמגבלה"
   },
+  "favorites-page": {
+    "favorites-title": "המועדפים שלך...",
+    "fetch-favorites-failed": "טעינת מועדפים נכשלה"
+  },
   "entity-card": {
     "view": "צפייה"
   }
