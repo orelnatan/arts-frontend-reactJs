@@ -88,6 +88,8 @@ export default function ProductsPage() {
       <ProductSpecDrawer
         activeRoutePattern={/\/products\/\d+\/product-spec(\/|$)/}
         returnUrl="../products"
+        closeOnProductUpdate
+        closeOnFavoriteToggle
       />
     </>
   )

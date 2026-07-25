@@ -38,7 +38,7 @@ export default function ProductSpecPage() {
   const productNumber = Number(productId)
   const familyNumber = Number(familyId)
 
-  const { product, loadingProduct, loadProduct, error } = useProductsContext()
+  const { product, loadingProduct, error, loadProduct } = useProductsContext()
   const { isFavorite, addFavorite, removeFavorite } = useFavoritesContext()
   const { triggerAddFavorite, loading: loadingAddFavorite } = useAddFavorite()
   const { triggerRemoveFavorite, loading: loadingRemoveFavorite } =
@@ -60,7 +60,7 @@ export default function ProductSpecPage() {
 
       addFavorite(productNumber)
 
-      if (context.cloaseOnFavoriteToggle) {
+      if (context.closeOnFavoriteToggle) {
         context.handleClose?.()
       }
     } catch (err) {
@@ -74,7 +74,7 @@ export default function ProductSpecPage() {
 
       removeFavorite(productNumber)
 
-      if (context.cloaseOnFavoriteToggle) {
+      if (context.closeOnFavoriteToggle) {
         context.handleClose?.()
       }
     } catch (err) {
@@ -115,6 +115,8 @@ export default function ProductSpecPage() {
             context={
               {
                 product: product as Product,
+                closeOnProductUpdate: context.closeOnProductUpdate,
+                handleClose: context.handleClose,
                 imageChange: (value) => {
                   setImage(value)
                 },

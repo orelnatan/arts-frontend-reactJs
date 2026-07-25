@@ -9,7 +9,8 @@ import { EntityCard, ProductSpecDrawer } from '../../components'
 import './FavoritesPage.scss'
 
 export default function FavoritesPage() {
-  const { favorites, loadingFavorites } = useProductsContext()
+  const { favorites, loadingFavoritesIds, loadingFavorites } =
+    useProductsContext()
   const navigate = useNavigate()
 
   const showProduct = (productId: number) => {
@@ -26,7 +27,7 @@ export default function FavoritesPage() {
             </Caption>
           </h1>
 
-          {loadingFavorites && <p>Loading...</p>}
+          {(loadingFavoritesIds || loadingFavorites) && <p>Loading...</p>}
 
           <div className="favorites-list-container">
             <CenteredContentShell
@@ -50,7 +51,6 @@ export default function FavoritesPage() {
       <ProductSpecDrawer
         activeRoutePattern={/\/favorites\/\d+\/product-spec(\/|$)/}
         returnUrl="../favorites"
-        cloaseOnFavoriteToggle
       />
     </>
   )

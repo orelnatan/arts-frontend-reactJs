@@ -12,6 +12,7 @@ import {
   ProductsPage,
   productSpecPageRoutes,
 } from './pages'
+import { FavoriteProtectedRoute } from './guards'
 
 export const artsRoutes: RouteObject[] = [
   {
@@ -29,7 +30,13 @@ export const artsRoutes: RouteObject[] = [
       {
         path: 'favorites',
         element: <FavoritesPage />,
-        children: [...productSpecPageRoutes],
+        children: [
+          {
+            // Pathless route guard wrapper
+            element: <FavoriteProtectedRoute />,
+            children: [...productSpecPageRoutes],
+          },
+        ],
       },
       {
         path: 'brands',

@@ -1,1 +1,1 @@
-export * from './AuthProtectedRoute'
+export * from './AuthProtectedRoute.guard'

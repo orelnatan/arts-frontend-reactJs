@@ -118,6 +118,10 @@ export default function UpdateProductPage() {
       updateProduct(updatedProduct)
 
       showSuccessAlert()
+      console.log(context)
+      if (context.closeOnProductUpdate) {
+        context.handleClose?.()
+      }
     } catch (err) {
       showErrorAlert('product-update-failed', err)
     } finally {

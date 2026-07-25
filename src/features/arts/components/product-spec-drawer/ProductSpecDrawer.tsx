@@ -2,14 +2,18 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 import { SideDrawer } from '@arts/shared/components'
 
+import type { ProductSpecOutletContext } from '../../pages'
+
 interface ProductSpecDrawerProps {
   activeRoutePattern: RegExp
   returnUrl: string
-  cloaseOnFavoriteToggle?: boolean
+  closeOnFavoriteToggle?: boolean
+  closeOnProductUpdate?: boolean
 }
 
 export default function ProductSpecDrawer({
-  cloaseOnFavoriteToggle,
+  closeOnFavoriteToggle,
+  closeOnProductUpdate,
   activeRoutePattern,
   returnUrl,
 }: ProductSpecDrawerProps) {
@@ -32,7 +36,15 @@ export default function ProductSpecDrawer({
       radius={'var(--corner-radius-14)'}
       withOverlay={false}
     >
-      <Outlet context={{ handleClose, cloaseOnFavoriteToggle }} />
+      <Outlet
+        context={
+          {
+            handleClose,
+            closeOnFavoriteToggle,
+            closeOnProductUpdate,
+          } satisfies ProductSpecOutletContext
+        }
+      />
     </SideDrawer>
   )
 }

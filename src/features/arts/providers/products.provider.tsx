@@ -2,8 +2,8 @@ import {
   useState,
   useCallback,
   useMemo,
-  type ReactNode,
   useEffect,
+  type ReactNode,
 } from 'react'
 
 import { ProductsContext } from '../contexts'
@@ -12,9 +12,13 @@ import {
   useFetchProduct,
   useFetchProductsByIds,
 } from '../hooks'
-import { updateListItem, updateProductsRecord } from '../utils'
 import { fetchProducts } from '../api'
 import type { Product } from '../models'
+import {
+  findCachedProduct,
+  updateListItem,
+  updateProductsRecord,
+} from './providers-utils'
 
 export const ProductsProvider = ({ children }: { children: ReactNode }) => {
   const { favoriteIds, loading: loadingFavoritesIds } = useFavoritesContext()
@@ -67,28 +71,22 @@ export const ProductsProvider = ({ children }: { children: ReactNode }) => {
       productId: number,
       familyId?: number
     ): Promise<Product | undefined> => {
-      if (isNaN(productId)) return
+      if (isNaN(productId)) return undefined
 
       setError(null)
-      // 1. If familyId is provided, look in the products record map
-      if (familyId !== undefined) {
-        const familyProducts = products[familyId]
-        const foundProduct = familyProducts?.find((p) => p.id === productId)
-
-        if (foundProduct) {
-          setProduct(foundProduct)
-          return foundProduct
-        }
+      // Check cached state first (record map or favorites)
+      const cachedProduct = findCachedProduct(
+        products,
+        favorites,
+        productId,
+        familyId
+      )
+      if (cachedProduct) {
+        setProduct(cachedProduct)
+        return cachedProduct
       }
 
-      // 2. If no familyId (or not found above), look in favorites
-      const favoriteProduct = favorites.find((p) => p.id === productId)
-      if (favoriteProduct) {
-        setProduct(favoriteProduct)
-        return favoriteProduct
-      }
-
-      // 3. Fallback: fetch directly using the hook
+      // Fallback to network request
       try {
         const fetchedProduct = await getProduct(productId)
         setProduct(fetchedProduct)
