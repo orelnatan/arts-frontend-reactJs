@@ -42,6 +42,7 @@ export default function PrimaryButton({
   return (
     <div
       className={`primary-button-main ${topCornerRadius ? 'top-corner-radius' : ''} ${bottomCornerRadius ? 'bottom-corner-radius' : ''}`}
+      style={{ width: props.fullWidth ? '100%' : 'auto' }}
     >
       <Button
         style={props.style}

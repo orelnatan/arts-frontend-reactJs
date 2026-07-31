@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 
-import { Spinner, SvgIcon } from '@arts/shared/components'
+import { ConfirmPopover, Spinner, SvgIcon } from '@arts/shared/components'
 import {
   notesPan,
   recycleBin,
@@ -76,7 +76,7 @@ export default function ProductIconsBar({
       </span>
 
       <span
-        className="recycle-bin font-size-20"
+        className="recycle-bin font-size-21"
         style={{
           color: 'var(--color-app-drawer-icon-inactive)',
         }}
@@ -84,11 +84,9 @@ export default function ProductIconsBar({
         {loadingProductDeletion ? (
           <Spinner size={20} color="var(--color-app-drawer-icon-inactive)" />
         ) : (
-          <SvgIcon
-            icon={recycleBin}
-            style={{ cursor: 'pointer' }}
-            onClick={deleteProduct}
-          />
+          <ConfirmPopover onConfirm={deleteProduct}>
+            <SvgIcon icon={recycleBin} style={{ cursor: 'pointer' }} />
+          </ConfirmPopover>
         )}
       </span>
     </div>

@@ -1,0 +1,9 @@
+.confirm-popover-target {
+  display: flex;
+}
+
+.popover-content-controls {
+  display: flex;
+  gap: var(--spaces-5);
+  padding-top: var(--spaces-6);
+}
