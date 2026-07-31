@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { Spinner, SvgIcon } from '@arts/shared/components'
 import {
   notesPan,
+  recycleBin,
   starFavFull,
   starFavHalf,
   viewVision,
@@ -12,16 +13,20 @@ import './ProductIconsBar.scss'
 
 interface ProductIconsBarProps {
   isFavorite?: boolean
-  loading?: boolean
+  loadingFavoriteToggle?: boolean
+  loadingProductDeletion?: boolean
   addFavorite?: () => void
   removeFavorite?: () => void
+  deleteProduct?: () => void
 }
 
 export default function ProductIconsBar({
   isFavorite,
-  loading,
+  loadingFavoriteToggle,
+  loadingProductDeletion,
   addFavorite,
   removeFavorite,
+  deleteProduct,
 }: ProductIconsBarProps) {
   return (
     <div className="product-icons-bar-main">
@@ -59,13 +64,30 @@ export default function ProductIconsBar({
             : 'var(--color-app-drawer-icon-inactive)',
         }}
       >
-        {loading ? (
+        {loadingFavoriteToggle ? (
           <Spinner size={20} color="var(--color-app-drawer-icon-inactive)" />
         ) : (
           <SvgIcon
             icon={isFavorite ? starFavFull : starFavHalf}
             style={{ cursor: 'pointer' }}
             onClick={isFavorite ? removeFavorite : addFavorite}
+          />
+        )}
+      </span>
+
+      <span
+        className="recycle-bin font-size-20"
+        style={{
+          color: 'var(--color-app-drawer-icon-inactive)',
+        }}
+      >
+        {loadingProductDeletion ? (
+          <Spinner size={20} color="var(--color-app-drawer-icon-inactive)" />
+        ) : (
+          <SvgIcon
+            icon={recycleBin}
+            style={{ cursor: 'pointer' }}
+            onClick={deleteProduct}
           />
         )}
       </span>

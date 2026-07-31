@@ -10,13 +10,17 @@ export interface ProductsContextType {
   loadingProducts: boolean
   loadingFavorites: boolean
   loadingFavoritesIds: boolean
-  error: string | null
+  errorFetchingProduct: string | null
+  errorFetchingProducts: string | null
+  errorFetchingFavorites: string | null
+  errorFetchingFavoritesIds: string | null
   loadProducts: (familyId: number) => Promise<void>
   loadProduct: (
     productId: number,
     familyId?: number
   ) => Promise<Product | undefined>
   updateProduct: (updatedProduct: Product) => void
+  deleteProduct: (productId: number) => void
 }
 
 export const ProductsContext = createContext<ProductsContextType | undefined>(

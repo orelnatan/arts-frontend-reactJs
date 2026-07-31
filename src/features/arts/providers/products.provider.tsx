@@ -21,7 +21,11 @@ import {
 } from './providers-utils'
 
 export const ProductsProvider = ({ children }: { children: ReactNode }) => {
-  const { favoriteIds, loading: loadingFavoritesIds } = useFavoritesContext()
+  const {
+    favoriteIds,
+    error: errorFetchingFavoritesIds,
+    loading: loadingFavoritesIds,
+  } = useFavoritesContext()
   const { triggerFetchProductsByIds, loading: loadingFavorites } =
     useFetchProductsByIds()
   const { getProduct, loading: loadingProduct } = useFetchProduct()
@@ -29,7 +33,16 @@ export const ProductsProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState<Record<number, Product[]>>({})
   const [product, setProduct] = useState<Product | null>(null)
   const [loadingProducts, setLoadingProducts] = useState<boolean>(false)
-  const [error, setError] = useState<string | null>(null)
+
+  const [errorFetchingProducts, setErrorFetchingProducts] = useState<
+    string | null
+  >(null)
+  const [errorFetchingProduct, setErrorFetchingProduct] = useState<
+    string | null
+  >(null)
+  const [errorFetchingFavorites, setErrorFetchingFavorites] = useState<
+    string | null
+  >(null)
 
   useEffect(() => {
     const loadFavoriteProducts = async () => {
@@ -37,7 +50,7 @@ export const ProductsProvider = ({ children }: { children: ReactNode }) => {
         const response = await triggerFetchProductsByIds(favoriteIds)
         setFavorites(response)
       } catch (err) {
-        setError(String(err))
+        setErrorFetchingFavorites(String(err))
       }
     }
 
@@ -49,7 +62,7 @@ export const ProductsProvider = ({ children }: { children: ReactNode }) => {
       if (products[familyId]) return
 
       setLoadingProducts(true)
-      setError(null)
+      setErrorFetchingProducts(null)
 
       try {
         const data = await fetchProducts(familyId)
@@ -58,7 +71,7 @@ export const ProductsProvider = ({ children }: { children: ReactNode }) => {
           [familyId]: data,
         }))
       } catch (err) {
-        setError(String(err))
+        setErrorFetchingProducts(String(err))
       } finally {
         setLoadingProducts(false)
       }
@@ -73,7 +86,7 @@ export const ProductsProvider = ({ children }: { children: ReactNode }) => {
     ): Promise<Product | undefined> => {
       if (isNaN(productId)) return undefined
 
-      setError(null)
+      setErrorFetchingProduct(null)
       // Check cached state first (record map or favorites)
       const cachedProduct = findCachedProduct(
         products,
@@ -92,7 +105,7 @@ export const ProductsProvider = ({ children }: { children: ReactNode }) => {
         setProduct(fetchedProduct)
         return fetchedProduct
       } catch (err) {
-        setError(String(err))
+        setErrorFetchingProduct(String(err))
         return undefined
       }
     },
@@ -104,6 +117,19 @@ export const ProductsProvider = ({ children }: { children: ReactNode }) => {
     setFavorites((prev) => updateListItem(prev, updatedProduct))
   }, [])
 
+  const deleteProduct = useCallback((productId: number) => {
+    setProducts((prev) =>
+      Object.fromEntries(
+        Object.entries(prev).map(([fid, list]) => [
+          fid,
+          list.filter((product) => product.id !== productId),
+        ])
+      )
+    )
+
+    setProduct((prev) => (prev?.id === productId ? null : prev))
+  }, [])
+
   const value = useMemo(
     () => ({
       products,
@@ -113,10 +139,14 @@ export const ProductsProvider = ({ children }: { children: ReactNode }) => {
       loadingProduct,
       loadingFavorites,
       loadingFavoritesIds,
-      error,
+      errorFetchingProduct,
+      errorFetchingProducts,
+      errorFetchingFavorites,
+      errorFetchingFavoritesIds,
       loadProducts,
       loadProduct,
       updateProduct,
+      deleteProduct,
     }),
     [
       products,
@@ -126,10 +156,14 @@ export const ProductsProvider = ({ children }: { children: ReactNode }) => {
       loadingProduct,
       loadingFavorites,
       loadingFavoritesIds,
-      error,
+      errorFetchingProduct,
+      errorFetchingProducts,
+      errorFetchingFavorites,
+      errorFetchingFavoritesIds,
       loadProducts,
       loadProduct,
       updateProduct,
+      deleteProduct,
     ]
   )
 

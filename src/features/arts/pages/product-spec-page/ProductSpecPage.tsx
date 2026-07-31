@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react'
-import { Outlet, useOutletContext, useParams } from 'react-router-dom'
+import {
+  Outlet,
+  useLocation,
+  useOutletContext,
+  useParams,
+} from 'react-router-dom'
 
 import { Direction, useDirectionContext } from '@arts/core'
 import { PageLayout } from '@arts/libs/layout'
@@ -9,6 +14,7 @@ import { cancelCircle } from '@arts/assets/images'
 
 import {
   useAddFavorite,
+  useDeleteProduct,
   useFavoritesContext,
   useProductsContext,
   useRemoveFavorite,
@@ -33,28 +39,51 @@ const showErrorAlert = (key: string, err: unknown) => {
 export default function ProductSpecPage() {
   const context = useOutletContext<ProductSpecOutletContext>()
   const [image, setImage] = useState<string | null>(null)
-  const { direction } = useDirectionContext()
+  const [productLoaded, setProductLoaded] = useState<boolean>(false)
+  const [productNotFound, setProductNotFound] = useState<boolean>(false)
+  const [loadingToggleFavorite, setLoadingToggleFavorite] =
+    useState<boolean>(false)
+  const [loadingDeleteProduct, setLoadingDeleteProduct] =
+    useState<boolean>(false)
+  const {
+    product,
+    loadingProduct,
+    errorFetchingProduct,
+    loadProduct,
+    deleteProduct,
+  } = useProductsContext()
   const { productId, familyId } = useParams()
+  const { direction } = useDirectionContext()
+  const { isFavorite, addFavorite, removeFavorite } = useFavoritesContext()
+  const { triggerAddFavorite } = useAddFavorite()
+  const { triggerRemoveFavorite } = useRemoveFavorite()
+  const { triggerDeleteProduct } = useDeleteProduct()
+  const location = useLocation()
+
   const productNumber = Number(productId)
   const familyNumber = Number(familyId)
 
-  const { product, loadingProduct, error, loadProduct } = useProductsContext()
-  const { isFavorite, addFavorite, removeFavorite } = useFavoritesContext()
-  const { triggerAddFavorite, loading: loadingAddFavorite } = useAddFavorite()
-  const { triggerRemoveFavorite, loading: loadingRemoveFavorite } =
-    useRemoveFavorite()
-
   useEffect(() => {
+    if (productLoaded) return
+
+    setProductLoaded(true)
     loadProduct(productNumber, familyNumber)
-  }, [loadProduct, productNumber, familyNumber])
+  }, [loadProduct, productNumber, familyNumber, productLoaded])
 
   useEffect(() => {
-    if (error) {
-      showErrorAlert('fetch-product-failed', error)
+    if (errorFetchingProduct) {
+      setProductNotFound(true)
     }
-  }, [error])
+  }, [errorFetchingProduct, context])
+
+  useEffect(() => {
+    setProductLoaded(false)
+    setProductNotFound(false)
+  }, [location])
 
   const handleAddFavorite = async () => {
+    setLoadingToggleFavorite(true)
+
     try {
       await triggerAddFavorite(productNumber)
 
@@ -65,10 +94,14 @@ export default function ProductSpecPage() {
       }
     } catch (err) {
       showErrorAlert('add-favorite-failed', err)
+    } finally {
+      setLoadingToggleFavorite(false)
     }
   }
 
   const handleRemoveFavorite = async () => {
+    setLoadingToggleFavorite(true)
+
     try {
       await triggerRemoveFavorite(productNumber)
 
@@ -79,6 +112,27 @@ export default function ProductSpecPage() {
       }
     } catch (err) {
       showErrorAlert('remove-favorite-failed', err)
+    } finally {
+      setLoadingToggleFavorite(false)
+    }
+  }
+
+  const handleDeleteProduct = async () => {
+    setLoadingDeleteProduct(true)
+
+    try {
+      await triggerDeleteProduct(productNumber)
+      deleteProduct(productNumber)
+
+      if (isFavorite(productNumber)) {
+        await triggerRemoveFavorite(productNumber)
+        removeFavorite(productNumber)
+      }
+    } catch (err) {
+      showErrorAlert('delete-product-failed', err)
+    } finally {
+      setLoadingDeleteProduct(false)
+      context.handleClose?.()
     }
   }
 
@@ -101,28 +155,43 @@ export default function ProductSpecPage() {
             />
           </span>
 
-          <img
-            src={image ? `data:image/jpeg;base64,${image}` : product?.image}
-          />
-          <ProductIconsBar
-            isFavorite={isFavorite(productNumber)}
-            addFavorite={handleAddFavorite}
-            removeFavorite={handleRemoveFavorite}
-            loading={loadingAddFavorite || loadingRemoveFavorite}
-          />
+          {productNotFound ? (
+            <div className="product-not-found">
+              <span className="font-italic assistant-bold font-size-24">
+                <Caption namespace="arts" keyPrefix="product-spec-page">
+                  product-not-found
+                </Caption>
+              </span>
+            </div>
+          ) : (
+            <>
+              <img
+                src={image ? `data:image/jpeg;base64,${image}` : product?.image}
+              />
 
-          <Outlet
-            context={
-              {
-                product: product as Product,
-                closeOnProductUpdate: context.closeOnProductUpdate,
-                handleClose: context.handleClose,
-                imageChange: (value) => {
-                  setImage(value)
-                },
-              } satisfies ProductSpecOutletContext
-            }
-          />
+              <ProductIconsBar
+                isFavorite={isFavorite(productNumber)}
+                addFavorite={handleAddFavorite}
+                removeFavorite={handleRemoveFavorite}
+                deleteProduct={handleDeleteProduct}
+                loadingFavoriteToggle={loadingToggleFavorite}
+                loadingProductDeletion={loadingDeleteProduct}
+              />
+
+              <Outlet
+                context={
+                  {
+                    product: product as Product,
+                    closeOnProductUpdate: context.closeOnProductUpdate,
+                    handleClose: context.handleClose,
+                    imageChange: (value) => {
+                      setImage(value)
+                    },
+                  } satisfies ProductSpecOutletContext
+                }
+              />
+            </>
+          )}
         </div>
       )}
     </PageLayout>

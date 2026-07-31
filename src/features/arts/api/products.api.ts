@@ -22,6 +22,11 @@ export interface FetchProductsByIdsResponse {
   data: Product[]
 }
 
+export interface DeleteProductResponse {
+  success: boolean
+  message?: string
+}
+
 export const fetchProductsByIds = async (ids: number[]): Promise<Product[]> => {
   return (
     await api.POST<FetchProductsByIdsResponse>('/get-products-by-ids', {
@@ -41,6 +46,12 @@ export const fetchProducts = async (familyId: number): Promise<Product[]> => {
 export const fetchProductById = async (id: number): Promise<Product> => {
   return (await api.GET<SingularProductResponse>(`/get-product-by-id/${id}`))
     .data
+}
+
+export const deleteProduct = async (
+  id: number
+): Promise<DeleteProductResponse> => {
+  return await api.DELETE<DeleteProductResponse>(`/remove-product/${id}`)
 }
 
 export const updateProduct = async (

@@ -10,6 +10,14 @@
     color: var(--color-error);
   }
 
+  .product-not-found {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: var(--color-error);
+  }
+
   img {
     width: 100%;
     min-height: 355px;

@@ -17,7 +17,9 @@
     "fetch-products-failed": "Products Fetch Failed"
   },
   "product-spec-page": {
-    "fetch-product-failed": "This product fetch has been failed"
+    "fetch-product-failed": "This product fetch has been failed",
+    "product-not-found": "Product not found",
+    "add-favorite-failed": "Failed to add favorite"
   },
   "view-product-page": {
     "general": "General",

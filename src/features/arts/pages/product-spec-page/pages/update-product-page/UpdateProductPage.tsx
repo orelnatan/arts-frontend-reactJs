@@ -118,7 +118,6 @@ export default function UpdateProductPage() {
       updateProduct(updatedProduct)
 
       showSuccessAlert()
-      console.log(context)
       if (context.closeOnProductUpdate) {
         context.handleClose?.()
       }

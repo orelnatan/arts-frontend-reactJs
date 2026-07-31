@@ -14,7 +14,7 @@ import './ProductsPage.scss'
 export default function ProductsPage() {
   const { isFavorite } = useFavoritesContext()
   const { brandId, categoryId, familyId } = useParams()
-  const { products, loadingProducts, error, loadProducts } =
+  const { products, loadingProducts, errorFetchingProducts, loadProducts } =
     useProductsContext()
   const [keyword, setKeyword] = useState('')
   const navigate = useNavigate()
@@ -28,17 +28,17 @@ export default function ProductsPage() {
   }, [loadProducts, familyId])
 
   useEffect(() => {
-    if (error) {
+    if (errorFetchingProducts) {
       errorAlert({
         title: (
           <Caption namespace="arts" keyPrefix="products-page">
             fetch-products-failed
           </Caption>
         ),
-        message: error,
+        message: errorFetchingProducts,
       })
     }
-  }, [error])
+  }, [errorFetchingProducts])
 
   const showProduct = (productId: number) => {
     navigate(`${productId}/product-spec`)

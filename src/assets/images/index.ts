@@ -18,6 +18,7 @@ import notesPan from './svg/notes-pan.svg'
 import starFavHalf from './svg/star-fav-half.svg'
 import starFavFull from './svg/star-fav-full.svg'
 import viewVision from './svg/view-vision-eye.svg'
+import recycleBin from './svg/recycle-bin.svg'
 
 export {
   sideArrow,
@@ -39,4 +40,5 @@ export {
   starFavHalf,
   viewVision,
   starFavFull,
+  recycleBin,
 }
