@@ -1,10 +1,17 @@
 import type { RouteObject } from 'react-router-dom'
-import { Navigate } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 
-import { NotFoundPage } from '@arts/core'
+import { AuthProtectedRoute, NotFoundPage } from '@arts/core'
 import { authRoutes } from '@arts/features/auth'
 import { homeRoutes } from '@arts/features/home'
-import { artsRoutes } from '@arts/features/arts'
+import {
+  artsRoutes,
+  BrandsProvider,
+  CategoriesProvider,
+  FamiliesProvider,
+  FavoritesProvider,
+  ProductsProvider,
+} from '@arts/features/arts'
 
 export const appRoutes: RouteObject[] = [
   {
@@ -15,7 +22,23 @@ export const appRoutes: RouteObject[] = [
     path: '*',
     element: <NotFoundPage />,
   },
+  {
+    element: (
+      <AuthProtectedRoute>
+        <BrandsProvider>
+          <CategoriesProvider>
+            <FamiliesProvider>
+              <FavoritesProvider>
+                <ProductsProvider>
+                  <Outlet />
+                </ProductsProvider>
+              </FavoritesProvider>
+            </FamiliesProvider>
+          </CategoriesProvider>
+        </BrandsProvider>
+      </AuthProtectedRoute>
+    ),
+    children: [...homeRoutes, ...artsRoutes],
+  },
   ...authRoutes,
-  ...homeRoutes,
-  ...artsRoutes,
 ]

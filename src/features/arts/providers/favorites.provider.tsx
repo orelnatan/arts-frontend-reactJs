@@ -28,14 +28,14 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
     loadFavorites()
   }, [getFavoriteIds])
 
-  const addFavorite = useCallback((productId: number) => {
+  const addFavoriteId = useCallback((productId: number) => {
     setFavoriteIds((prev) => {
       if (prev.includes(productId)) return prev
       return [...prev, productId]
     })
   }, [])
 
-  const removeFavorite = useCallback((productId: number) => {
+  const removeFavoriteId = useCallback((productId: number) => {
     setFavoriteIds((prev) => prev.filter((id) => id !== productId))
   }, [])
 
@@ -49,11 +49,11 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
       favoriteIds,
       loading,
       error,
-      addFavorite,
-      removeFavorite,
+      addFavoriteId,
+      removeFavoriteId,
       isFavorite,
     }),
-    [favoriteIds, loading, error, addFavorite, removeFavorite, isFavorite]
+    [favoriteIds, loading, error, addFavoriteId, removeFavoriteId, isFavorite]
   )
 
   return (

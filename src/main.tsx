@@ -13,6 +13,7 @@ import {
   AuthProvider,
   DirectionProvider,
   LocaleProvider,
+  NavigationProvider,
   ThemeProvider,
 } from './core'
 
@@ -35,8 +36,10 @@ createRoot(document.getElementById('root')!).render(
             <ThemeProvider>
               <MantineProvider theme={MANTINE_CONFIG}>
                 <LayoutProvider>
-                  <Notifications />
-                  <App />
+                  <NavigationProvider>
+                    <Notifications />
+                    <App />
+                  </NavigationProvider>
                 </LayoutProvider>
               </MantineProvider>
             </ThemeProvider>

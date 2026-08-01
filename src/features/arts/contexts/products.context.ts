@@ -17,10 +17,12 @@ export interface ProductsContextType {
   loadProducts: (familyId: number) => Promise<void>
   loadProduct: (
     productId: number,
-    familyId?: number
+    familyId: number
   ) => Promise<Product | undefined>
-  updateProduct: (updatedProduct: Product) => void
-  deleteProduct: (productId: number) => void
+  updateProduct: (product: Product) => void
+  deleteProduct: (productId: number, familyId: number) => void
+  removeFavorite: (productId: number) => void
+  addFavorite: (product: Product) => void
 }
 
 export const ProductsContext = createContext<ProductsContextType | undefined>(

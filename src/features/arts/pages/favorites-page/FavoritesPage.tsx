@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { useNavigationContext } from '@arts/core'
 import { PageLayout, ShellHeader } from '@arts/libs/layout'
 import { Caption, CenteredContentShell } from '@arts/shared/components'
 
@@ -11,10 +12,23 @@ import { ArtsHeader, EntityCard, ProductSpecDrawer } from '../../components'
 import './FavoritesPage.scss'
 
 export default function FavoritesPage() {
-  const [keyword, setKeyword] = useState('')
+  const { previousLocation } = useNavigationContext()
   const { favorites, loadingFavoritesIds, loadingFavorites } =
     useProductsContext()
+
+  const [keyword, setKeyword] = useState<string>('')
+  const [lastUrl, setLastUrl] = useState<string | null>(null)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (lastUrl) return
+
+    const initLastUrl = async () => {
+      setLastUrl(previousLocation)
+    }
+
+    initLastUrl()
+  }, [previousLocation, lastUrl])
 
   const filteredFavorites = useMemo(() => {
     return filterEntities(favorites, keyword) || []
@@ -22,6 +36,10 @@ export default function FavoritesPage() {
 
   const showProduct = (productId: number) => {
     navigate(`${productId}/product-spec`)
+  }
+
+  const redirect = () => {
+    navigate(lastUrl ? lastUrl : '/home')
   }
 
   const loading = loadingFavoritesIds || loadingFavorites
@@ -35,6 +53,8 @@ export default function FavoritesPage() {
           keyPrefix="favorites-page"
           title="favorites-title"
           search={setKeyword}
+          redirect={redirect}
+          withRedirectArrow
         />
       </ShellHeader>
 

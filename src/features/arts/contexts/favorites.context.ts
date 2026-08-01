@@ -4,8 +4,8 @@ interface FavoritesContextType {
   favoriteIds: number[]
   loading: boolean
   error: string | null
-  addFavorite: (productId: number) => void
-  removeFavorite: (productId: number) => void
+  addFavoriteId: (productId: number) => void
+  removeFavoriteId: (productId: number) => void
   isFavorite: (productId: number) => boolean
 }
 

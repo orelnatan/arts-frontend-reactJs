@@ -44,7 +44,7 @@ export default function ProductsPage() {
     navigate(`${productId}/product-spec`)
   }
 
-  const redirectBack = () => {
+  const redirect = () => {
     navigate(`/arts/brands/${brandId}/categories/${categoryId}/families`)
   }
 
@@ -58,7 +58,7 @@ export default function ProductsPage() {
           keyPrefix="products-page"
           title="header"
           search={setKeyword}
-          redirect={redirectBack}
+          redirect={redirect}
           withRedirectArrow
         />
       </ShellHeader>

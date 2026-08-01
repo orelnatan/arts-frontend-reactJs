@@ -51,10 +51,12 @@ export default function ProductSpecPage() {
     errorFetchingProduct,
     loadProduct,
     deleteProduct,
+    addFavorite,
+    removeFavorite,
   } = useProductsContext()
   const { productId, familyId } = useParams()
   const { direction } = useDirectionContext()
-  const { isFavorite, addFavorite, removeFavorite } = useFavoritesContext()
+  const { isFavorite } = useFavoritesContext()
   const { triggerAddFavorite } = useAddFavorite()
   const { triggerRemoveFavorite } = useRemoveFavorite()
   const { triggerDeleteProduct } = useDeleteProduct()
@@ -86,8 +88,7 @@ export default function ProductSpecPage() {
 
     try {
       await triggerAddFavorite(productNumber)
-
-      addFavorite(productNumber)
+      addFavorite(product as Product)
 
       if (context.closeOnFavoriteToggle) {
         context.handleClose?.()
@@ -104,7 +105,6 @@ export default function ProductSpecPage() {
 
     try {
       await triggerRemoveFavorite(productNumber)
-
       removeFavorite(productNumber)
 
       if (context.closeOnFavoriteToggle) {
@@ -122,7 +122,7 @@ export default function ProductSpecPage() {
 
     try {
       await triggerDeleteProduct(productNumber)
-      deleteProduct(productNumber)
+      deleteProduct(productNumber, Number(product?.familyId))
 
       if (isFavorite(productNumber)) {
         await triggerRemoveFavorite(productNumber)

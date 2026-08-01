@@ -42,7 +42,7 @@ export default function CategoriesPage() {
     navigate(`${categoryId}/families`)
   }
 
-  const redirectBack = () => {
+  const redirect = () => {
     navigate(`/arts/brands`)
   }
 
@@ -56,7 +56,7 @@ export default function CategoriesPage() {
           keyPrefix="categories-page"
           title="header"
           search={setKeyword}
-          redirect={redirectBack}
+          redirect={redirect}
           withRedirectArrow
         />
       </ShellHeader>

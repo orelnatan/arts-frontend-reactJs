@@ -1,8 +1,6 @@
 import { Navigate } from 'react-router-dom'
 import type { RouteObject } from 'react-router-dom'
 
-import { AuthProtectedRoute } from '@arts/core'
-
 import { ArtsLazy } from './arts.lazy'
 import {
   FavoritesPage,
@@ -17,11 +15,7 @@ import { FavoriteProtectedRoute } from './guards'
 export const artsRoutes: RouteObject[] = [
   {
     path: 'arts',
-    element: (
-      <AuthProtectedRoute>
-        <ArtsLazy />
-      </AuthProtectedRoute>
-    ),
+    element: <ArtsLazy />,
     children: [
       {
         index: true,
