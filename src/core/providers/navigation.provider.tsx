@@ -1,18 +1,17 @@
 import { useState, type ReactNode } from 'react'
 import { useLocation } from 'react-router-dom'
-
 import { NavigationContext } from '../contexts'
 
 export const NavigationProvider = ({ children }: { children: ReactNode }) => {
-  const { pathname } = useLocation()
+  const location = useLocation()
+  const fullPath = `${location.pathname}${location.search}${location.hash}`
 
-  const [currentLocation, setCurrentLocation] = useState<string>(pathname)
+  const [currentLocation, setCurrentLocation] = useState<string>(fullPath)
   const [previousLocation, setPreviousLocation] = useState<string | null>(null)
 
-  // When pathname changes, shift currentLocation to previousLocation
-  if (currentLocation !== pathname) {
+  if (currentLocation !== fullPath) {
     setPreviousLocation(currentLocation)
-    setCurrentLocation(pathname)
+    setCurrentLocation(fullPath)
   }
 
   return (
