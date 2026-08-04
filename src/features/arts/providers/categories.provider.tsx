@@ -6,14 +6,14 @@ import type { Category } from '../models'
 
 export const CategoriesProvider = ({ children }: { children: ReactNode }) => {
   const [categories, setCategories] = useState<Record<number, Category[]>>({})
-  const [loading, setIsLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
   const loadCategories = useCallback(
     async (brandId: number) => {
       if (categories[brandId]) return
 
-      setIsLoading(true)
+      setLoading(true)
       setError(null)
 
       try {
@@ -25,7 +25,7 @@ export const CategoriesProvider = ({ children }: { children: ReactNode }) => {
       } catch (err) {
         setError(String(err))
       } finally {
-        setIsLoading(false)
+        setLoading(false)
       }
     },
     [categories]

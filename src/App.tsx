@@ -1,5 +1,5 @@
 import { Suspense, useEffect } from 'react'
-import { useNavigate, useRoutes } from 'react-router-dom'
+import { useLocation, useRoutes } from 'react-router-dom'
 
 import { appRoutes } from './app.routes'
 import { AppLayout } from './libs/layout'
@@ -9,20 +9,27 @@ import { INVALID_AUTH_SESSION_LABEL } from './auth.consts'
 import './App.scss'
 
 export default function App() {
-  const { disconnect } = useAuthContext()
+  const { disconnect, setReturnUrl } = useAuthContext()
+  const location = useLocation()
 
-  const navigate = useNavigate()
   const routes = useRoutes(appRoutes)
 
+  const path = `${location.pathname}${location.search}${location.hash}`
+
+  // Event Listener for Invalid Auth Sessions
   useEffect(() => {
-    const logout = () => {
+    const handleInvalidSession = () => {
+      setReturnUrl(path)
       disconnect()
-      navigate('/auth')
     }
 
-    window.addEventListener(INVALID_AUTH_SESSION_LABEL, logout)
-    return () => window.removeEventListener(INVALID_AUTH_SESSION_LABEL, logout)
-  }, [navigate, disconnect])
+    window.addEventListener(INVALID_AUTH_SESSION_LABEL, handleInvalidSession)
+    return () =>
+      window.removeEventListener(
+        INVALID_AUTH_SESSION_LABEL,
+        handleInvalidSession
+      )
+  }, [disconnect, setReturnUrl, path])
 
   return (
     <AppLayout>

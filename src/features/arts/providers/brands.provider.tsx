@@ -6,13 +6,13 @@ import type { Brand } from '../models'
 
 export const BrandsProvider = ({ children }: { children: ReactNode }) => {
   const [brands, setBrands] = useState<Brand[]>([])
-  const [loading, setIsLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
   const loadBrands = useCallback(async () => {
     if (brands.length > 0) return
 
-    setIsLoading(true)
+    setLoading(true)
     setError(null)
 
     try {
@@ -21,7 +21,7 @@ export const BrandsProvider = ({ children }: { children: ReactNode }) => {
     } catch (err) {
       setError(String(err))
     } finally {
-      setIsLoading(false)
+      setLoading(false)
     }
   }, [brands.length])
 

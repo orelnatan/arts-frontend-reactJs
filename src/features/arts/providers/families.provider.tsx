@@ -6,14 +6,14 @@ import type { Family } from '../models'
 
 export const FamiliesProvider = ({ children }: { children: ReactNode }) => {
   const [families, setFamilies] = useState<Record<number, Family[]>>({})
-  const [loading, setIsLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
   const loadFamilies = useCallback(
     async (categoryId: number) => {
       if (families[categoryId]) return
 
-      setIsLoading(true)
+      setLoading(true)
       setError(null)
 
       try {
@@ -25,7 +25,7 @@ export const FamiliesProvider = ({ children }: { children: ReactNode }) => {
       } catch (err) {
         setError(String(err))
       } finally {
-        setIsLoading(false)
+        setLoading(false)
       }
     },
     [families]

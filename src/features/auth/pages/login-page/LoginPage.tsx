@@ -27,7 +27,7 @@ export default function LoginPage() {
   const [submitted, setSubmitted] = useState(false)
   const { login, loading: loginLoading } = useLogin()
   const { getUser, loading: userLoading } = useUser()
-  const { setUser } = useAuthContext()
+  const { setUser, returnUrl } = useAuthContext()
   const { setToken } = useToken()
   const navigate = useNavigate()
 
@@ -50,7 +50,7 @@ export default function LoginPage() {
       const userData = await getUser()
       setUser(userData)
 
-      navigate('/home')
+      navigate(returnUrl || '/home')
     } catch (err) {
       errorAlert({
         title: (

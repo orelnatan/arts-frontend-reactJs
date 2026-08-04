@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { useDisclosure } from '@mantine/hooks'
 
 import {
@@ -51,7 +51,6 @@ export default function AppNavbar({ children }: AppNavbarProps) {
   const { user, disconnect } = useAuthContext()
   const { theme, setTheme } = useThemeContext()
   const { locale, setLocale } = useLocaleContext()
-  const navigate = useNavigate()
 
   const handleThemeChange = async (theme: Theme): Promise<void> => {
     try {
@@ -71,11 +70,6 @@ export default function AppNavbar({ children }: AppNavbarProps) {
     } catch (err) {
       showErrorAlert('locale-update-failed', err)
     }
-  }
-
-  const handleLogout = () => {
-    disconnect()
-    navigate('/auth')
   }
 
   return (
@@ -142,7 +136,13 @@ export default function AppNavbar({ children }: AppNavbarProps) {
         </div>
       </div>
 
-      <LogoutModal opened={opened} onClose={close} onConfirm={handleLogout} />
+      <LogoutModal
+        opened={opened}
+        onClose={close}
+        onConfirm={() => {
+          disconnect(true)
+        }}
+      />
     </div>
   )
 }
