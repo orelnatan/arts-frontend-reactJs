@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState, type ReactNode } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 import { AuthContext } from '../contexts'
 import { useToken, useUser } from '../hooks'
@@ -7,13 +7,13 @@ import type { User } from '../models'
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null)
-  const [returnUrl, setReturnUrl] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
-  const [hasReturnUrl, setHasReturnUrl] = useState<boolean>(false)
-
+  const [returnUrl, setReturnUrl] = useState<string>()
   const { token, removeToken } = useToken()
   const { getUser } = useUser()
-  const navigate = useNavigate()
+  const location = useLocation()
+
+  const currentUrl = `${location.pathname}${location.search}${location.hash}`
 
   // Bootstrap Auth
   useEffect(() => {
@@ -23,26 +23,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           setUser(await getUser())
         } catch (err) {
           console.error('Session expired or invalid token ', err)
+          setReturnUrl(currentUrl)
         }
       }
       setLoading(false)
     }
     bootstrapAuth()
-  }, [token, user, getUser])
+  }, [token, user, currentUrl, getUser])
 
   // Centralized logout function
   const disconnect = useCallback(
-    (resetReturnUrl: boolean = false) => {
+    (returnUrl?: string) => {
+      setReturnUrl(returnUrl ?? currentUrl)
       setUser(null)
       removeToken()
-
-      if (resetReturnUrl) {
-        setReturnUrl(null)
-      }
-
-      navigate('/auth')
     },
-    [removeToken, navigate, setReturnUrl]
+    [removeToken, currentUrl]
   )
 
   return (
@@ -51,11 +47,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         user,
         loading,
         returnUrl,
-        hasReturnUrl,
         setUser,
         disconnect,
-        setReturnUrl,
-        setHasReturnUrl,
       }}
     >
       {children}

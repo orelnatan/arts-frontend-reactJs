@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useForm } from '@mantine/form'
 
 import { useAuthContext, useToken, useUser } from '@arts/core'
@@ -24,12 +24,14 @@ import { VALIDATION_SCHEMA } from './validation-schema.const'
 import './LoginPage.scss'
 
 export default function LoginPage() {
+  const [searchParams] = useSearchParams()
   const [submitted, setSubmitted] = useState(false)
   const { login, loading: loginLoading } = useLogin()
   const { getUser, loading: userLoading } = useUser()
-  const { setUser, returnUrl } = useAuthContext()
+  const { setUser } = useAuthContext()
   const { setToken } = useToken()
   const navigate = useNavigate()
+  // const location = useLocation()
 
   const form = useForm<LoginFormValues>({
     validateInputOnChange: true,
@@ -50,7 +52,7 @@ export default function LoginPage() {
       const userData = await getUser()
       setUser(userData)
 
-      navigate(returnUrl || '/home')
+      navigate(searchParams.get('returnUrl') ?? '/home')
     } catch (err) {
       errorAlert({
         title: (

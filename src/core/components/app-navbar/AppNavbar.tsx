@@ -72,6 +72,10 @@ export default function AppNavbar({ children }: AppNavbarProps) {
     }
   }
 
+  const handleLogout = (): void => {
+    disconnect('/home')
+  }
+
   return (
     <div className="app-navbar-main">
       <div className="app-navbar-logo">
@@ -136,13 +140,7 @@ export default function AppNavbar({ children }: AppNavbarProps) {
         </div>
       </div>
 
-      <LogoutModal
-        opened={opened}
-        onClose={close}
-        onConfirm={() => {
-          disconnect(true)
-        }}
-      />
+      <LogoutModal opened={opened} onClose={close} onConfirm={handleLogout} />
     </div>
   )
 }
