@@ -37,6 +37,7 @@ export default function ConfirmPopover({
 
   return (
     <Popover
+      classNames={{ dropdown: 'confirm-Popover-dropdown' }}
       position="bottom"
       shadow="md"
       withArrow

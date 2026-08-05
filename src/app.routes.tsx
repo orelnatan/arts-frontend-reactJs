@@ -1,7 +1,11 @@
 import type { RouteObject } from 'react-router-dom'
 import { Navigate, Outlet } from 'react-router-dom'
 
-import { AuthProtectedRoute, NotFoundPage } from '@arts/core'
+import {
+  AuthProtectedRoute,
+  GuestProtectedRoute,
+  NotFoundPage,
+} from '@arts/core'
 import { authRoutes } from '@arts/features/auth'
 import { homeRoutes } from '@arts/features/home'
 import {
@@ -40,5 +44,12 @@ export const appRoutes: RouteObject[] = [
     ),
     children: [...homeRoutes, ...artsRoutes],
   },
-  ...authRoutes,
+  {
+    element: (
+      <GuestProtectedRoute>
+        <Outlet />
+      </GuestProtectedRoute>
+    ),
+    children: [...authRoutes],
+  },
 ]

@@ -25,6 +25,7 @@ export default function FavoritesPage() {
 
     const initLastUrl = async () => {
       setLastUrl(previousLocation)
+      console.log(previousLocation)
     }
 
     initLastUrl()
@@ -44,6 +45,7 @@ export default function FavoritesPage() {
 
   const loading = loadingFavoritesIds || loadingFavorites
   const empty = !loading && !filteredFavorites.length
+  const arrow = lastUrl?.split('/')[1] === 'arts'
 
   return (
     <>
@@ -54,7 +56,7 @@ export default function FavoritesPage() {
           title="favorites-title"
           search={setKeyword}
           redirect={redirect}
-          withRedirectArrow
+          withRedirectArrow={arrow}
         />
       </ShellHeader>
 
