@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 
+import { CanAccess, UserType } from '@arts/libs/user-access'
 import { ConfirmPopover, Spinner, SvgIcon } from '@arts/shared/components'
 import {
   notesPan,
@@ -43,18 +44,20 @@ export default function ProductIconsBar({
         <SvgIcon icon={viewVision} />
       </NavLink>
 
-      <NavLink
-        to={`update`}
-        className={'font-size-24'}
-        style={({ isActive }) => ({
-          color: isActive
-            ? 'var(--color-app-drawer-icon-active)'
-            : 'var(--color-app-drawer-icon-inactive)',
-          outline: 'none',
-        })}
-      >
-        <SvgIcon icon={notesPan} />
-      </NavLink>
+      <CanAccess roles={[UserType.Editor, UserType.Admin]}>
+        <NavLink
+          to={`update`}
+          className={'font-size-24'}
+          style={({ isActive }) => ({
+            color: isActive
+              ? 'var(--color-app-drawer-icon-active)'
+              : 'var(--color-app-drawer-icon-inactive)',
+            outline: 'none',
+          })}
+        >
+          <SvgIcon icon={notesPan} />
+        </NavLink>
+      </CanAccess>
 
       <span
         className="favorite-star font-size-20"
@@ -75,20 +78,22 @@ export default function ProductIconsBar({
         )}
       </span>
 
-      <span
-        className="recycle-bin font-size-21"
-        style={{
-          color: 'var(--color-app-drawer-icon-inactive)',
-        }}
-      >
-        {loadingProductDeletion ? (
-          <Spinner size={20} color="var(--color-app-drawer-icon-inactive)" />
-        ) : (
-          <ConfirmPopover onConfirm={deleteProduct}>
-            <SvgIcon icon={recycleBin} style={{ cursor: 'pointer' }} />
-          </ConfirmPopover>
-        )}
-      </span>
+      <CanAccess roles={[UserType.Editor, UserType.Admin]}>
+        <span
+          className="recycle-bin font-size-21"
+          style={{
+            color: 'var(--color-app-drawer-icon-inactive)',
+          }}
+        >
+          {loadingProductDeletion ? (
+            <Spinner size={20} color="var(--color-app-drawer-icon-inactive)" />
+          ) : (
+            <ConfirmPopover onConfirm={deleteProduct}>
+              <SvgIcon icon={recycleBin} style={{ cursor: 'pointer' }} />
+            </ConfirmPopover>
+          )}
+        </span>
+      </CanAccess>
     </div>
   )
 }

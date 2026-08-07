@@ -25,7 +25,6 @@ export default function FavoritesPage() {
 
     const initLastUrl = async () => {
       setLastUrl(previousLocation)
-      console.log(previousLocation)
     }
 
     initLastUrl()

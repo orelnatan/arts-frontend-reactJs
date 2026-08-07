@@ -1,5 +1,7 @@
 import { Navigate, type RouteObject } from 'react-router-dom'
 
+import { AccessProtectedRoute, UserType } from '@arts/libs/user-access'
+
 import { UpdateProductPage, ViewProductPage } from './pages'
 import ProductSpecPage from './ProductSpecPage'
 
@@ -24,7 +26,11 @@ export const productSpecPageRoutes: RouteObject[] = [
       },
       {
         path: 'update',
-        element: <UpdateProductPage />,
+        element: (
+          <AccessProtectedRoute roles={[UserType.Editor, UserType.Admin]}>
+            <UpdateProductPage />
+          </AccessProtectedRoute>
+        ),
       },
     ],
   },

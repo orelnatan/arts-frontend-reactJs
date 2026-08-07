@@ -1,6 +1,11 @@
 {
   "not-found-page": {
-    "page-not-found": "404 - OOppss...Page Not Found :("
+    "title": "Page Not Found",
+    "description": "The page you are looking for doesn't exist or has been moved."
+  },
+  "access-denied-page": {
+    "title": "Access Denied",
+    "description": "You don't have permission to view this page."
   },
   "app-navbar": {
     "user-menu.desktop-label": "Desktop",
@@ -11,7 +16,8 @@
     "language-menu.english": "English",
     "language-menu.hebrew": "Hebrew",
     "theme-toggle-failed": "Failed to toggle theme",
-    "locale-update-failed": "Failed to update locale"
+    "locale-update-failed": "Failed to update locale",
+    "admins-only": "Only admin users can access this feature"
   },
   "logout-modal": {
     "title": "Logout?",

@@ -1,7 +1,8 @@
-.not-found-page-main {
+.access-denied-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
+  color: var(--color-error);
 }

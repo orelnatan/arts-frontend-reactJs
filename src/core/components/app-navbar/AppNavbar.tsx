@@ -14,13 +14,15 @@ import {
 } from '@arts/core'
 import {
   artPalette,
+  language,
   logo,
   moon,
   starFavFull,
   starFavHalf,
   sun,
 } from '@arts/assets/images'
-import { Caption, Spinner, SvgIcon } from '@arts/shared/components'
+import { AppTooltip, Caption, Spinner, SvgIcon } from '@arts/shared/components'
+import { CanAccess, UserType } from '@arts/libs/user-access'
 import { errorAlert } from '@arts/libs/alerts'
 
 import { UserLocaleMenu, UserThumbnailMenu } from './components'
@@ -76,6 +78,8 @@ export default function AppNavbar({ children }: AppNavbarProps) {
     disconnect('/home')
   }
 
+  const currentThemeIcon = theme === Theme.Hyperion ? moon : sun
+
   return (
     <div className="app-navbar-main">
       <div className="app-navbar-logo">
@@ -112,26 +116,66 @@ export default function AppNavbar({ children }: AppNavbarProps) {
         </NavLink>
 
         <div className="control-system-language font-size-20">
-          <UserLocaleMenu
-            value={locale}
-            loading={isLocaleLoading}
-            onChange={(value) => handleLocaleChange(value)}
-          />
+          <CanAccess
+            roles={[UserType.Admin]}
+            fallback={
+              <AppTooltip
+                label={
+                  <Caption namespace="core" keyPrefix="app-navbar">
+                    admins-only
+                  </Caption>
+                }
+              >
+                <span className="opacity-40">
+                  <SvgIcon icon={language} style={{ cursor: 'not-allowed' }} />
+                </span>
+              </AppTooltip>
+            }
+          >
+            <UserLocaleMenu
+              value={locale}
+              loading={isLocaleLoading}
+              onChange={(value) => handleLocaleChange(value)}
+            />
+          </CanAccess>
         </div>
 
         <div className="control-system-theme font-size-20">
           {isThemeLoading ? (
             <Spinner size={20} color="var(--color-app-navbar-text)" />
           ) : (
-            <SvgIcon
-              icon={theme === Theme.Hyperion ? moon : sun}
-              style={{ cursor: 'pointer' }}
-              onClick={() =>
-                handleThemeChange(
-                  theme === Theme.Hyperion ? Theme.Aurora : Theme.Hyperion
-                )
+            <CanAccess
+              roles={[UserType.Admin]}
+              fallback={
+                <AppTooltip
+                  label={
+                    <Caption namespace="core" keyPrefix="app-navbar">
+                      admins-only
+                    </Caption>
+                  }
+                >
+                  <span className="opacity-40">
+                    <SvgIcon
+                      icon={currentThemeIcon}
+                      style={{ cursor: 'not-allowed' }}
+                    />
+                  </span>
+                </AppTooltip>
               }
-            />
+            >
+              <span
+                onClick={() =>
+                  handleThemeChange(
+                    theme === Theme.Hyperion ? Theme.Aurora : Theme.Hyperion
+                  )
+                }
+              >
+                <SvgIcon
+                  icon={currentThemeIcon}
+                  style={{ cursor: 'pointer' }}
+                />
+              </span>
+            </CanAccess>
           )}
         </div>
 

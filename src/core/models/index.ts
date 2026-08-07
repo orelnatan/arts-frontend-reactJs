@@ -1,4 +1,3 @@
-export * from './user-type.enum'
 export * from './user.interface'
 export * from './locale.enum'
 export * from './theme.enum'

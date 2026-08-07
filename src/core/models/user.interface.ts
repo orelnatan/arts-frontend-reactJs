@@ -1,4 +1,5 @@
-import type { UserType } from './user-type.enum'
+import type { UserType } from '@arts/libs/user-access'
+
 import type { Locale } from './locale.enum'
 import type { Theme } from './theme.enum'
 

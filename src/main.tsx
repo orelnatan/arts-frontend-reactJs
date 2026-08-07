@@ -16,12 +16,13 @@ import {
   NavigationProvider,
   ThemeProvider,
 } from './core'
+import { LayoutProvider } from './libs/layout'
+import { UserAcessProvider } from './libs/user-access'
 
 import App from './App.tsx'
 
 import './i18n.ts'
 import './index.scss'
-import { LayoutProvider } from './libs/layout/index.ts'
 
 const MANTINE_CONFIG = createTheme({
   fontFamily: 'heebo-regular',
@@ -31,20 +32,22 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <LocaleProvider>
-          <DirectionProvider>
-            <ThemeProvider>
-              <MantineProvider theme={MANTINE_CONFIG}>
-                <LayoutProvider>
-                  <NavigationProvider>
-                    <Notifications />
-                    <App />
-                  </NavigationProvider>
-                </LayoutProvider>
-              </MantineProvider>
-            </ThemeProvider>
-          </DirectionProvider>
-        </LocaleProvider>
+        <UserAcessProvider>
+          <LocaleProvider>
+            <DirectionProvider>
+              <ThemeProvider>
+                <MantineProvider theme={MANTINE_CONFIG}>
+                  <LayoutProvider>
+                    <NavigationProvider>
+                      <Notifications />
+                      <App />
+                    </NavigationProvider>
+                  </LayoutProvider>
+                </MantineProvider>
+              </ThemeProvider>
+            </DirectionProvider>
+          </LocaleProvider>
+        </UserAcessProvider>
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>

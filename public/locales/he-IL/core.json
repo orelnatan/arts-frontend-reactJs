@@ -1,6 +1,11 @@
 {
   "not-found-page": {
-    "page-not-found": "404 - אופס... העמוד לא נמצא :("
+    "title": "העמוד לא נמצא",
+    "description": "העמוד שחיפשת אינו קיים או שהועבר למיקום אחר."
+  },
+  "access-denied-page": {
+    "title": "הגישה נדחתה",
+    "description": "אין לך הרשאה לצפות בעמוד זה."
   },
   "app-navbar": {
     "user-menu.desktop-label": "שולחן עבודה",
@@ -10,12 +15,13 @@
     "user-menu.logout-label": "התנתקות",
     "language-menu.english": "אנגלית",
     "language-menu.hebrew": "עברית",
-    "theme-toggle-failed": "שינוי ערכת הנושא נכשל",
-    "locale-update-failed": "שינוי שפה נכשל"
+    "theme-toggle-failed": "שינוי הערכה נכשל",
+    "locale-update-failed": "עדכון השפה נכשל",
+    "admins-only": "רק מנהלי מערכת יכולים לראות תכונה זו"
   },
   "logout-modal": {
-    "title": "התנתקות מהמערכת?",
-    "note": "האם אתה בטוח שברצונך להתנתק? תטרך להתחבר מחדש כדי לקבל גישה ללוח הבקרה (Dashboard).",
+    "title": "להתנתק?",
+    "note": "האם אכן ברצונך להתנתק? תידרש להתחבר מחדש כדי להגיש ללוח הבקרה שלך.",
     "yes-logout": "כן, נתק אותי",
     "no-stay": "לא, השאר אותי מחובר"
   }

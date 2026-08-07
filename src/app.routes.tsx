@@ -2,6 +2,7 @@ import type { RouteObject } from 'react-router-dom'
 import { Navigate, Outlet } from 'react-router-dom'
 
 import {
+  AccessDeniedPage,
   AuthProtectedRoute,
   GuestProtectedRoute,
   NotFoundPage,
@@ -16,6 +17,7 @@ import {
   FavoritesProvider,
   ProductsProvider,
 } from '@arts/features/arts'
+import { ShellLayout } from './libs/layout'
 
 export const appRoutes: RouteObject[] = [
   {
@@ -24,7 +26,19 @@ export const appRoutes: RouteObject[] = [
   },
   {
     path: '*',
-    element: <NotFoundPage />,
+    element: (
+      <ShellLayout>
+        <NotFoundPage />
+      </ShellLayout>
+    ),
+  },
+  {
+    path: 'access-denied',
+    element: (
+      <ShellLayout>
+        <AccessDeniedPage />
+      </ShellLayout>
+    ),
   },
   {
     element: (
