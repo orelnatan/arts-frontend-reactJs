@@ -39,7 +39,7 @@ export default function ProductSpecDrawer({
       <Outlet
         context={
           {
-            handleClose,
+            onClose: handleClose,
             closeOnFavoriteToggle,
             closeOnProductUpdate,
           } satisfies ProductSpecOutletContext

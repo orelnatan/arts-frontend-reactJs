@@ -8,7 +8,7 @@ import {
 
 import { Direction, useDirectionContext } from '@arts/core'
 import { PageLayout } from '@arts/libs/layout'
-import { errorAlert } from '@arts/libs/alerts'
+import { errorAlert, successAlert } from '@arts/libs/alerts'
 import { Caption, SvgIcon } from '@arts/shared/components'
 import { cancelCircle } from '@arts/assets/images'
 
@@ -18,12 +18,15 @@ import {
   useFavoritesContext,
   useProductsContext,
   useRemoveFavorite,
+  useUpdateProduct,
 } from '../../hooks'
-import type { Product } from '../../models'
+import type { ProductFormValues } from './pages'
 import { ProductIconsBar } from './components'
+import type { Product } from '../../models'
 import type { ProductSpecOutletContext } from './product-spec-outlet-context.interface'
 
 import './ProductSpecPage.scss'
+import { useUploadImage } from '@arts/shared/hooks'
 
 const showErrorAlert = (key: string, err: unknown) => {
   errorAlert({
@@ -36,11 +39,27 @@ const showErrorAlert = (key: string, err: unknown) => {
   })
 }
 
+const showSuccessAlert = () => {
+  successAlert({
+    title: (
+      <Caption namespace="arts" keyPrefix="update-product-page">
+        product-update-success-title
+      </Caption>
+    ),
+    message: (
+      <Caption namespace="arts" keyPrefix="update-product-page">
+        product-update-success-note
+      </Caption>
+    ),
+  })
+}
+
 export default function ProductSpecPage() {
   const context = useOutletContext<ProductSpecOutletContext>()
   const [image, setImage] = useState<string | null>(null)
   const [productLoaded, setProductLoaded] = useState<boolean>(false)
   const [productNotFound, setProductNotFound] = useState<boolean>(false)
+  const [updating, setUpdating] = useState<boolean>(false)
   const [loadingToggleFavorite, setLoadingToggleFavorite] =
     useState<boolean>(false)
   const [loadingDeleteProduct, setLoadingDeleteProduct] =
@@ -53,6 +72,7 @@ export default function ProductSpecPage() {
     deleteProduct,
     addFavorite,
     removeFavorite,
+    updateProduct,
   } = useProductsContext()
   const { productId, familyId } = useParams()
   const { direction } = useDirectionContext()
@@ -60,11 +80,16 @@ export default function ProductSpecPage() {
   const { triggerAddFavorite } = useAddFavorite()
   const { triggerRemoveFavorite } = useRemoveFavorite()
   const { triggerDeleteProduct } = useDeleteProduct()
+  const { triggerUpload } = useUploadImage()
+  const { triggerUpdate } = useUpdateProduct()
   const location = useLocation()
 
   const productNumber = Number(productId)
   const familyNumber = Number(familyId)
 
+  /*
+    Load the product once when the required product parameters are available.
+  */
   useEffect(() => {
     if (productLoaded) return
 
@@ -72,12 +97,18 @@ export default function ProductSpecPage() {
     loadProduct(productNumber, familyNumber)
   }, [loadProduct, productNumber, familyNumber, productLoaded])
 
+  /*
+    Set the product as not found when fetching the product fails.
+  */
   useEffect(() => {
     if (errorFetchingProduct) {
       setProductNotFound(true)
     }
-  }, [errorFetchingProduct, context])
+  }, [errorFetchingProduct])
 
+  /*
+    Reset product loading and not-found state when the location changes.
+  */
   useEffect(() => {
     setProductLoaded(false)
     setProductNotFound(false)
@@ -91,7 +122,7 @@ export default function ProductSpecPage() {
       addFavorite(product as Product)
 
       if (context.closeOnFavoriteToggle) {
-        context.handleClose?.()
+        handleClose()
       }
     } catch (err) {
       showErrorAlert('add-favorite-failed', err)
@@ -108,7 +139,7 @@ export default function ProductSpecPage() {
       removeFavorite(productNumber)
 
       if (context.closeOnFavoriteToggle) {
-        context.handleClose?.()
+        handleClose()
       }
     } catch (err) {
       showErrorAlert('remove-favorite-failed', err)
@@ -132,8 +163,42 @@ export default function ProductSpecPage() {
       showErrorAlert('delete-product-failed', err)
     } finally {
       setLoadingDeleteProduct(false)
-      context.handleClose?.()
+      handleClose()
     }
+  }
+
+  const handleUpdateProduct = async (
+    values: ProductFormValues
+  ): Promise<void> => {
+    setUpdating(true)
+
+    try {
+      if (image) {
+        values.image = (await triggerUpload(image)).data.display_url
+      }
+
+      const updatedProduct = { ...product, ...values } as Product
+
+      await triggerUpdate(updatedProduct)
+      updateProduct(updatedProduct)
+
+      showSuccessAlert()
+      if (context.closeOnProductUpdate) {
+        handleClose()
+      }
+    } catch (err) {
+      showErrorAlert('product-update-failed', err)
+    } finally {
+      setUpdating(false)
+    }
+  }
+
+  const handleImageChange = (image: string | null): void => {
+    setImage(image)
+  }
+
+  const handleClose = (): void => {
+    context.onClose?.()
   }
 
   return (
@@ -151,7 +216,7 @@ export default function ProductSpecPage() {
             <SvgIcon
               icon={cancelCircle}
               style={{ cursor: 'pointer' }}
-              onClick={context.handleClose}
+              onClick={handleClose}
             />
           </span>
 
@@ -182,11 +247,10 @@ export default function ProductSpecPage() {
                 context={
                   {
                     product: product as Product,
-                    closeOnProductUpdate: context.closeOnProductUpdate,
-                    handleClose: context.handleClose,
-                    imageChange: (value) => {
-                      setImage(value)
-                    },
+                    loading: updating,
+                    onImageChange: handleImageChange,
+                    onSubmit: handleUpdateProduct,
+                    onClose: handleClose,
                   } satisfies ProductSpecOutletContext
                 }
               />

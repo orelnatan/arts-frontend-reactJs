@@ -3,11 +3,7 @@ import { useOutletContext } from 'react-router-dom'
 import { useForm } from '@mantine/form'
 
 import { PageLayout } from '@arts/libs/layout'
-import { errorAlert, successAlert } from '@arts/libs/alerts'
 import { decimalFormatter } from '@arts/shared/utils'
-import { useUploadImage } from '@arts/shared/hooks'
-import { useProductsContext, useUpdateProduct } from '@arts/features/arts/hooks'
-import { Caption } from '@arts/shared/components'
 import {
   FormField,
   FormRow,
@@ -25,43 +21,11 @@ import type { ProductFormValues } from './product-form-values.interface'
 import { VALIDATION_SCHEMA } from './validation-schema.const'
 
 import './UpdateProductPage.scss'
-import type { Product } from '@arts/features/arts/models'
-
-const showErrorAlert = (key: string, err: unknown) => {
-  errorAlert({
-    title: (
-      <Caption namespace="arts" keyPrefix="update-product-page">
-        {key}
-      </Caption>
-    ),
-    message: (err as Error).message,
-  })
-}
-
-const showSuccessAlert = () => {
-  successAlert({
-    title: (
-      <Caption namespace="arts" keyPrefix="update-product-page">
-        product-update-success-title
-      </Caption>
-    ),
-    message: (
-      <Caption namespace="arts" keyPrefix="update-product-page">
-        product-update-success-note
-      </Caption>
-    ),
-  })
-}
 
 export default function UpdateProductPage() {
   const [submitted, setSubmitted] = useState<boolean>(false)
-  const [updating, setUpdating] = useState<boolean>(false)
-  const [newPhoto, setNewPhoto] = useState<string | null>(null)
-  const { triggerUpload } = useUploadImage()
-  const { triggerUpdate } = useUpdateProduct()
-  const { updateProduct } = useProductsContext()
-  const context = useOutletContext<ProductSpecOutletContext>()
 
+  const context = useOutletContext<ProductSpecOutletContext>()
   const product = context?.product
 
   const form = useForm<ProductFormValues>({
@@ -80,13 +44,9 @@ export default function UpdateProductPage() {
     validate: VALIDATION_SCHEMA,
   })
 
-  useEffect(() => {
-    return () => {
-      context.imageChange?.(null)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
+  /*
+    Initialize form values from the loaded product
+  */
   useEffect(() => {
     if (product) {
       form.setValues({
@@ -104,29 +64,15 @@ export default function UpdateProductPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product])
 
-  const handleSubmit = async (values: ProductFormValues): Promise<void> => {
-    setUpdating(true)
-
-    try {
-      if (newPhoto) {
-        values.image = (await triggerUpload(newPhoto)).data.display_url
-      }
-
-      const updatedProduct = { ...product, ...values } as Product
-
-      await triggerUpdate(updatedProduct)
-      updateProduct(updatedProduct)
-
-      showSuccessAlert()
-      if (context.closeOnProductUpdate) {
-        context.handleClose?.()
-      }
-    } catch (err) {
-      showErrorAlert('product-update-failed', err)
-    } finally {
-      setUpdating(false)
+  /*
+    Clear the product image when navigation changes.
+  */
+  useEffect(() => {
+    return () => {
+      context.onImageChange?.(null)
     }
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <PageLayout key="update-product-page-layout" fullHeight noPadding>
@@ -188,9 +134,7 @@ export default function UpdateProductPage() {
                 placeholder="image"
                 error={submitted ? form.errors.image : null}
                 onChange={(event) => {
-                  context.imageChange?.(event)
-
-                  setNewPhoto(event)
+                  context.onImageChange?.(event)
                 }}
               />
             </FormField>
@@ -286,11 +230,11 @@ export default function UpdateProductPage() {
               label="submit"
               justify="center"
               bottomCornerRadius
-              loading={updating}
+              loading={context.loading}
               onClick={() => {
                 setSubmitted(true)
 
-                form.onSubmit(handleSubmit)()
+                form.onSubmit(context.onSubmit as () => void)()
               }}
             />
           </FormField>

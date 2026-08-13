@@ -1,9 +1,12 @@
 import type { Product } from '../../models'
+import type { ProductFormValues } from './pages'
 
 export interface ProductSpecOutletContext {
   product?: Product
+  loading?: boolean
   closeOnFavoriteToggle?: boolean
   closeOnProductUpdate?: boolean
-  imageChange?: (value: string | null) => void
-  handleClose?: () => void
+  onImageChange?: (value: string | null) => void
+  onSubmit?: (values: ProductFormValues) => void
+  onClose?: () => void
 }
