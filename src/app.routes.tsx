@@ -1,5 +1,5 @@
 import type { RouteObject } from 'react-router-dom'
-import { Navigate, Outlet } from 'react-router-dom'
+import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom'
 
 import {
   AccessDeniedPage,
@@ -7,8 +7,6 @@ import {
   GuestProtectedRoute,
   NotFoundPage,
 } from '@arts/core'
-import { authRoutes } from '@arts/features/auth'
-import { homeRoutes } from '@arts/features/home'
 import {
   artsRoutes,
   BrandsProvider,
@@ -17,53 +15,64 @@ import {
   FavoritesProvider,
   ProductsProvider,
 } from '@arts/features/arts'
+import { authRoutes } from '@arts/features/auth'
+import { homeRoutes } from '@arts/features/home'
+
+import { AppRootProviders } from './app-root-providers'
 import { ShellLayout } from './libs/layout'
 
 export const appRoutes: RouteObject[] = [
   {
-    path: '/',
-    element: <Navigate to="/home" replace />,
-  },
-  {
-    path: '*',
-    element: (
-      <ShellLayout>
-        <NotFoundPage />
-      </ShellLayout>
-    ),
-  },
-  {
-    path: 'access-denied',
-    element: (
-      <ShellLayout>
-        <AccessDeniedPage />
-      </ShellLayout>
-    ),
-  },
-  {
-    element: (
-      <AuthProtectedRoute>
-        <BrandsProvider>
-          <CategoriesProvider>
-            <FamiliesProvider>
-              <FavoritesProvider>
-                <ProductsProvider>
-                  <Outlet />
-                </ProductsProvider>
-              </FavoritesProvider>
-            </FamiliesProvider>
-          </CategoriesProvider>
-        </BrandsProvider>
-      </AuthProtectedRoute>
-    ),
-    children: [...homeRoutes, ...artsRoutes],
-  },
-  {
-    element: (
-      <GuestProtectedRoute>
-        <Outlet />
-      </GuestProtectedRoute>
-    ),
-    children: [...authRoutes],
+    element: <AppRootProviders />,
+    children: [
+      {
+        path: '/',
+        element: <Navigate to="/home" replace />,
+      },
+      {
+        path: '*',
+        element: (
+          <ShellLayout>
+            <NotFoundPage />
+          </ShellLayout>
+        ),
+      },
+      {
+        path: 'access-denied',
+        element: (
+          <ShellLayout>
+            <AccessDeniedPage />
+          </ShellLayout>
+        ),
+      },
+      {
+        element: (
+          <AuthProtectedRoute>
+            <BrandsProvider>
+              <CategoriesProvider>
+                <FamiliesProvider>
+                  <FavoritesProvider>
+                    <ProductsProvider>
+                      <Outlet />
+                    </ProductsProvider>
+                  </FavoritesProvider>
+                </FamiliesProvider>
+              </CategoriesProvider>
+            </BrandsProvider>
+          </AuthProtectedRoute>
+        ),
+        children: [...homeRoutes, ...artsRoutes],
+      },
+      {
+        element: (
+          <GuestProtectedRoute>
+            <Outlet />
+          </GuestProtectedRoute>
+        ),
+        children: [...authRoutes],
+      },
+    ],
   },
 ]
+
+export const router = createBrowserRouter(appRoutes)

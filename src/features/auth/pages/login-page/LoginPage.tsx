@@ -31,7 +31,6 @@ export default function LoginPage() {
   const { setUser } = useAuthContext()
   const { setToken } = useToken()
   const navigate = useNavigate()
-  // const location = useLocation()
 
   const form = useForm<LoginFormValues>({
     validateInputOnChange: true,

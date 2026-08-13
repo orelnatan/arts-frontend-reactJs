@@ -95,6 +95,7 @@ export default function FavoritesPage() {
       <ProductSpecDrawer
         activeRoutePattern={/\/favorites\/\d+\/product-spec(\/|$)/}
         returnUrl="../favorites"
+        closeOnFavoriteToggle
       />
     </>
   )
