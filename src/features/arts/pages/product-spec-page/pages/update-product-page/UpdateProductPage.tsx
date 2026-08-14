@@ -24,6 +24,7 @@ import './UpdateProductPage.scss'
 
 export default function UpdateProductPage() {
   const [submitted, setSubmitted] = useState<boolean>(false)
+  const [valuesChanged, setValuesChanged] = useState<boolean>(false)
 
   const context = useOutletContext<ProductSpecOutletContext>()
   const product = context?.product
@@ -64,13 +65,33 @@ export default function UpdateProductPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product])
 
+  /*
+    Responds to an external submit request, either sends form values or notifies validation failed
+  */
   useEffect(() => {
-    context.onChange?.({
-      value: form.values,
-      valid: form.isValid(),
-      touched: form.isTouched(),
-    })
+    if (context.autoSubmit) {
+      setSubmitted(true)
+
+      if (form.isValid()) {
+        context.onAutoSubmit?.(form.values)
+      } else {
+        context.onSubmitFailed?.()
+      }
+    }
   }, [context, form])
+
+  /*
+    Handle form value changes and reset the change detection flag
+  */
+  useEffect(() => {
+    if (valuesChanged) {
+      setValuesChanged(false)
+
+      context.onChange?.({
+        hasUnsavedChanges: true,
+      })
+    }
+  }, [valuesChanged, form, context])
 
   /*
     Clear the product image when navigation changes.
@@ -85,7 +106,7 @@ export default function UpdateProductPage() {
   return (
     <PageLayout key="update-product-page-layout" fullHeight noPadding>
       <div className="update-product-page-main">
-        <form>
+        <form onChange={() => setValuesChanged(true)}>
           <FormRow>
             <FormField>
               <InputText

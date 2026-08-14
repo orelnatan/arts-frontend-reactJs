@@ -67,10 +67,11 @@ export default function ProductSpecPage() {
   ] = useDisclosure(false)
   const context = useOutletContext<ProductSpecOutletContext>()
   const [image, setImage] = useState<string | null>(null)
+  const [autoSubmit, setAutoSubmit] = useState<boolean>(false)
   const [productLoaded, setProductLoaded] = useState<boolean>(false)
   const [productNotFound, setProductNotFound] = useState<boolean>(false)
   const [updating, setUpdating] = useState<boolean>(false)
-  const [canLeave, setCanLeave] = useState(true)
+  const [unsavedChanges, setUnsavedChanges] = useState(false)
   const [loadingToggleFavorite, setLoadingToggleFavorite] =
     useState<boolean>(false)
   const [loadingDeleteProduct, setLoadingDeleteProduct] =
@@ -100,7 +101,7 @@ export default function ProductSpecPage() {
 
   const blocker = useBlocker(
     ({ currentLocation, nextLocation }) =>
-      !canLeave && currentLocation.pathname !== nextLocation.pathname
+      unsavedChanges && currentLocation.pathname !== nextLocation.pathname
   )
 
   /*
@@ -137,7 +138,7 @@ export default function ProductSpecPage() {
   useEffect(() => {
     setProductLoaded(false)
     setProductNotFound(false)
-    setCanLeave(true)
+    setUnsavedChanges(false)
   }, [location])
 
   const handleAddFavorite = async () => {
@@ -176,6 +177,7 @@ export default function ProductSpecPage() {
 
   const handleDeleteProduct = async () => {
     setLoadingDeleteProduct(true)
+    setUnsavedChanges(false)
 
     try {
       await triggerDeleteProduct(productNumber)
@@ -185,11 +187,13 @@ export default function ProductSpecPage() {
         await triggerRemoveFavorite(productNumber)
         removeFavorite(productNumber)
       }
+
+      blocker.proceed?.()
+      handleClose()
     } catch (err) {
       showErrorAlert('delete-product-failed', err)
     } finally {
       setLoadingDeleteProduct(false)
-      handleClose()
     }
   }
 
@@ -197,6 +201,7 @@ export default function ProductSpecPage() {
     values: ProductFormValues
   ): Promise<void> => {
     setUpdating(true)
+    setUnsavedChanges(false)
 
     try {
       if (image) {
@@ -209,38 +214,47 @@ export default function ProductSpecPage() {
       updateProduct(updatedProduct)
 
       showSuccessAlert()
+      if (blocker.state === 'blocked') {
+        blocker.proceed?.()
+        return
+      }
+
       if (context.closeOnProductUpdate) {
         handleClose()
       }
     } catch (err) {
       showErrorAlert('product-update-failed', err)
+      setUnsavedChanges(true)
     } finally {
       setUpdating(false)
     }
   }
 
-  const handleFormChange = (state: productFormState): void => {
-    if (!state.touched) return
+  const handleAutoSubmit = async (values: ProductFormValues): Promise<void> => {
+    setAutoSubmit(false)
 
-    setCanLeave(false)
+    await handleUpdateProduct(values)
+  }
+
+  const handleFormChange = (state: productFormState): void => {
+    setUnsavedChanges(state.hasUnsavedChanges)
   }
 
   const handleSaveAndLeave = (): void => {
-    console.log('handleSaveAndLeave')
+    setAutoSubmit(true)
+    closeDiscardChangesModal()
   }
 
   const handleDiscardAndLeave = (): void => {
     closeDiscardChangesModal()
-    if (blocker.state === 'blocked') {
-      blocker.proceed()
-    }
+
+    blocker.proceed?.()
   }
 
   const handleCancelDiscardModal = (): void => {
     closeDiscardChangesModal()
-    if (blocker.state === 'blocked') {
-      blocker.reset()
-    }
+
+    blocker.reset?.()
   }
 
   const handleImageChange = (image: string | null): void => {
@@ -249,6 +263,10 @@ export default function ProductSpecPage() {
 
   const handleClose = (): void => {
     context.onClose?.()
+  }
+
+  const handleSubmitFailed = (): void => {
+    setAutoSubmit(false)
   }
 
   return (
@@ -298,8 +316,11 @@ export default function ProductSpecPage() {
                   {
                     product: product as Product,
                     loading: updating,
+                    autoSubmit: autoSubmit,
                     onImageChange: handleImageChange,
                     onSubmit: handleUpdateProduct,
+                    onAutoSubmit: handleAutoSubmit,
+                    onSubmitFailed: handleSubmitFailed,
                     onChange: handleFormChange,
                     onClose: handleClose,
                   } satisfies ProductSpecOutletContext
