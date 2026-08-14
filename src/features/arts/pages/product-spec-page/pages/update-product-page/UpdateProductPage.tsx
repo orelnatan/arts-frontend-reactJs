@@ -64,6 +64,14 @@ export default function UpdateProductPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product])
 
+  useEffect(() => {
+    context.onChange?.({
+      value: form.values,
+      valid: form.isValid(),
+      touched: form.isTouched(),
+    })
+  }, [context, form])
+
   /*
     Clear the product image when navigation changes.
   */

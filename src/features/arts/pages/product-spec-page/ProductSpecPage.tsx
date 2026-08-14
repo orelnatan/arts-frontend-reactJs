@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import {
   Outlet,
+  useBlocker,
   useLocation,
   useOutletContext,
   useParams,
@@ -23,10 +24,15 @@ import {
 import type { ProductFormValues } from './pages'
 import { ProductIconsBar } from './components'
 import type { Product } from '../../models'
-import type { ProductSpecOutletContext } from './product-spec-outlet-context.interface'
+import type {
+  productFormState,
+  ProductSpecOutletContext,
+} from './product-spec-outlet-context.interface'
 
 import './ProductSpecPage.scss'
 import { useUploadImage } from '@arts/shared/hooks'
+import { DiscardChangesModal } from '../../components'
+import { useDisclosure } from '@mantine/hooks'
 
 const showErrorAlert = (key: string, err: unknown) => {
   errorAlert({
@@ -55,11 +61,16 @@ const showSuccessAlert = () => {
 }
 
 export default function ProductSpecPage() {
+  const [
+    discardChangesModalOpened,
+    { open: showDiscardChangesModal, close: closeDiscardChangesModal },
+  ] = useDisclosure(false)
   const context = useOutletContext<ProductSpecOutletContext>()
   const [image, setImage] = useState<string | null>(null)
   const [productLoaded, setProductLoaded] = useState<boolean>(false)
   const [productNotFound, setProductNotFound] = useState<boolean>(false)
   const [updating, setUpdating] = useState<boolean>(false)
+  const [canLeave, setCanLeave] = useState(true)
   const [loadingToggleFavorite, setLoadingToggleFavorite] =
     useState<boolean>(false)
   const [loadingDeleteProduct, setLoadingDeleteProduct] =
@@ -87,6 +98,20 @@ export default function ProductSpecPage() {
   const productNumber = Number(productId)
   const familyNumber = Number(familyId)
 
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation }) =>
+      !canLeave && currentLocation.pathname !== nextLocation.pathname
+  )
+
+  /*
+    Open the modal when blocker detects an unsaved navigation attempt
+  */
+  useEffect(() => {
+    if (blocker.state === 'blocked') {
+      showDiscardChangesModal()
+    }
+  }, [blocker.state, showDiscardChangesModal])
+
   /*
     Load the product once when the required product parameters are available.
   */
@@ -107,11 +132,12 @@ export default function ProductSpecPage() {
   }, [errorFetchingProduct])
 
   /*
-    Reset product loading and not-found state when the location changes.
+    Restore page state when the location changes.
   */
   useEffect(() => {
     setProductLoaded(false)
     setProductNotFound(false)
+    setCanLeave(true)
   }, [location])
 
   const handleAddFavorite = async () => {
@@ -193,6 +219,30 @@ export default function ProductSpecPage() {
     }
   }
 
+  const handleFormChange = (state: productFormState): void => {
+    if (!state.touched) return
+
+    setCanLeave(false)
+  }
+
+  const handleSaveAndLeave = (): void => {
+    console.log('handleSaveAndLeave')
+  }
+
+  const handleDiscardAndLeave = (): void => {
+    closeDiscardChangesModal()
+    if (blocker.state === 'blocked') {
+      blocker.proceed()
+    }
+  }
+
+  const handleCancelDiscardModal = (): void => {
+    closeDiscardChangesModal()
+    if (blocker.state === 'blocked') {
+      blocker.reset()
+    }
+  }
+
   const handleImageChange = (image: string | null): void => {
     setImage(image)
   }
@@ -250,12 +300,20 @@ export default function ProductSpecPage() {
                     loading: updating,
                     onImageChange: handleImageChange,
                     onSubmit: handleUpdateProduct,
+                    onChange: handleFormChange,
                     onClose: handleClose,
                   } satisfies ProductSpecOutletContext
                 }
               />
             </>
           )}
+
+          <DiscardChangesModal
+            opened={discardChangesModalOpened}
+            cancel={handleCancelDiscardModal}
+            saveAndLeave={handleSaveAndLeave}
+            discardAndLeave={handleDiscardAndLeave}
+          />
         </div>
       )}
     </PageLayout>
