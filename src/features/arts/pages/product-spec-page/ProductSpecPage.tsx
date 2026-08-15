@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   Outlet,
+  useBlocker,
   useLocation,
   useOutletContext,
   useParams,
@@ -12,6 +13,7 @@ import { errorAlert, successAlert } from '@arts/libs/alerts'
 import { Caption, SvgIcon } from '@arts/shared/components'
 import { cancelCircle } from '@arts/assets/images'
 import { useUploadImage } from '@arts/shared/hooks'
+import { useDisclosure } from '@mantine/hooks'
 
 import {
   useAddFavorite,
@@ -23,8 +25,12 @@ import {
 } from '../../hooks'
 import type { ProductFormValues } from './pages'
 import { ProductIconsBar } from './components'
+import { DiscardChangesModal } from '../../components'
 import type { Product } from '../../models'
-import type { ProductSpecOutletContext } from './product-spec-outlet-context.interface'
+import type {
+  productFormState,
+  ProductSpecOutletContext,
+} from './product-spec-outlet-context.interface'
 
 import './ProductSpecPage.scss'
 
@@ -56,6 +62,14 @@ const showSuccessAlert = () => {
 
 export default function ProductSpecPage() {
   const context = useOutletContext<ProductSpecOutletContext>()
+
+  const [
+    discardChangesModalOpened,
+    { open: showDiscardChangesModal, close: closeDiscardChangesModal },
+  ] = useDisclosure(false)
+
+  const unsavedChanges = useRef<boolean>(false)
+
   const [image, setImage] = useState<string | null>(null)
   const [productLoaded, setProductLoaded] = useState<boolean>(false)
   const [productNotFound, setProductNotFound] = useState<boolean>(false)
@@ -65,6 +79,7 @@ export default function ProductSpecPage() {
     useState<boolean>(false)
   const [loadingDeleteProduct, setLoadingDeleteProduct] =
     useState<boolean>(false)
+
   const {
     product,
     loadingProduct,
@@ -75,6 +90,7 @@ export default function ProductSpecPage() {
     removeFavorite,
     updateProduct,
   } = useProductsContext()
+
   const { productId, familyId } = useParams()
   const { direction } = useDirectionContext()
   const { isFavorite } = useFavoritesContext()
@@ -87,6 +103,21 @@ export default function ProductSpecPage() {
 
   const productNumber = Number(productId)
   const familyNumber = Number(familyId)
+
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation }) =>
+      unsavedChanges.current &&
+      currentLocation.pathname !== nextLocation.pathname
+  )
+
+  /*
+    Open the modal when blocker detects an unsaved navigation attempt
+  */
+  useEffect(() => {
+    if (blocker.state === 'blocked') {
+      showDiscardChangesModal()
+    }
+  }, [blocker.state, showDiscardChangesModal])
 
   /*
     Load the product once when the required product parameters are available.
@@ -113,6 +144,7 @@ export default function ProductSpecPage() {
   useEffect(() => {
     setProductLoaded(false)
     setProductNotFound(false)
+    unsavedChanges.current = false
   }, [location])
 
   const handleAddFavorite = async () => {
@@ -161,6 +193,7 @@ export default function ProductSpecPage() {
         removeFavorite(productNumber)
       }
 
+      unsavedChanges.current = false
       handleClose()
     } catch (err) {
       showErrorAlert('delete-product-failed', err)
@@ -193,6 +226,25 @@ export default function ProductSpecPage() {
     } finally {
       setUpdating(false)
     }
+  }
+
+  const handleKeepEditing = (): void => {
+    closeDiscardChangesModal()
+    blocker.reset?.()
+  }
+
+  const handleDiscardAndLeave = (): void => {
+    closeDiscardChangesModal()
+    blocker.proceed?.()
+  }
+
+  const handleCancelDiscardModal = (): void => {
+    closeDiscardChangesModal()
+    blocker.reset?.()
+  }
+
+  const handleFormValueChange = (state: productFormState): void => {
+    unsavedChanges.current = state.hasUnsavedChanges
   }
 
   const handleImageChange = (image: string | null): void => {
@@ -252,12 +304,20 @@ export default function ProductSpecPage() {
                     loading: updating,
                     onImageChange: handleImageChange,
                     onSubmit: handleUpdateProduct,
+                    onChange: handleFormValueChange,
                     onClose: handleClose,
                   } satisfies ProductSpecOutletContext
                 }
               />
             </>
           )}
+
+          <DiscardChangesModal
+            opened={discardChangesModalOpened}
+            cancel={handleCancelDiscardModal}
+            keepEditing={handleKeepEditing}
+            discardAndLeave={handleDiscardAndLeave}
+          />
         </div>
       )}
     </PageLayout>

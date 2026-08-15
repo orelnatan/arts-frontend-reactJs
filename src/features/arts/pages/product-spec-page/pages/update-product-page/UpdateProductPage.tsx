@@ -134,6 +134,8 @@ export default function UpdateProductPage() {
                 error={submitted ? form.errors.added : null}
                 onChange={(event) => {
                   form.setFieldValue('added', event)
+
+                  setValuesChanged(true)
                 }}
               />
             </FormField>

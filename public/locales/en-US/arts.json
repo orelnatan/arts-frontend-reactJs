@@ -76,7 +76,7 @@
   "discard-changes-modal": {
     "title": "Discard Changes?",
     "note": "You have unsaved changes. Would you like to save them before leave?",
-    "save-and-leave": "Yes, save and leave",
+    "keep-editing": "Keep editing",
     "leave-without-save": "No, leave without save"
   }
 }

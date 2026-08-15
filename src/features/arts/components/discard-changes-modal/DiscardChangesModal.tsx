@@ -5,14 +5,14 @@ import './DiscardChangesModal.scss'
 
 interface DiscardChangesModalProps {
   opened: boolean
-  saveAndLeave: () => void
+  keepEditing: () => void
   discardAndLeave: () => void
   cancel: () => void
 }
 
 export default function DiscardChangesModal({
   opened,
-  saveAndLeave,
+  keepEditing,
   discardAndLeave,
   cancel,
 }: DiscardChangesModalProps) {
@@ -39,8 +39,8 @@ export default function DiscardChangesModal({
           <PrimaryButton
             namespace="arts"
             keyPrefix="discard-changes-modal"
-            label="save-and-leave"
-            onClick={saveAndLeave}
+            label="keep-editing"
+            onClick={keepEditing}
           />
 
           <PrimaryButton
