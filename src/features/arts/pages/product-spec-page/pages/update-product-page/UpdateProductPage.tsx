@@ -89,6 +89,8 @@ export default function UpdateProductPage() {
 
       context.onChange?.({
         hasUnsavedChanges: true,
+        valid: form.isValid(),
+        value: form.values,
       })
     }
   }, [valuesChanged, form, context])

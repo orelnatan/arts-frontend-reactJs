@@ -1,0 +1,64 @@
+
+const [unsavedChanges, setUnsavedChanges] = useState(false)
+
+  const [autoSubmit, setAutoSubmit] = useState<boolean>(false)
+
+
+  const [
+    discardChangesModalOpened,
+    { open: showDiscardChangesModal, close: closeDiscardChangesModal },
+  ] = useDisclosure(false)
+
+const blocker = useBlocker(
+    ({ currentLocation, nextLocation }) =>
+      unsavedChanges && currentLocation.pathname !== nextLocation.pathname
+  )
+
+  /*
+    Open the modal when blocker detects an unsaved navigation attempt
+  */
+  useEffect(() => {
+    if (blocker.state === 'blocked') {
+      showDiscardChangesModal()
+    }
+  }, [blocker.state, showDiscardChangesModal])
+
+
+   const handleFormChange = (state: productFormState): void => {
+      setUnsavedChanges(state.hasUnsavedChanges)
+    }
+  
+    const handleSaveAndLeave = (): void => {
+      setAutoSubmit(true)
+      closeDiscardChangesModal()
+    }
+  
+    const handleDiscardAndLeave = (): void => {
+      closeDiscardChangesModal()
+  
+      blocker.proceed?.()
+    }
+  
+    const handleCancelDiscardModal = (): void => {
+      closeDiscardChangesModal()
+  
+      blocker.reset?.()
+    }
+    
+     const handleSubmitFailed = (): void => {
+    setAutoSubmit(false)
+  }
+
+    const handleAutoSubmit = async (values: ProductFormValues): Promise<void> => {
+    setAutoSubmit(false)
+
+    await handleUpdateProduct(values)
+  }
+
+
+     <DiscardChangesModal
+            opened={discardChangesModalOpened}
+            cancel={handleCancelDiscardModal}
+            saveAndLeave={handleSaveAndLeave}
+            discardAndLeave={handleDiscardAndLeave}
+          />

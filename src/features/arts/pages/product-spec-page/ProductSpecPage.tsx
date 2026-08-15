@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import {
   Outlet,
-  useBlocker,
   useLocation,
   useOutletContext,
   useParams,
@@ -12,6 +11,7 @@ import { PageLayout } from '@arts/libs/layout'
 import { errorAlert, successAlert } from '@arts/libs/alerts'
 import { Caption, SvgIcon } from '@arts/shared/components'
 import { cancelCircle } from '@arts/assets/images'
+import { useUploadImage } from '@arts/shared/hooks'
 
 import {
   useAddFavorite,
@@ -24,15 +24,9 @@ import {
 import type { ProductFormValues } from './pages'
 import { ProductIconsBar } from './components'
 import type { Product } from '../../models'
-import type {
-  productFormState,
-  ProductSpecOutletContext,
-} from './product-spec-outlet-context.interface'
+import type { ProductSpecOutletContext } from './product-spec-outlet-context.interface'
 
 import './ProductSpecPage.scss'
-import { useUploadImage } from '@arts/shared/hooks'
-import { DiscardChangesModal } from '../../components'
-import { useDisclosure } from '@mantine/hooks'
 
 const showErrorAlert = (key: string, err: unknown) => {
   errorAlert({
@@ -61,17 +55,12 @@ const showSuccessAlert = () => {
 }
 
 export default function ProductSpecPage() {
-  const [
-    discardChangesModalOpened,
-    { open: showDiscardChangesModal, close: closeDiscardChangesModal },
-  ] = useDisclosure(false)
   const context = useOutletContext<ProductSpecOutletContext>()
   const [image, setImage] = useState<string | null>(null)
-  const [autoSubmit, setAutoSubmit] = useState<boolean>(false)
   const [productLoaded, setProductLoaded] = useState<boolean>(false)
   const [productNotFound, setProductNotFound] = useState<boolean>(false)
   const [updating, setUpdating] = useState<boolean>(false)
-  const [unsavedChanges, setUnsavedChanges] = useState(false)
+
   const [loadingToggleFavorite, setLoadingToggleFavorite] =
     useState<boolean>(false)
   const [loadingDeleteProduct, setLoadingDeleteProduct] =
@@ -99,20 +88,6 @@ export default function ProductSpecPage() {
   const productNumber = Number(productId)
   const familyNumber = Number(familyId)
 
-  const blocker = useBlocker(
-    ({ currentLocation, nextLocation }) =>
-      unsavedChanges && currentLocation.pathname !== nextLocation.pathname
-  )
-
-  /*
-    Open the modal when blocker detects an unsaved navigation attempt
-  */
-  useEffect(() => {
-    if (blocker.state === 'blocked') {
-      showDiscardChangesModal()
-    }
-  }, [blocker.state, showDiscardChangesModal])
-
   /*
     Load the product once when the required product parameters are available.
   */
@@ -138,7 +113,6 @@ export default function ProductSpecPage() {
   useEffect(() => {
     setProductLoaded(false)
     setProductNotFound(false)
-    setUnsavedChanges(false)
   }, [location])
 
   const handleAddFavorite = async () => {
@@ -177,7 +151,6 @@ export default function ProductSpecPage() {
 
   const handleDeleteProduct = async () => {
     setLoadingDeleteProduct(true)
-    setUnsavedChanges(false)
 
     try {
       await triggerDeleteProduct(productNumber)
@@ -188,7 +161,6 @@ export default function ProductSpecPage() {
         removeFavorite(productNumber)
       }
 
-      blocker.proceed?.()
       handleClose()
     } catch (err) {
       showErrorAlert('delete-product-failed', err)
@@ -201,7 +173,6 @@ export default function ProductSpecPage() {
     values: ProductFormValues
   ): Promise<void> => {
     setUpdating(true)
-    setUnsavedChanges(false)
 
     try {
       if (image) {
@@ -214,47 +185,14 @@ export default function ProductSpecPage() {
       updateProduct(updatedProduct)
 
       showSuccessAlert()
-      if (blocker.state === 'blocked') {
-        blocker.proceed?.()
-        return
-      }
-
       if (context.closeOnProductUpdate) {
         handleClose()
       }
     } catch (err) {
       showErrorAlert('product-update-failed', err)
-      setUnsavedChanges(true)
     } finally {
       setUpdating(false)
     }
-  }
-
-  const handleAutoSubmit = async (values: ProductFormValues): Promise<void> => {
-    setAutoSubmit(false)
-
-    await handleUpdateProduct(values)
-  }
-
-  const handleFormChange = (state: productFormState): void => {
-    setUnsavedChanges(state.hasUnsavedChanges)
-  }
-
-  const handleSaveAndLeave = (): void => {
-    setAutoSubmit(true)
-    closeDiscardChangesModal()
-  }
-
-  const handleDiscardAndLeave = (): void => {
-    closeDiscardChangesModal()
-
-    blocker.proceed?.()
-  }
-
-  const handleCancelDiscardModal = (): void => {
-    closeDiscardChangesModal()
-
-    blocker.reset?.()
   }
 
   const handleImageChange = (image: string | null): void => {
@@ -263,10 +201,6 @@ export default function ProductSpecPage() {
 
   const handleClose = (): void => {
     context.onClose?.()
-  }
-
-  const handleSubmitFailed = (): void => {
-    setAutoSubmit(false)
   }
 
   return (
@@ -316,25 +250,14 @@ export default function ProductSpecPage() {
                   {
                     product: product as Product,
                     loading: updating,
-                    autoSubmit: autoSubmit,
                     onImageChange: handleImageChange,
                     onSubmit: handleUpdateProduct,
-                    onAutoSubmit: handleAutoSubmit,
-                    onSubmitFailed: handleSubmitFailed,
-                    onChange: handleFormChange,
                     onClose: handleClose,
                   } satisfies ProductSpecOutletContext
                 }
               />
             </>
           )}
-
-          <DiscardChangesModal
-            opened={discardChangesModalOpened}
-            cancel={handleCancelDiscardModal}
-            saveAndLeave={handleSaveAndLeave}
-            discardAndLeave={handleDiscardAndLeave}
-          />
         </div>
       )}
     </PageLayout>
