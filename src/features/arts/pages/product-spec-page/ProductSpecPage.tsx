@@ -3,6 +3,7 @@ import {
   Outlet,
   useBlocker,
   useLocation,
+  useNavigate,
   useOutletContext,
   useParams,
 } from 'react-router-dom'
@@ -70,6 +71,7 @@ export default function ProductSpecPage() {
 
   const unsavedChanges = useRef<boolean>(false)
 
+  const [autoSubmit, setAutoSubmit] = useState<boolean>(false)
   const [image, setImage] = useState<string | null>(null)
   const [productLoaded, setProductLoaded] = useState<boolean>(false)
   const [productNotFound, setProductNotFound] = useState<boolean>(false)
@@ -99,6 +101,7 @@ export default function ProductSpecPage() {
   const { triggerDeleteProduct } = useDeleteProduct()
   const { triggerUpload } = useUploadImage()
   const { triggerUpdate } = useUpdateProduct()
+  const navigate = useNavigate()
   const location = useLocation()
 
   const productNumber = Number(productId)
@@ -202,9 +205,7 @@ export default function ProductSpecPage() {
     }
   }
 
-  const handleUpdateProduct = async (
-    values: ProductFormValues
-  ): Promise<void> => {
+  const handleSubmit = async (values: ProductFormValues): Promise<void> => {
     setUpdating(true)
 
     try {
@@ -218,6 +219,8 @@ export default function ProductSpecPage() {
       updateProduct(updatedProduct)
 
       showSuccessAlert()
+
+      unsavedChanges.current = false
       if (context.closeOnProductUpdate) {
         handleClose()
       }
@@ -228,9 +231,35 @@ export default function ProductSpecPage() {
     }
   }
 
-  const handleKeepEditing = (): void => {
+  const handleAutoSubmit = async (values: ProductFormValues): Promise<void> => {
+    setAutoSubmit(false)
+    setUpdating(true)
+
+    try {
+      if (image) {
+        values.image = (await triggerUpload(image)).data.display_url
+      }
+
+      const updatedProduct = { ...product, ...values } as Product
+
+      await triggerUpdate(updatedProduct)
+      updateProduct(updatedProduct)
+
+      showSuccessAlert()
+
+      blocker.reset?.()
+      unsavedChanges.current = false
+      navigate(String(blocker.location?.pathname))
+    } catch (err) {
+      showErrorAlert('product-update-failed', err)
+    } finally {
+      setUpdating(false)
+    }
+  }
+
+  const handleSaveAndLeave = (): void => {
+    setAutoSubmit(true)
     closeDiscardChangesModal()
-    blocker.reset?.()
   }
 
   const handleDiscardAndLeave = (): void => {
@@ -245,6 +274,11 @@ export default function ProductSpecPage() {
 
   const handleFormValueChange = (state: productFormState): void => {
     unsavedChanges.current = state.hasUnsavedChanges
+  }
+
+  const handleSubmitFailed = (): void => {
+    setAutoSubmit(false)
+    blocker.reset?.()
   }
 
   const handleImageChange = (image: string | null): void => {
@@ -302,8 +336,11 @@ export default function ProductSpecPage() {
                   {
                     product: product as Product,
                     loading: updating,
+                    autoSubmit: autoSubmit,
                     onImageChange: handleImageChange,
-                    onSubmit: handleUpdateProduct,
+                    onSubmit: handleSubmit,
+                    onAutoSubmit: handleAutoSubmit,
+                    onSubmitFailed: handleSubmitFailed,
                     onChange: handleFormValueChange,
                     onClose: handleClose,
                   } satisfies ProductSpecOutletContext
@@ -315,7 +352,7 @@ export default function ProductSpecPage() {
           <DiscardChangesModal
             opened={discardChangesModalOpened}
             cancel={handleCancelDiscardModal}
-            keepEditing={handleKeepEditing}
+            saveAndLeave={handleSaveAndLeave}
             discardAndLeave={handleDiscardAndLeave}
           />
         </div>
