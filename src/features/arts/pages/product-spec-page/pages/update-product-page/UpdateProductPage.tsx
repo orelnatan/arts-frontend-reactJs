@@ -18,6 +18,7 @@ import {
 
 import type { ProductSpecOutletContext } from '../../product-spec-outlet-context.interface'
 import type { ProductFormValues } from './product-form-values.interface'
+import { isProductFormDirty } from './is-product-form-dirty.util'
 import { VALIDATION_SCHEMA } from './validation-schema.const'
 
 import './UpdateProductPage.scss'
@@ -88,12 +89,13 @@ export default function UpdateProductPage() {
       setValuesChanged(false)
 
       context.onChange?.({
-        hasUnsavedChanges: true,
+        hasUnsavedChanges: isProductFormDirty(form.values, product),
         valid: form.isValid(),
+        touched: form.isTouched(),
         value: form.values,
       })
     }
-  }, [valuesChanged, form, context])
+  }, [valuesChanged, form, context, product])
 
   /*
     Clear the product image when navigation changes.
@@ -167,6 +169,12 @@ export default function UpdateProductPage() {
                 placeholder="image"
                 error={submitted ? form.errors.image : null}
                 onChange={(event) => {
+                  form.setFieldValue(
+                    'image',
+                    event ?? (product?.image as string)
+                  )
+
+                  setValuesChanged(true)
                   context.onImageChange?.(event)
                 }}
               />
@@ -264,6 +272,7 @@ export default function UpdateProductPage() {
               justify="center"
               bottomCornerRadius
               loading={context.loading}
+              disabled={context.disabled}
               onClick={() => {
                 setSubmitted(true)
 

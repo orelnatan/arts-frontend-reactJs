@@ -72,6 +72,7 @@ export default function ProductSpecPage() {
   const unsavedChanges = useRef<boolean>(false)
 
   const [autoSubmit, setAutoSubmit] = useState<boolean>(false)
+  const [disabled, setDisabled] = useState<boolean>(true)
   const [image, setImage] = useState<string | null>(null)
   const [productLoaded, setProductLoaded] = useState<boolean>(false)
   const [productNotFound, setProductNotFound] = useState<boolean>(false)
@@ -274,6 +275,8 @@ export default function ProductSpecPage() {
 
   const handleFormValueChange = (state: productFormState): void => {
     unsavedChanges.current = state.hasUnsavedChanges
+
+    setDisabled(!state.hasUnsavedChanges)
   }
 
   const handleSubmitFailed = (): void => {
@@ -336,6 +339,7 @@ export default function ProductSpecPage() {
                   {
                     product: product as Product,
                     loading: updating,
+                    disabled: disabled,
                     autoSubmit: autoSubmit,
                     onImageChange: handleImageChange,
                     onSubmit: handleSubmit,
