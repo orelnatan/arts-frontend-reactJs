@@ -6,6 +6,7 @@ import {
   AuthProtectedRoute,
   GuestProtectedRoute,
   NotFoundPage,
+  SessionProtectedRoute,
 } from '@arts/core'
 import {
   artsRoutes,
@@ -47,19 +48,21 @@ export const appRoutes: RouteObject[] = [
       },
       {
         element: (
-          <AuthProtectedRoute>
-            <BrandsProvider>
-              <CategoriesProvider>
-                <FamiliesProvider>
-                  <FavoritesProvider>
-                    <ProductsProvider>
-                      <Outlet />
-                    </ProductsProvider>
-                  </FavoritesProvider>
-                </FamiliesProvider>
-              </CategoriesProvider>
-            </BrandsProvider>
-          </AuthProtectedRoute>
+          <SessionProtectedRoute>
+            <AuthProtectedRoute>
+              <BrandsProvider>
+                <CategoriesProvider>
+                  <FamiliesProvider>
+                    <FavoritesProvider>
+                      <ProductsProvider>
+                        <Outlet />
+                      </ProductsProvider>
+                    </FavoritesProvider>
+                  </FamiliesProvider>
+                </CategoriesProvider>
+              </BrandsProvider>
+            </AuthProtectedRoute>
+          </SessionProtectedRoute>
         ),
         children: [...homeRoutes, ...artsRoutes],
       },
