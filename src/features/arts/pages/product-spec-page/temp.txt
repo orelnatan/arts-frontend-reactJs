@@ -62,3 +62,30 @@ const blocker = useBlocker(
             saveAndLeave={handleSaveAndLeave}
             discardAndLeave={handleDiscardAndLeave}
           />
+
+// Solved using "navigate"
+const handleAutoSubmit = async (values: ProductFormValues): Promise<void> => {
+    setAutoSubmit(false)
+    setUpdating(true)
+
+    try {
+      if (image) {
+        values.image = (await triggerUpload(image)).data.display_url
+      }
+
+      const updatedProduct = { ...product, ...values } as Product
+
+      await triggerUpdate(updatedProduct)
+      updateProduct(updatedProduct)
+
+      showSuccessAlert()
+
+      blocker.reset?.()
+      unsavedChanges.current = false
+      navigate(String(blocker.location?.pathname))
+    } catch (err) {
+      showErrorAlert('product-update-failed', err)
+    } finally {
+      setUpdating(false)
+    }
+  }

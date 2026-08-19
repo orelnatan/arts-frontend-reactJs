@@ -3,7 +3,6 @@ import {
   Outlet,
   useBlocker,
   useLocation,
-  useNavigate,
   useOutletContext,
   useParams,
 } from 'react-router-dom'
@@ -102,7 +101,6 @@ export default function ProductSpecPage() {
   const { triggerDeleteProduct } = useDeleteProduct()
   const { triggerUpload } = useUploadImage()
   const { triggerUpdate } = useUpdateProduct()
-  const navigate = useNavigate()
   const location = useLocation()
 
   const productNumber = Number(productId)
@@ -220,7 +218,6 @@ export default function ProductSpecPage() {
       updateProduct(updatedProduct)
 
       showSuccessAlert()
-
       unsavedChanges.current = false
       if (context.closeOnProductUpdate) {
         handleClose()
@@ -247,10 +244,7 @@ export default function ProductSpecPage() {
       updateProduct(updatedProduct)
 
       showSuccessAlert()
-
-      blocker.reset?.()
-      unsavedChanges.current = false
-      navigate(String(blocker.location?.pathname))
+      blocker.proceed?.()
     } catch (err) {
       showErrorAlert('product-update-failed', err)
     } finally {
