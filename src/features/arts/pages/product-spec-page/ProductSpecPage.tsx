@@ -224,6 +224,7 @@ export default function ProductSpecPage() {
       }
     } catch (err) {
       showErrorAlert('product-update-failed', err)
+      blocker.reset?.()
     } finally {
       setUpdating(false)
     }
@@ -247,6 +248,7 @@ export default function ProductSpecPage() {
       blocker.proceed?.()
     } catch (err) {
       showErrorAlert('product-update-failed', err)
+      blocker.reset?.()
     } finally {
       setUpdating(false)
     }

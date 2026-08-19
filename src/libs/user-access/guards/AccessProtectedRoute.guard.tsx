@@ -1,4 +1,3 @@
-// libs/user-access/src/guards/AccessProtectedGuard.tsx
 import { type ReactNode } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 
