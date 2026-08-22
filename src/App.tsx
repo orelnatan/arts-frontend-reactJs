@@ -1,17 +1,45 @@
 import { Suspense } from 'react'
-import { useRoutes } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
+import { createTheme, MantineProvider } from '@mantine/core'
+import { Notifications } from '@mantine/notifications'
 
-import { appRoutes } from './app.routes'
-import { AppLayout } from './libs/layout'
+import {
+  AuthProvider,
+  DirectionProvider,
+  LocaleProvider,
+  NavigationProvider,
+  ThemeProvider,
+} from './core'
+import { AppLayout, LayoutProvider } from './libs/layout'
+import { UserAcessProvider } from './libs/user-access'
 
-import './App.scss'
+const MANTINE_CONFIG = createTheme({
+  fontFamily: 'heebo-regular',
+})
 
 export default function App() {
-  const routes = useRoutes(appRoutes)
-
   return (
-    <AppLayout>
-      <Suspense fallback={<div>Loading...</div>}>{routes}</Suspense>
-    </AppLayout>
+    <AuthProvider>
+      <UserAcessProvider>
+        <LocaleProvider>
+          <DirectionProvider>
+            <ThemeProvider>
+              <MantineProvider theme={MANTINE_CONFIG}>
+                <LayoutProvider>
+                  <NavigationProvider>
+                    <Notifications />
+                    <AppLayout>
+                      <Suspense fallback={<div>Loading...</div>}>
+                        <Outlet />
+                      </Suspense>
+                    </AppLayout>
+                  </NavigationProvider>
+                </LayoutProvider>
+              </MantineProvider>
+            </ThemeProvider>
+          </DirectionProvider>
+        </LocaleProvider>
+      </UserAcessProvider>
+    </AuthProvider>
   )
 }

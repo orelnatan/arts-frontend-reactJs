@@ -19,12 +19,13 @@ import {
 import { authRoutes } from '@arts/features/auth'
 import { homeRoutes } from '@arts/features/home'
 
-import { AppRootProviders } from './app-root-providers'
 import { ShellLayout } from './libs/layout'
+
+import App from './App'
 
 export const appRoutes: RouteObject[] = [
   {
-    element: <AppRootProviders />,
+    element: <App />,
     children: [
       {
         path: '/',
@@ -78,4 +79,4 @@ export const appRoutes: RouteObject[] = [
   },
 ]
 
-export const router = createBrowserRouter(appRoutes)
+export const routes = createBrowserRouter(appRoutes)
