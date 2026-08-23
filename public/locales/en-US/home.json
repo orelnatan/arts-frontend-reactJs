@@ -1,1 +1,8 @@
-{}
+{
+  "breadcrumbs": {
+    "home": "Home",
+    "desktop": "Desktop",
+    "profile": "Profile",
+    "statistics": "Statistics"
+  }
+}

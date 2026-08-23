@@ -19,6 +19,7 @@ import starFavHalf from './svg/star-fav-half.svg'
 import starFavFull from './svg/star-fav-full.svg'
 import viewVision from './svg/view-vision-eye.svg'
 import recycleBin from './svg/recycle-bin.svg'
+import doubleArrow from './svg/double-arrow.svg'
 
 export {
   sideArrow,
@@ -41,4 +42,5 @@ export {
   viewVision,
   starFavFull,
   recycleBin,
+  doubleArrow,
 }

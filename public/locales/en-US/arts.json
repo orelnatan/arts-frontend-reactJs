@@ -78,5 +78,16 @@
     "note": "You have unsaved changes. Would you like to save them before leave?",
     "save-and-leave": "Yes, Save and leave",
     "leave-without-save": "No, Leave without save"
+  },
+  "breadcrumbs": {
+    "arts": "Arts",
+    "favorites": "Favorites",
+    "brands": "Brands",
+    "categories": "Categories",
+    "families": "Families",
+    "products": "Products",
+    "productSpec": "Spec",
+    "view": "View",
+    "update": "Update"
   }
 }

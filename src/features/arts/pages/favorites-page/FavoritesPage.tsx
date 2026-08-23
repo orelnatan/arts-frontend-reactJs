@@ -42,9 +42,9 @@ export default function FavoritesPage() {
     navigate(lastUrl ? lastUrl : '/home')
   }
 
-  const loading = loadingFavoritesIds || loadingFavorites
-  const empty = !loading && !filteredFavorites.length
-  const arrow = lastUrl?.split('/')[1] === 'arts'
+  const isLoading = loadingFavoritesIds || loadingFavorites
+  const isEmpty = !isLoading && !filteredFavorites.length
+  const withArrow = lastUrl?.split('/')[1] === 'arts'
 
   return (
     <>
@@ -55,13 +55,13 @@ export default function FavoritesPage() {
           title="favorites-title"
           search={setKeyword}
           redirect={redirect}
-          withRedirectArrow={arrow}
+          withRedirectArrow={withArrow}
         />
       </ShellHeader>
 
       <PageLayout>
         <div className="favorites-page-main">
-          {loading && <p>Loading...</p>}
+          {isLoading && <p>Loading...</p>}
 
           <div className="favorites-list-container">
             <CenteredContentShell
@@ -69,7 +69,7 @@ export default function FavoritesPage() {
               maxElementsPerRow={4}
               gap={16}
             >
-              {empty && (
+              {isEmpty && (
                 <h2
                   className="text-align-center assistant-bold"
                   style={{ width: '100%' }}

@@ -117,7 +117,7 @@ export default function AppNavbar({ children }: AppNavbarProps) {
 
         <div className="control-system-language font-size-20">
           <CanAccess
-            roles={[UserType.Admin]}
+            roles={[UserType.Admin, UserType.Editor]}
             fallback={
               <AppTooltip
                 label={

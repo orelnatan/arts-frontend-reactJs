@@ -12,6 +12,7 @@ import {
 } from './core'
 import { AppLayout, LayoutProvider } from './libs/layout'
 import { UserAcessProvider } from './libs/user-access'
+import { BreadcrumbsProvider } from './libs/breadcrumbs'
 
 const MANTINE_CONFIG = createTheme({
   fontFamily: 'heebo-regular',
@@ -26,14 +27,16 @@ export default function App() {
             <ThemeProvider>
               <MantineProvider theme={MANTINE_CONFIG}>
                 <LayoutProvider>
-                  <NavigationProvider>
-                    <Notifications />
-                    <AppLayout>
-                      <Suspense fallback={<div>Loading...</div>}>
-                        <Outlet />
-                      </Suspense>
-                    </AppLayout>
-                  </NavigationProvider>
+                  <BreadcrumbsProvider>
+                    <NavigationProvider>
+                      <Notifications />
+                      <AppLayout>
+                        <Suspense fallback={<div>Loading...</div>}>
+                          <Outlet />
+                        </Suspense>
+                      </AppLayout>
+                    </NavigationProvider>
+                  </BreadcrumbsProvider>
                 </LayoutProvider>
               </MantineProvider>
             </ThemeProvider>
