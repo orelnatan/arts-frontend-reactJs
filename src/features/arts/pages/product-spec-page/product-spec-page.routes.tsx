@@ -1,10 +1,11 @@
-import { Navigate, type RouteObject } from 'react-router-dom'
+import { Navigate, type Params, type RouteObject } from 'react-router-dom'
 
 import { AccessProtectedRoute, UserType } from '@arts/libs/user-access'
 import type { Crumb } from '@arts/libs/breadcrumbs'
 
 import { UpdateProductPage, ViewProductPage } from './pages'
 import ProductSpecPage from './ProductSpecPage'
+import { productCrumbResolver } from '../../utils/product-crumb-resolver.util'
 
 export const productSpecPageRoutes: RouteObject[] = [
   {
@@ -21,6 +22,10 @@ export const productSpecPageRoutes: RouteObject[] = [
         {
           id: (params) => `product-${params.productId}-crumb`,
           path: 'productId',
+          cacheKey: (params) => `product:${params.productId}`,
+          resolve: (params: Params) => {
+            return productCrumbResolver(params.productId)
+          },
         },
         {
           id: () => 'product-spec-page-crumb',

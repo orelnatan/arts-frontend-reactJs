@@ -7,7 +7,7 @@ export interface ProductsListResponse {
   data: Product[]
 }
 
-export interface SingularProductResponse {
+export interface SingeleProductResponse {
   success: boolean
   data: Product
 }
@@ -44,7 +44,7 @@ export const fetchProducts = async (familyId: number): Promise<Product[]> => {
 }
 
 export const fetchProductById = async (id: number): Promise<Product> => {
-  return (await api.GET<SingularProductResponse>(`/get-product-by-id/${id}`))
+  return (await api.GET<SingeleProductResponse>(`/get-product-by-id/${id}`))
     .data
 }
 

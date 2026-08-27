@@ -20,6 +20,7 @@ import { authRoutes } from '@arts/features/auth'
 import { homeRoutes } from '@arts/features/home'
 
 import { ShellLayout } from './libs/layout'
+import { BreadcrumbsProvider } from './libs/breadcrumbs'
 
 import App from './App'
 
@@ -56,7 +57,9 @@ export const appRoutes: RouteObject[] = [
                   <FamiliesProvider>
                     <FavoritesProvider>
                       <ProductsProvider>
-                        <Outlet />
+                        <BreadcrumbsProvider>
+                          <Outlet />
+                        </BreadcrumbsProvider>
                       </ProductsProvider>
                     </FavoritesProvider>
                   </FamiliesProvider>
@@ -70,7 +73,9 @@ export const appRoutes: RouteObject[] = [
       {
         element: (
           <GuestProtectedRoute>
-            <Outlet />
+            <BreadcrumbsProvider>
+              <Outlet />
+            </BreadcrumbsProvider>
           </GuestProtectedRoute>
         ),
         children: [...authRoutes],

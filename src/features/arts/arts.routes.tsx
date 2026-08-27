@@ -13,7 +13,11 @@ import {
   productSpecPageRoutes,
 } from './pages'
 import { FavoriteProtectedRoute } from './guards'
-import { brandCrumbResolver } from './utils'
+import {
+  brandCrumbResolver,
+  categoryCrumbResolver,
+  familyCrumbResolver,
+} from './utils'
 
 export const artsRoutes: RouteObject[] = [
   {
@@ -117,6 +121,7 @@ export const artsRoutes: RouteObject[] = [
             {
               id: (params) => `brand-${params.brandId}-crumb`,
               path: 'brandId',
+              cacheKey: (params) => `brand:${params.brandId}`,
               resolve: (params: Params) => {
                 return brandCrumbResolver(params.brandId)
               },
@@ -131,6 +136,10 @@ export const artsRoutes: RouteObject[] = [
             {
               id: (params) => `category-${params.categoryId}-crumb`,
               path: 'categoryId',
+              cacheKey: (params) => `category:${params.categoryId}`,
+              resolve: (params: Params) => {
+                return categoryCrumbResolver(params.categoryId)
+              },
             },
             {
               id: () => 'families-page-families-crumb',
@@ -158,6 +167,7 @@ export const artsRoutes: RouteObject[] = [
             {
               id: (params) => `brand-${params.brandId}-crumb`,
               path: 'brandId',
+              cacheKey: (params) => `brand:${params.brandId}`,
               resolve: (params: Params) => {
                 return brandCrumbResolver(params.brandId)
               },
@@ -172,6 +182,10 @@ export const artsRoutes: RouteObject[] = [
             {
               id: (params) => `category-${params.categoryId}-crumb`,
               path: 'categoryId',
+              cacheKey: (params) => `category:${params.categoryId}`,
+              resolve: (params: Params) => {
+                return categoryCrumbResolver(params.categoryId)
+              },
             },
             {
               id: () => 'products-page-families-crumb',
@@ -183,6 +197,10 @@ export const artsRoutes: RouteObject[] = [
             {
               id: (params) => `family-${params.familyId}-crumb`,
               path: 'familyId',
+              cacheKey: (params) => `family:${params.familyId}`,
+              resolve: (params: Params) => {
+                return familyCrumbResolver(params.familyId)
+              },
             },
             {
               id: () => 'products-page-products-crumb',
