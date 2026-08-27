@@ -13,7 +13,7 @@ export const homeRoutes: RouteObject[] = [
     handle: {
       breadcrumbs: [
         {
-          id: 'home-crumb',
+          id: () => 'home-domain-crumb',
           path: 'home',
           label: 'home',
           namespace: 'home',
@@ -32,7 +32,7 @@ export const homeRoutes: RouteObject[] = [
         handle: {
           breadcrumbs: [
             {
-              id: 'desktop-crumb',
+              id: () => 'desktop-page-crumb',
               path: 'desktop',
               label: 'desktop',
               namespace: 'home',
@@ -47,7 +47,7 @@ export const homeRoutes: RouteObject[] = [
         handle: {
           breadcrumbs: [
             {
-              id: 'profile-crumb',
+              id: () => 'profile-page-crumb',
               path: 'profile',
               label: 'profile',
               namespace: 'home',
@@ -62,7 +62,7 @@ export const homeRoutes: RouteObject[] = [
         handle: {
           breadcrumbs: [
             {
-              id: 'statistics-crumb',
+              id: () => 'statistics-page-crumb',
               path: 'statistics',
               label: 'statistics',
               namespace: 'home',

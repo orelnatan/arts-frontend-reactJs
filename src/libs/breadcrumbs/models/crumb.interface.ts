@@ -1,5 +1,7 @@
+import type { Params } from 'react-router-dom'
+
 export interface Crumb {
-  id: string
+  id: (params: Params) => string
   path: string
   label?: string
   image?: string
@@ -8,6 +10,6 @@ export interface Crumb {
   namespace?: string
   keyPrefix?: string
   disabled?: boolean
-  resolve?: string
-  async?: Promise<Crumb>
+  cacheKey?: (params: Params) => string
+  resolve?: (params: Params) => Promise<Partial<Crumb>>
 }

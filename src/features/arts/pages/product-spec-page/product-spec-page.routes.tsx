@@ -19,11 +19,11 @@ export const productSpecPageRoutes: RouteObject[] = [
     handle: {
       breadcrumbs: [
         {
-          id: 'selected-product-spec-crumb',
+          id: (params) => `product-${params.productId}-crumb`,
           path: 'productId',
         },
         {
-          id: 'product-spec-crumb',
+          id: () => 'product-spec-page-crumb',
           path: 'product-spec',
           label: 'productSpec',
           namespace: 'arts',
@@ -42,7 +42,7 @@ export const productSpecPageRoutes: RouteObject[] = [
         handle: {
           breadcrumbs: [
             {
-              id: 'view-product-crumb',
+              id: () => 'view-product-page-crumb',
               path: 'view',
               label: 'view',
               namespace: 'arts',
@@ -61,7 +61,7 @@ export const productSpecPageRoutes: RouteObject[] = [
         handle: {
           breadcrumbs: [
             {
-              id: 'update-product-crumb',
+              id: () => 'update-product-page-crumb',
               path: 'update',
               label: 'update',
               namespace: 'arts',

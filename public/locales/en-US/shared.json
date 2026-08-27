@@ -1,5 +1,6 @@
 {
   "empty-list": "There are no items to show here",
+  "loading": "Loading...",
   "confirm-popover": {
     "are-you-sure": "Are you sure?",
     "yes": "Yes",

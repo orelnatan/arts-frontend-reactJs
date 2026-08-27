@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom'
-import type { RouteObject } from 'react-router-dom'
+import type { Params, RouteObject } from 'react-router-dom'
 
 import type { Crumb } from '@arts/libs/breadcrumbs'
 
@@ -13,6 +13,7 @@ import {
   productSpecPageRoutes,
 } from './pages'
 import { FavoriteProtectedRoute } from './guards'
+import { brandCrumbResolver } from './utils'
 
 export const artsRoutes: RouteObject[] = [
   {
@@ -21,7 +22,7 @@ export const artsRoutes: RouteObject[] = [
     handle: {
       breadcrumbs: [
         {
-          id: 'arts-crumb',
+          id: () => 'arts-domain-crumb',
           path: 'arts',
           label: 'arts',
           namespace: 'arts',
@@ -40,7 +41,7 @@ export const artsRoutes: RouteObject[] = [
         handle: {
           breadcrumbs: [
             {
-              id: 'favorites-crumb',
+              id: () => 'favorites-page-crumb',
               path: 'favorites',
               label: 'favorites',
               namespace: 'arts',
@@ -62,7 +63,7 @@ export const artsRoutes: RouteObject[] = [
         handle: {
           breadcrumbs: [
             {
-              id: 'brands-crumb',
+              id: () => 'brands-page-crumb',
               path: 'brands',
               label: 'brands',
               namespace: 'arts',
@@ -77,18 +78,22 @@ export const artsRoutes: RouteObject[] = [
         handle: {
           breadcrumbs: [
             {
-              id: 'brands-crumb',
+              id: () => `categories-page-brands-crumb`,
               path: 'brands',
               label: 'brands',
               namespace: 'arts',
               keyPrefix: 'breadcrumbs',
             },
             {
-              id: 'selected-brand-crumb',
+              id: (params) => `brand-${params.brandId}-crumb`,
               path: 'brandId',
+              cacheKey: (params) => `brand:${params.brandId}`,
+              resolve: (params: Params) => {
+                return brandCrumbResolver(params.brandId)
+              },
             },
             {
-              id: 'categories-crumb',
+              id: () => 'categories-page-categories-crumb',
               path: 'categories',
               label: 'categories',
               namespace: 'arts',
@@ -103,29 +108,32 @@ export const artsRoutes: RouteObject[] = [
         handle: {
           breadcrumbs: [
             {
-              id: 'brands-crumb',
+              id: () => `families-page-brands-crumb`,
               path: 'brands',
               label: 'brands',
               namespace: 'arts',
               keyPrefix: 'breadcrumbs',
             },
             {
-              id: 'selected-brand-crumb',
+              id: (params) => `brand-${params.brandId}-crumb`,
               path: 'brandId',
+              resolve: (params: Params) => {
+                return brandCrumbResolver(params.brandId)
+              },
             },
             {
-              id: 'categories-crumb',
+              id: () => 'families-page-categories-crumb',
               path: 'categories',
               label: 'categories',
               namespace: 'arts',
               keyPrefix: 'breadcrumbs',
             },
             {
-              id: 'selected-category-crumb',
+              id: (params) => `category-${params.categoryId}-crumb`,
               path: 'categoryId',
             },
             {
-              id: 'families-crumb',
+              id: () => 'families-page-families-crumb',
               path: 'families',
               label: 'families',
               namespace: 'arts',
@@ -141,40 +149,43 @@ export const artsRoutes: RouteObject[] = [
         handle: {
           breadcrumbs: [
             {
-              id: 'brands-crumb',
+              id: () => 'products-page-brands-crumb',
               path: 'brands',
               label: 'brands',
               namespace: 'arts',
               keyPrefix: 'breadcrumbs',
             },
             {
-              id: 'selected-brand-crumb',
+              id: (params) => `brand-${params.brandId}-crumb`,
               path: 'brandId',
+              resolve: (params: Params) => {
+                return brandCrumbResolver(params.brandId)
+              },
             },
             {
-              id: 'categories-crumb',
+              id: () => 'products-page-categories-crumb',
               path: 'categories',
               label: 'categories',
               namespace: 'arts',
               keyPrefix: 'breadcrumbs',
             },
             {
-              id: 'selected-category-crumb',
+              id: (params) => `category-${params.categoryId}-crumb`,
               path: 'categoryId',
             },
             {
-              id: 'families-crumb',
+              id: () => 'products-page-families-crumb',
               path: 'families',
               label: 'families',
               namespace: 'arts',
               keyPrefix: 'breadcrumbs',
             },
             {
-              id: 'selected-product-crumb',
-              path: 'categoryId',
+              id: (params) => `family-${params.familyId}-crumb`,
+              path: 'familyId',
             },
             {
-              id: 'products-crumb',
+              id: () => 'products-page-products-crumb',
               path: 'products',
               label: 'products',
               namespace: 'arts',

@@ -5,7 +5,7 @@ export const generateBreadcrumbsConfig = (
 ): Crumb[] => {
   return matches.flatMap(
     (match) =>
-      match.handle.breadcrumbs?.map((crumb) => ({
+      match.handle.breadcrumbs?.map((crumb: Crumb) => ({
         ...crumb,
         label: crumb.label ?? match.params[crumb.path],
       })) ?? []
