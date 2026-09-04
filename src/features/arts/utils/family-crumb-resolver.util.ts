@@ -9,5 +9,6 @@ export const familyCrumbResolver = async (
 
   return {
     label: family.name,
+    image: family.image,
   }
 }

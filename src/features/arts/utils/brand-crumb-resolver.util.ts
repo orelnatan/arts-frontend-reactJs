@@ -9,5 +9,6 @@ export const brandCrumbResolver = async (
 
   return {
     label: brand.name,
+    image: brand.image,
   }
 }

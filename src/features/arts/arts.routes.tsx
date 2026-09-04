@@ -2,6 +2,7 @@ import { Navigate } from 'react-router-dom'
 import type { Params, RouteObject } from 'react-router-dom'
 
 import type { Crumb } from '@arts/libs/breadcrumbs'
+import { artPalette } from '@arts/assets/images'
 
 import { ArtsLazy } from './arts.lazy'
 import {
@@ -29,6 +30,7 @@ export const artsRoutes: RouteObject[] = [
           id: () => 'arts-domain-crumb',
           path: 'arts',
           label: 'arts',
+          icon: artPalette,
           namespace: 'arts',
           keyPrefix: 'breadcrumbs',
         },

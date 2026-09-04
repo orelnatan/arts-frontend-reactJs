@@ -20,6 +20,21 @@ export default function CrumbItem({ crumb, loading, isLast }: CrumbItemProps) {
 
   return (
     <div className="crumb-main" id={crumb.id(params)}>
+      {crumb.image && (
+        <img
+          className="crumb-image-element"
+          src={crumb.image}
+          width={38}
+          alt="Crumb Image"
+        />
+      )}
+
+      {crumb.icon && (
+        <span className="crumb-icon-element font-size-24">
+          <SvgIcon icon={crumb.icon} />
+        </span>
+      )}
+
       <span className="assistant-bold">
         {loading ? (
           <Caption namespace="shared">loading</Caption>

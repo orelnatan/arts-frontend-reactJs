@@ -2,6 +2,16 @@
   display: flex;
   align-items: center;
 
+  .crumb-image-element {
+    margin-inline-end: var(--spaces-3);
+    border-radius: var(--corner-radius-full);
+    width: 24px;
+  }
+
+  .crumb-icon-element {
+    margin-inline-end: var(--spaces-3);
+  }
+
   .crumb-separator-icon {
     padding: var(--spaces-1) var(--spaces-2) 0 var(--spaces-2);
   }

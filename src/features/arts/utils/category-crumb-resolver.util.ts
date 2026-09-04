@@ -9,5 +9,6 @@ export const categoryCrumbResolver = async (
 
   return {
     label: category.name,
+    image: category.image,
   }
 }

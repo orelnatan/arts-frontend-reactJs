@@ -3,10 +3,12 @@ import type { Params } from 'react-router-dom'
 export interface Crumb {
   id: (params: Params) => string
   path: string
+  url?: string
   label?: string
   image?: string
+  icon?: string
   color?: string
-  skip?: boolean
+  hidden?: boolean
   namespace?: string
   keyPrefix?: string
   disabled?: boolean
